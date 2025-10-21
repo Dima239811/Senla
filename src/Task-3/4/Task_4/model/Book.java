@@ -10,6 +10,7 @@ public class Book {
     private double price;
     private StatusBook status;  // в наличии или отсутствует
     private int bookId;
+    private static int count = 0;
 
     public Book(String name, String authtor, int year, double price) {
         this.name = name;
@@ -17,17 +18,20 @@ public class Book {
         this.year = year;
         this.price = price;
         this.status = StatusBook.IN_STOCK;
-        this.bookId = 0;
+        this.bookId = count;
+        count++;
     }
 
-    public Book(String name, String authtor, int year, double price, StatusBook status, int bookId) {
+    public Book(String name, String authtor, int year, double price, StatusBook status) {
         this.name = name;
         this.authtor = authtor;
         this.year = year;
         this.price = price;
         this.status = status;
-        this.bookId = bookId;
+        this.bookId = count;
+        count++;
     }
+
 
     public String getName() {
         return name;

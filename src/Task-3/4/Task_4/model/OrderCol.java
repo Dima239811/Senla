@@ -20,7 +20,7 @@ public class OrderCol {
     }
 
     public void addOrder(Book book, Customer customer, Date orderDate) {
-        Order order = new Order(orderId, book, customer, orderDate, book.getPrice());
+        Order order = new Order(book, customer, orderDate, book.getPrice());
         orderList.add(order);
         orderId ++;
         System.out.println("заказ создан");

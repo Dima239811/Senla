@@ -8,11 +8,15 @@ public class RequestBook {
     private Customer customer;
     private Book book;
     private RequestStatus status;
+    private int requestId;
+    private static int countId = 0;
 
     public RequestBook(Customer customer, Book book) {
         this.customer = customer;
         this.book = book;
         this.status = RequestStatus.OPEN;
+        requestId = countId;
+        countId++;
     }
 
     public Customer getCustomer() {

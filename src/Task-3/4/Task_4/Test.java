@@ -15,11 +15,11 @@ public class Test {
         DataManager dataManager = new DataManager();
         List<Book> books = new ArrayList<>();
 
-        dataManager.addBookToWareHouse(new Book("1984", "George Orwell", 1949, 12.99, StatusBook.IN_STOCK, 1));
-        dataManager.addBookToWareHouse(new Book("To Kill a Mockingbird", "Harper Lee", 1960, 10.50, StatusBook.IN_STOCK, 2));
-        dataManager.addBookToWareHouse(new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925, 9.99, StatusBook.OUT_OF_STOCK, 3));
-        dataManager.addBookToWareHouse(new Book("Pride and Prejudice", "Jane Austen", 1813, 8.25, StatusBook.IN_STOCK, 4));
-        dataManager.addBookToWareHouse(new Book("The Hobbit", "J.R.R. Tolkien", 1937, 15.75, StatusBook.IN_STOCK, 5));
+        dataManager.addBookToWareHouse(new Book("1984", "George Orwell", 1949, 12.99, StatusBook.IN_STOCK));
+        dataManager.addBookToWareHouse(new Book("To Kill a Mockingbird", "Harper Lee", 1960, 10.50, StatusBook.IN_STOCK));
+        dataManager.addBookToWareHouse(new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925, 9.99, StatusBook.OUT_OF_STOCK));
+        dataManager.addBookToWareHouse(new Book("Pride and Prejudice", "Jane Austen", 1813, 8.25, StatusBook.IN_STOCK));
+        dataManager.addBookToWareHouse(new Book("The Hobbit", "J.R.R. Tolkien", 1937, 15.75, StatusBook.IN_STOCK));
 
         System.out.println(" Все книги до списания:");
         System.out.println(dataManager.getAllBooks());
@@ -30,9 +30,9 @@ public class Test {
 
 
         // заказы
-        Book book = new Book("Война и мир", "Лев Толстой", 1949, 8500, StatusBook.IN_STOCK, 1);
-        Book book1 = new Book("Анна Каренина", "Лев Толстой", 1949, 3000, StatusBook.OUT_OF_STOCK, 1);
-        Book book2 = new Book("Брест", "Лев Толстой", 1949, 4500, StatusBook.IN_STOCK, 1);
+        Book book = new Book("Война и мир", "Лев Толстой", 1949, 8500, StatusBook.IN_STOCK);
+        Book book1 = new Book("Анна Каренина", "Лев Толстой", 1949, 3000, StatusBook.OUT_OF_STOCK);
+        Book book2 = new Book("Брест", "Лев Толстой", 1949, 4500, StatusBook.IN_STOCK);
         Customer customer = new Customer("dima", 19, "+7555555", "john@example.com", "adress");
 //
         dataManager.createOrder(book, customer, new Date(2022, 3, 3));

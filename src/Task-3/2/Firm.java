@@ -3,24 +3,25 @@ import java.util.List;
 
 public class Firm {
     private String name;
-    private String email;
-    private List<Employee> employeeList;
+    private List<Employee> employees;
 
-    public Firm(String name, String email) {
+    public Firm(String name) {
         this.name = name;
-        this.email = email;
-        this.employeeList = new ArrayList<>();
+        this.employees = new ArrayList<>();
     }
 
     // добавление одного сотрудника
-    public void addEmployees(Employee emp) {
-        employeeList.add(emp);
+    public void addEmployee(Employee emp) {
+        if (emp != null)
+            employees.add(emp);
+        else
+            throw new RuntimeException("Объект класса Employee null!");
     }
 
     // расчет всех зарплат сотрудников
-    double calculateSalarieys() {
+    double calculateSalaries() {
         double total = 0;
-        for (Employee emp: employeeList) {
+        for (Employee emp: employees) {
             total += emp.getSalary();
         }
         return total;

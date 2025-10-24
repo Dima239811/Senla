@@ -26,6 +26,12 @@ public class OrderCol {
         System.out.println("заказ создан");
     }
 
+    public void addOrderWithStatus(Book book, Customer customer, Date orderDate, OrderStatus orderStatus) {
+        Order order = new Order(book, customer, orderDate, book.getPrice(), orderStatus);
+        orderList.add(order);
+        orderId ++;
+    }
+
     public void changeStatus(int orderId, OrderStatus status) {
         for (Order ord: orderList) {
             if (ord.getOrderId() == orderId) {
@@ -34,5 +40,14 @@ public class OrderCol {
                 return;
             }
         }
+    }
+
+    public Order findOrder(int id) {
+        for (Order b: orderList) {
+            if (b.getOrderId() == id) {
+                return b;
+            }
+        }
+        return null;
     }
 }

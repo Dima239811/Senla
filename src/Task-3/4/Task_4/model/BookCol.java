@@ -55,4 +55,13 @@ public class BookCol {
         }
     }
 
+    public Book findBook(int id) {
+        for (Book b: books) {
+            if (b.getBookId() == id) {
+                return b;
+            }
+        }
+        return null;
+    }
+
 }

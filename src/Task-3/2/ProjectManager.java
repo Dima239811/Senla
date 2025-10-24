@@ -6,7 +6,7 @@ public class ProjectManager extends Employee{
     private int teamSize;
     private List<String> tools;
 
-    public ProjectManager(String fullName, String qualification,
+    public ProjectManager(String fullName, Qualification  qualification,
                           int age, double salary, int teamSize, String methodology) {
         super(fullName, qualification, age, salary);
         this.teamSize = teamSize;

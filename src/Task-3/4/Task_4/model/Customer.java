@@ -7,7 +7,7 @@ public class Customer {
     private String email;
     private String address;
     private int customerID;
-    private static int countId = 0;
+    private static int count = 0;   // изменил везде на count
 
     public Customer(String fullName, int age, String phoneNumber, String email, String address) {
         this.fullName = fullName;
@@ -15,8 +15,8 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
-        this.customerID = countId;
-        countId++;
+        this.customerID = count;
+        count++;
     }
 
     public String getFullName() {

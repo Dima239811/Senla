@@ -3,22 +3,15 @@ import java.util.List;
 
 public class Employee {
     private String fullName;
-    private String qualification;
+    private Qualification  qualification;
     private int age;
     private double salary;
-    private List<Task> taskList;
 
-    public Employee(String fullName, String qualification, int age, double salary) {
+    public Employee(String fullName, Qualification  qualification, int age, double salary) {
         this.fullName = fullName;
         this.qualification = qualification;
         this.age = age;
         this.salary = salary;
-        this.taskList = new ArrayList<>();
-    }
-
-    public void displayTasks() {
-        for (Task task: taskList)
-            System.out.println(task);
     }
 
     public String getFullName() {
@@ -29,11 +22,11 @@ public class Employee {
         this.fullName = fullName;
     }
 
-    public String getQualification() {
+    public Qualification  getQualification() {
         return qualification;
     }
 
-    public void setQualification(String qualification) {
+    public void setQualification(Qualification  qualification) {
         this.qualification = qualification;
     }
 
@@ -53,14 +46,6 @@ public class Employee {
         this.salary = salary;
     }
 
-    public List<Task> getTaskList() {
-        return taskList;
-    }
-
-    public void setTaskList(List<Task> taskList) {
-        this.taskList = taskList;
-    }
-
     @Override
     public String toString() {
         return "Employee{" +
@@ -68,7 +53,6 @@ public class Employee {
                 ", qualification='" + qualification + '\'' +
                 ", age=" + age +
                 ", salary=" + salary +
-                ", taskList=" + taskList +
                 '}';
     }
 }

@@ -2,7 +2,7 @@ public class Designer extends Employee {
     private String urlBehince;
     private boolean isUsedFigma;
 
-    public Designer(String fullName, String qualification, int age, double salary, String urlBehince, boolean isUsedFigma) {
+    public Designer(String fullName, Qualification  qualification, int age, double salary, String urlBehince, boolean isUsedFigma) {
         super(fullName, qualification, age, salary);
         this.urlBehince = urlBehince;
         this.isUsedFigma = isUsedFigma;

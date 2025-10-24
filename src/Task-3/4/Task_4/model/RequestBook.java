@@ -9,14 +9,14 @@ public class RequestBook {
     private Book book;
     private RequestStatus status;
     private int requestId;
-    private static int countId = 0;
+    private static int count = 0;
 
     public RequestBook(Customer customer, Book book) {
         this.customer = customer;
         this.book = book;
         this.status = RequestStatus.OPEN;
-        requestId = countId;
-        countId++;
+        requestId = count;
+        count++;
     }
 
     public Customer getCustomer() {

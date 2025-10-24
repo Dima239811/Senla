@@ -4,7 +4,7 @@ public class QAEngineer extends Employee{
 
 
 
-    public QAEngineer(String fullName, String qualification, int age,
+    public QAEngineer(String fullName, Qualification  qualification, int age,
                       double salary, String testFramework, int countBugs) {
         super(fullName, qualification, age, salary);
         this.testFramework = testFramework;

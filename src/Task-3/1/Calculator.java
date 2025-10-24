@@ -1,7 +1,7 @@
 // программа выводящая на экран рандомное трехзначное число и сумму его цифр
 public class Calculator {
     public static void main(String[] args) {
-        int num = 100 + new java.util.Random().nextInt(900); // получаем гарантировано трехзначное число
+        int num = new java.util.Random().nextInt(100, 1000);
 
         int firstDigit = num / 100;
         int secondDigit = num % 100 / 10;

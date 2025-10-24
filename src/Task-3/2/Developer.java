@@ -3,7 +3,7 @@ public class Developer extends Employee{
     private String programmingLanguage;
     private boolean isBackend;
 
-    public Developer(String fullName, String qualification, int age,
+    public Developer(String fullName, Qualification  qualification, int age,
                      double salary, String urlGIT, String programmingLanguage, boolean isBackend) {
         super(fullName, qualification, age, salary);
         this.urlGIT = urlGIT;

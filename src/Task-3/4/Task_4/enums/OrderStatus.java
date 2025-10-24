@@ -4,7 +4,8 @@ public enum OrderStatus {
     NEW("новый"),
     PROCESSING("в обработке"),
     COMPLETED("выполнен"),
-    CANCELLED("отменен");
+    CANCELLED("отменен"),
+    WAITING_FOR_BOOK("ожидание книги");
 
     private String value;
 

@@ -9,7 +9,6 @@ import java.util.List;
 
 public class OrderCol {
     private List<Order> orderList;
-    private int orderId = 0;
 
     public OrderCol() {
         this.orderList = new ArrayList<>();
@@ -22,14 +21,12 @@ public class OrderCol {
     public void addOrder(Book book, Customer customer, Date orderDate) {
         Order order = new Order(book, customer, orderDate, book.getPrice());
         orderList.add(order);
-        orderId ++;
         System.out.println("заказ создан");
     }
 
     public void addOrderWithStatus(Book book, Customer customer, Date orderDate, OrderStatus orderStatus) {
         Order order = new Order(book, customer, orderDate, book.getPrice(), orderStatus);
         orderList.add(order);
-        orderId ++;
     }
 
     public void changeStatus(int orderId, OrderStatus status) {

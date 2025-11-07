@@ -1,12 +1,12 @@
 package Task_4.model;
 
-
-
+import Task_4.comporator.request.LetterRequestComporator;
 import Task_4.enums.RequestStatus;
 import Task_4.enums.StatusBook;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class RequestBookCol {
@@ -38,6 +38,23 @@ public class RequestBookCol {
     public void createRequest(Book book, Customer customer) {
         requests.add(new RequestBook(customer, book));
         System.out.println("Запрос на книгу создан");
+    }
+
+
+    public List<RequestBook> sortByLetter() {
+        requests.sort(new LetterRequestComporator());
+        return requests;
+    }
+
+    public List<RequestBook> sortByCountRequest() {
+        var requestByBooks = requests.stream().collect(Collectors.groupingBy(RequestBook::getBook, Collectors.counting()));
+
+        // по возрастанию запросов
+        return requests.stream().sorted((o1, o2) -> {
+            long countO1 = requestByBooks.get(o1.getBook());
+            long countO2 = requestByBooks.get(o2.getBook());
+            return Long.compare(countO1, countO2);
+        }).collect(Collectors.toList()) ;
     }
 
 }

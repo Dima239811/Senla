@@ -27,4 +27,20 @@ public class BookService {
     public Book findBook(int id) {
         return wareHouse.findBook(id);
     }
+
+    public List<Book> sortBooks(String criteria) {
+        switch (criteria.toLowerCase()) {
+            case "по алфавиту":
+                return wareHouse.sortByName();
+            case "по цене":
+                return wareHouse.sortByPrice();
+            case "по году издания":
+                return wareHouse.sortByYear();
+            case "по наличию на складе":
+                return wareHouse.sortByStatus();
+            default:
+                System.out.println("Ошибка: неопознанный критерий сортировки.");
+                return wareHouse.getBooks();
+        }
+    }
 }

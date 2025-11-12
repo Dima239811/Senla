@@ -1,5 +1,9 @@
 package Task_4.model;
 
+import Task_4.comporator.book.AvailiableComporator;
+import Task_4.comporator.book.LetterComporator;
+import Task_4.comporator.book.PriceComporator;
+import Task_4.comporator.book.YearComporator;
 import Task_4.enums.StatusBook;
 
 import java.util.ArrayList;
@@ -62,6 +66,29 @@ public class BookCol {
             }
         }
         return null;
+    }
+
+
+    public List<Book> sortByName() {
+        LetterComporator lettersComporators = new LetterComporator();
+        books.sort(lettersComporators);
+        return books;
+    }
+
+    public List<Book> sortByPrice() {
+        PriceComporator priceComporators = new PriceComporator();
+        books.sort(priceComporators);
+        return books;
+    }
+
+    public List<Book> sortByYear() {
+        books.sort(new YearComporator());
+        return books;
+    }
+
+    public List<Book> sortByStatus() {
+        books.sort(new AvailiableComporator());
+        return books;
     }
 
 }

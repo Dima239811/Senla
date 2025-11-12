@@ -34,4 +34,16 @@ public class RequestBookService {
         return requestBookCol.getRequests();
     }
 
+
+    public List<RequestBook> sortRequest(String criteria) {
+        if (criteria.equals("по алфавиту")) {
+            return requestBookCol.sortByLetter();
+        } else if (criteria.equals("по количеству запросов")) {
+            return requestBookCol.sortByCountRequest();
+        } else {
+            System.out.println("такого критерия сортировки нет");
+            return requestBookCol.getRequests();
+        }
+    }
+
 }

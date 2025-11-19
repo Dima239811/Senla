@@ -1,7 +1,6 @@
-package Task5;
+package Task6;
 
 import Task6.ui.MenuController;
-
 
 
 public class Test {

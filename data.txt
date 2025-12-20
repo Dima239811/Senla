@@ -1,0 +1,168 @@
+{
+  "books": [
+    {
+      "name": "капитанская дочь",
+      "authtor": "пушкин",
+      "year": 2000,
+      "price": 12.0,
+      "status": "IN_STOCK",
+      "bookId": 0
+    },
+    {
+      "name": "война и мир",
+      "authtor": "толстой",
+      "year": 1900,
+      "price": 100.0,
+      "status": "IN_STOCK",
+      "bookId": 1
+    },
+    {
+      "name": "том сойер",
+      "authtor": "марк твен",
+      "year": 1890,
+      "price": 200.0,
+      "status": "OUT_OF_STOCK",
+      "bookId": 2
+    },
+    {
+      "name": "вокруг света",
+      "authtor": "жуль верн",
+      "year": 1800,
+      "price": 200.0,
+      "status": "IN_STOCK",
+      "bookId": 3
+    },
+    {
+      "name": "отверженные",
+      "authtor": "гюго",
+      "year": 1800,
+      "price": 200.0,
+      "status": "IN_STOCK",
+      "bookId": 4
+    }
+  ],
+  "orders": [
+    {
+      "orderId": 0,
+      "book": {
+        "name": "Война и мир",
+        "authtor": "Лев Толстой",
+        "year": 1987,
+        "price": 100.0,
+        "status": "IN_STOCK",
+        "bookId": 2
+      },
+      "customer": {
+        "fullName": "Дмитрий",
+        "age": 19,
+        "phoneNumber": "+79855566",
+        "email": "yandex.ru",
+        "address": "unosti 56",
+        "customerID": 0
+      },
+      "orderDate": 1752132335795,
+      "finalPrice": 100.0,
+      "status": "NEW"
+    },
+    {
+      "orderId": 1,
+      "book": {
+        "name": "война и мир",
+        "authtor": "толстой",
+        "year": 1900,
+        "price": 100.0,
+        "status": "IN_STOCK",
+        "bookId": 1
+      },
+      "customer": {
+        "fullName": "алексей",
+        "age": 78,
+        "phoneNumber": "+79855566",
+        "email": "аооаоа",
+        "address": "оаоаоа",
+        "customerID": 2
+      },
+      "orderDate": 1752133284861,
+      "finalPrice": 100.0,
+      "status": "NEW"
+    },
+    {
+      "orderId": 2,
+      "book": {
+        "name": "вокруг света",
+        "authtor": "жуль верн",
+        "year": 1800,
+        "price": 200.0,
+        "status": "IN_STOCK",
+        "bookId": 3
+      },
+      "customer": {
+        "fullName": "никита",
+        "age": 98,
+        "phoneNumber": "+79855566",
+        "email": "оваоав",
+        "address": "аолаал",
+        "customerID": 3
+      },
+      "orderDate": 1752133403196,
+      "finalPrice": 200.0,
+      "status": "NEW"
+    }
+  ],
+  "customers": [
+    {
+      "fullName": "Дмитрий",
+      "age": 19,
+      "phoneNumber": "+79855566",
+      "email": "yandex.ru",
+      "address": "unosti 56",
+      "customerID": 0
+    },
+    {
+      "fullName": "иван",
+      "age": 19,
+      "phoneNumber": "+79855566",
+      "email": "уьф",
+      "address": "",
+      "customerID": 1
+    },
+    {
+      "fullName": "алексей",
+      "age": 78,
+      "phoneNumber": "+79855566",
+      "email": "аооаоа",
+      "address": "оаоаоа",
+      "customerID": 2
+    },
+    {
+      "fullName": "никита",
+      "age": 98,
+      "phoneNumber": "+79855566",
+      "email": "оваоав",
+      "address": "аолаал",
+      "customerID": 3
+    }
+  ],
+  "requests": [
+    {
+      "customer": {
+        "fullName": "иван",
+        "age": 19,
+        "phoneNumber": "+79855566",
+        "email": "уьф",
+        "address": "",
+        "customerID": 1
+      },
+      "book": {
+        "name": "том сойер",
+        "authtor": "марк твен",
+        "year": 1890,
+        "price": 200.0,
+        "status": "OUT_OF_STOCK",
+        "bookId": 2
+      },
+      "status": "OPEN",
+      "requestId": 1
+    }
+  ]
+}

@@ -1,25 +1,11 @@
 {
   "books" : [ {
-    "name" : "капитанская дочь",
-    "authtor" : "пушкин",
-    "year" : 2000,
-    "price" : 12.0,
-    "status" : "IN_STOCK",
-    "bookId" : 0
-  }, {
     "name" : "война и мир",
     "authtor" : "толстой",
     "year" : 1900,
     "price" : 100.0,
     "status" : "IN_STOCK",
     "bookId" : 1
-  }, {
-    "name" : "том сойер",
-    "authtor" : "марк твен",
-    "year" : 1890,
-    "price" : 200.0,
-    "status" : "OUT_OF_STOCK",
-    "bookId" : 2
   }, {
     "name" : "вокруг света",
     "authtor" : "жуль верн",
@@ -28,12 +14,33 @@
     "status" : "IN_STOCK",
     "bookId" : 3
   }, {
+    "name" : "капитанская дочь",
+    "authtor" : "пушкин",
+    "year" : 2000,
+    "price" : 12.0,
+    "status" : "IN_STOCK",
+    "bookId" : 0
+  }, {
     "name" : "отверженные",
     "authtor" : "гюго",
     "year" : 1800,
     "price" : 200.0,
     "status" : "IN_STOCK",
     "bookId" : 4
+  }, {
+    "name" : "том сойер",
+    "authtor" : "марк твен",
+    "year" : 1890,
+    "price" : 200.0,
+    "status" : "OUT_OF_STOCK",
+    "bookId" : 2
+  }, {
+    "name" : "Евгений Онегин",
+    "authtor" : "А С Пушкин",
+    "year" : 2010,
+    "price" : 122.0,
+    "status" : "IN_STOCK",
+    "bookId" : 5
   } ],
   "orders" : [ {
     "orderId" : 0,

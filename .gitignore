@@ -1,4 +1,5 @@
 .idea/
 *.iml
+src/resources/db.properties
 out/
 

@@ -66,65 +66,91 @@ public class DataManager {
     }
 
 
+    // транзакция
     public void createOrder(Order order) {
         try {
             DBConnection.getInstance().beginTransaction();
-
-            Book findBook = bookService.getById(order.getBook().getBookId());
             customerService.add(order.getCustomer());
 
-            if (findBook != null) {
-                orderService.createOrder(order.getBook(), order.getCustomer(), order.getOrderDate());
-            } else {
-                requestService.createRequest(order.getBook(), order.getCustomer());
-                orderService.createOrderWithStatus(order.getBook(), order.getCustomer(), order.getOrderDate(), OrderStatus.WAITING_FOR_BOOK);
-            }
+            Book findBook = bookService.getById(order.getBook().getBookId());
 
+            if (findBook == null) {
+                requestService.createRequest(order.getBook(), order.getCustomer());
+                order.setStatus(OrderStatus.WAITING_FOR_BOOK);
+            } else {
+                order.setStatus(OrderStatus.NEW);
+            }
 
             orderService.add(order);
 
-
             DBConnection.getInstance().commit();
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
             DBConnection.getInstance().rollback();
             throw new RuntimeException("Ошибка при создании заказа: " + e.getMessage(), e);
         }
     }
 
+    // транзакция
     public void cancelOrder(int orderId) {
-        orderService.cancelOrder(orderId);
+        try {
+            DBConnection.getInstance().beginTransaction();
+
+            orderService.cancelOrder(orderId);
+
+            DBConnection.getInstance().commit();
+        } catch (Exception e) {
+            DBConnection.getInstance().rollback();
+            throw new RuntimeException("Ошибка при отмене заказа: " + e.getMessage(), e);
+        }
     }
 
+    // транзакция
     public void changeStatusOrder(int orderId, OrderStatus status) {
-        orderService.changeOrderStatus(orderId, status);
+        try {
+            DBConnection.getInstance().beginTransaction();
+
+            orderService.changeOrderStatus(orderId, status);
+
+            DBConnection.getInstance().commit();
+        } catch (Exception e) {
+            DBConnection.getInstance().rollback();
+            throw new RuntimeException("Ошибка при изменении статуса заказа: " + e.getMessage(), e);
+        }
     }
 
+    // транзакция
     public void addBookToWareHouse(Book book) {
-        bookService.add(book);
+        try {
+            DBConnection.getInstance().beginTransaction();
+            bookService.add(book);
 
-        // Включение/отключение возможности помечать заявки как выполненные при добавлении книги на склад.
-        if (libraryConfig.isAutoCloseRequests()) {
-            requestService.closeRequest(book);
-        }
-        //requestService.closeRequest(book);
-
-        // Меняем статус всех заказов, ожидавших эту книгу
-        for (Order order : orderService.getAll()) {
-            if (order.getBook().getBookId() == book.getBookId()
-                    && order.getStatus() == OrderStatus.WAITING_FOR_BOOK) {
-                orderService.changeOrderStatus(order.getOrderId(), OrderStatus.NEW);
-                System.out.println("Заказ #" + order.getOrderId() + " теперь активен — книга поступила.");
+            // Включение/отключение возможности помечать заявки как выполненные при добавлении книги на склад.
+            if (libraryConfig.isAutoCloseRequests()) {
+                requestService.closeRequest(book);
             }
+
+            // Меняем статус всех заказов, ожидавших эту книгу
+            for (Order order : orderService.getAll()) {
+                if (order.getBook().getBookId() == book.getBookId()
+                        && order.getStatus() == OrderStatus.WAITING_FOR_BOOK) {
+                    orderService.changeOrderStatus(order.getOrderId(), OrderStatus.NEW);
+                    System.out.println("Заказ #" + order.getOrderId() + " теперь активен — книга поступила.");
+                }
+            }
+
+            DBConnection.getInstance().commit();
+        } catch (Exception e) {
+            DBConnection.getInstance().rollback();
+            throw new RuntimeException("Ошибка при добавлении книги на склад: " + e.getMessage(), e);
         }
+
     }
 
+    // транзакция
     public void addRequest(RequestBook requestBook) {
         try {
             DBConnection.getInstance().beginTransaction();
 
-            //не нужно так как мы всегда берем в заказ книги которые есть уже в базе
-            //wareHouseService.add(requestBook.getBook());
 
             customerService.add(requestBook.getCustomer());
             requestService.add(requestBook);
@@ -184,6 +210,7 @@ public class DataManager {
         bookCsvService.exportToCsv(books, filePath);
     }
 
+    // транзакция
     public List<Book> importBooksFromCsv(String filePath) throws Exception {
         try {
             DBConnection.getInstance().beginTransaction();
@@ -206,6 +233,7 @@ public class DataManager {
         orderCsvService.exportToCsv(orders, filePath);
     }
 
+    // транзакция
     public List<Order> importOrdersFromCsv(String filePath) throws Exception {
         try {
             DBConnection.getInstance().beginTransaction();
@@ -231,6 +259,7 @@ public class DataManager {
         customerCsvService.exportToCsv(customers, filePath);
     }
 
+    // транзакция
     public List<Customer> importCustomersFromCsv(String filePath) throws Exception {
         List<Customer> imported = customerCsvService.importFromCsv(filePath);
         for (Customer b: imported) {
@@ -244,6 +273,7 @@ public class DataManager {
         requestBookCsvService.exportToCsv(requestBooks, filePath);
     }
 
+    // транзакция
     public List<RequestBook> importRequestFromCsv(String filePath) throws Exception {
         try {
             DBConnection.getInstance().beginTransaction();

@@ -14,6 +14,13 @@
     "status" : "IN_STOCK",
     "bookId" : 3
   }, {
+    "name" : "Евгений Онегин",
+    "authtor" : "А С Пушкин",
+    "year" : 2010,
+    "price" : 122.0,
+    "status" : "IN_STOCK",
+    "bookId" : 5
+  }, {
     "name" : "капитанская дочь",
     "authtor" : "пушкин",
     "year" : 2000,
@@ -34,13 +41,6 @@
     "price" : 200.0,
     "status" : "OUT_OF_STOCK",
     "bookId" : 2
-  }, {
-    "name" : "Евгений Онегин",
-    "authtor" : "А С Пушкин",
-    "year" : 2010,
-    "price" : 122.0,
-    "status" : "IN_STOCK",
-    "bookId" : 5
   } ],
   "orders" : [ {
     "orderId" : 0,

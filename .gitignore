@@ -1,5 +1,5 @@
 .idea/
 *.iml
-src/resources/db.properties
+src/main/resources/db.properties
 out/
 

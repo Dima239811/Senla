@@ -46,7 +46,7 @@ public class BookCsvService implements ICsvService<Book> {
                 printWriter.println(String.format(Locale.US, "%d,\"%s\",\"%s\",%d,%.2f,%s",
                         b.getBookId(),
                         b.getName().replace("\"", "\"\""),
-                        b.getAuthtor().replace("\"", "\"\""),
+                        b.getAuthor().replace("\"", "\"\""),
                         b.getYear(),
                         b.getPrice(),
                         b.getStatus().getValue()
@@ -54,7 +54,7 @@ public class BookCsvService implements ICsvService<Book> {
             }
             printWriter.flush();
         } catch (IOException exception) {
-            throw new DataExportException("Файл " + filePath + " не найден");
+            throw new DataExportException("Ошибка записи в файл: " + filePath);
         }
     }
 

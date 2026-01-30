@@ -1,6 +1,7 @@
 package bookstore.ui.actions.order;
 
 import bookstore.enums.OrderStatus;
+import bookstore.exception.DataManagerException;
 import bookstore.exception.IncorrectNumberException;
 import  bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
@@ -58,6 +59,9 @@ public class ChangeOrderStatusAction implements IAction {
         } catch (IncorrectNumberException e) {
             logger.info("Некорректный ввод числа {}", e.getMessage());
             System.out.println(e.getMessage());
+        } catch (DataManagerException e) {
+            logger.error("Ошибка при изменении статуса заказа: {}", e.getMessage());
+            System.out.println("Ошибка при изменении статуса заказа: " + e.getMessage());
         } catch (Exception e) {
             logger.info("Возникла ошибка {}", e.getMessage());
             System.out.println("Ошибка: " + e.getMessage());

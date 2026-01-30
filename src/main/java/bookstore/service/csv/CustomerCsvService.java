@@ -12,7 +12,7 @@ import java.util.Locale;
 
 public class CustomerCsvService implements ICsvService<Customer> {
     @Override
-    public void exportToCsv(List<Customer> items, String filePath) throws Exception {
+    public void exportToCsv(List<Customer> items, String filePath) throws DataExportException {
         if (items == null) {
             throw new DataExportException("Список клиентов не может быть пустым!");
         }
@@ -43,7 +43,7 @@ public class CustomerCsvService implements ICsvService<Customer> {
 
             printWriter.flush();
         } catch (IOException exception) {
-            throw new DataExportException("Файл " + filePath + " не найден");
+            throw new DataExportException("Файл " + filePath + " не найден " +  exception);
         }
     }
 

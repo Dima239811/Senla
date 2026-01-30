@@ -2,89 +2,65 @@ package bookstore.model;
 
 
 import bookstore.enums.StatusBook;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.ColumnTransformer;
 
+@Getter
+@Setter
+@Entity
+@Table(name = "book")
 public class Book {
+    @Column(nullable = false)
     private String name;
-    private String authtor;
+
+    @Column(nullable = false)
+    private String author;
+
+    @Column(nullable = false)
     private int year;
+
+    @Column(nullable = false)
     private double price;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "status")
+    @ColumnTransformer(
+            write = "(CASE ? WHEN 'IN_STOCK' THEN 'в наличии'::statusbook " +
+                    "WHEN 'OUT_OF_STOCK' THEN 'отсутствует'::statusbook END)"
+    )
     private StatusBook status;  // в наличии или отсутствует
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int bookId;
-    //private static int count = 0;
 
     public Book() { }
 
-    public Book(String name, String authtor, int year, double price, StatusBook status) {
+    public Book(String name, String author, int year, double price, StatusBook status) {
         this.name = name;
-        this.authtor = authtor;
+        this.author = author;
         this.year = year;
         this.price = price;
         this.status = status;
     }
 
-    public Book(String name, String authtor, int year, double price, StatusBook status, int bookId) {
+    public Book(String name, String author, int year, double price, StatusBook status, int bookId) {
         this.name = name;
-        this.authtor = authtor;
+        this.author = author;
         this.year = year;
         this.price = price;
         this.status = status;
         this.bookId = bookId;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAuthtor() {
-        return authtor;
-    }
-
-    public void setAuthtor(String authtor) {
-        this.authtor = authtor;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setStatus(StatusBook statusBook) {
-        this.status = statusBook;
-    }
-
-    public StatusBook getStatus() {
-        return status;
-    }
-
-    public int getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
 
     @Override
     public String toString() {
         return "Book{" +
                 "name='" + name + '\'' +
-                ", authtor='" + authtor + '\'' +
+                ", authtor='" + author + '\'' +
                 ", year=" + year +
                 ", price=" + price +
                 ", status=" + status +

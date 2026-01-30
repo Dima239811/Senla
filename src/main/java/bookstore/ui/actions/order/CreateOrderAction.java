@@ -1,5 +1,6 @@
 package bookstore.ui.actions.order;
 
+import bookstore.exception.DataManagerException;
 import  bookstore.model.Book;
 import  bookstore.model.Customer;
 import  bookstore.model.DataManager;
@@ -57,9 +58,9 @@ public class CreateOrderAction implements IAction {
         } catch (InputMismatchException e) {
             logger.error("Некорректно заполнено поле");
             System.out.println("Некорректно заполнено поле");
-        } catch (Exception e) {
-            logger.error("Неожиданная ошибка: {}", e.getMessage());
-            System.out.println("Неожиданная ошибка: " + e.getMessage());
+        } catch (DataManagerException e) {
+            logger.error("Ошибка при создании заказа: {}", e.getMessage());
+            System.out.println("Ошибка при создании заказа: " + e.getMessage());
         }
     }
 }

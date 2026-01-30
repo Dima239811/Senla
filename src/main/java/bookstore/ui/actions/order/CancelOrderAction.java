@@ -1,5 +1,6 @@
 package bookstore.ui.actions.order;
 
+import bookstore.exception.DataManagerException;
 import bookstore.exception.IncorrectNumberException;
 import  bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
@@ -41,6 +42,12 @@ public class CancelOrderAction implements IAction {
         } catch (IncorrectNumberException e) {
             logger.info("Некорректный ввод числа {}", e.getMessage());
             System.out.println(e.getMessage());
+        } catch (DataManagerException e) {
+            logger.error("Ошибка при отмене заказа: {}", e.getMessage());
+            System.out.println("Ошибка при отмене заказа: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Неожиданная ошибка при отмене заказа", e);
+            System.out.println("Неожиданная ошибка: " + e.getMessage());
         }
     }
 }

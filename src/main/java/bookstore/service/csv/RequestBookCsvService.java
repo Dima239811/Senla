@@ -49,7 +49,7 @@ public class RequestBookCsvService implements ICsvService<RequestBook> {
 
             printWriter.flush();
         } catch (IOException e) {
-            throw new DataExportException("Ошибка записи в файл: " + e.getMessage());
+            throw new DataExportException("Ошибка записи в файл: " + e);
         }
     }
 

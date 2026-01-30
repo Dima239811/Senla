@@ -1,6 +1,7 @@
 package bookstore.ui.actions.csv.order;
 
 import bookstore.exception.DataImportException;
+import bookstore.exception.DataManagerException;
 import  bookstore.model.DataManager;
 import  bookstore.model.Order;
 import bookstore.ui.actions.IAction;
@@ -33,6 +34,9 @@ public class ImportOrderAction implements IAction {
         } catch (DataImportException e) {
             logger.error("Ошибка при импорте заказов: {}", e.getMessage());
             System.err.println("Ошибка импорта: " + e.getMessage());
+        } catch (DataManagerException e) {
+            logger.error("Ошибка при добавлении заказов в базу: {}", e.getMessage());
+            System.err.println("Ошибка при добавлении заказов в базу: " + e.getMessage());
         } catch (Exception e) {
             logger.error("Неожиданная ошибка при импорте заказов {}", e.getMessage());
             System.err.println("Неожиданная ошибка: " + e.getMessage());

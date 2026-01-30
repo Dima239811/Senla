@@ -1,5 +1,6 @@
 package bookstore.ui.actions.request;
 
+import bookstore.exception.DataManagerException;
 import  bookstore.model.Book;
 import  bookstore.model.Customer;
 import  bookstore.model.DataManager;
@@ -59,7 +60,10 @@ public class CreateBookRequestAction implements IAction {
         } catch (InputMismatchException e) {
             logger.error("Ошибка ввода: {}", e.getMessage());
             System.out.println("Некорректно заполнено поле");
-        } catch (Exception e) {
+        } catch (DataManagerException e) {
+            logger.error("Ошибка при добавлении запроса на книгу: {}", e.getMessage());
+            System.out.println("Ошибка при добавлении запроса на книгу: " + e.getMessage());
+        }catch (Exception e) {
             logger.error("Неожиданная ошибка при выполнении команды: ", e);
             System.out.println("Неожиданная ошибка: " + e.getMessage());
         }

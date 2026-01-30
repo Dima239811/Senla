@@ -1,6 +1,7 @@
 package bookstore.ui.actions.completed_orders;
 
-import  bookstore.model.DataManager;
+import bookstore.exception.DataManagerException;
+import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +30,15 @@ public class ShowCompletedOrdersCountAction implements IAction {
             System.out.println("Введите конечную дату (формат: дд.мм.гггг):");
             Date to = parseDate(scanner.nextLine());
 
-            int count = dataManager.getCountPerformedOrder(from, to);
+            try {
+                int count = dataManager.getCountPerformedOrder(from, to);
 
-            System.out.println("Количество выполненных заказов " + count + " за период с " + from + " по " + to);
-            logger.info("Количество выполненных заказов за период: {}", count);
+                System.out.println("Количество выполненных заказов " + count + " за период с " + from + " по " + to);
+                logger.info("Количество выполненных заказов за период: {}", count);
+            } catch (DataManagerException ex) {
+                System.err.println("Ошибка при подсчете выполненных заказов за период: " + ex.getMessage());
+                logger.error("Ошибка при подсчете выполненных заказов за период: ", ex);
+            }
         } catch (ParseException e) {
             logger.error("Ошибка парсинга даты {}", e.getMessage());
             System.out.println("Неверный формат даты. Используйте дд.мм.гггг");

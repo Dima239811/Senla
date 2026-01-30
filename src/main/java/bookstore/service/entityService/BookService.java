@@ -9,10 +9,9 @@ import bookstore.dependesies.annotation.PostConstruct;
 import bookstore.enums.StatusBook;
 import bookstore.exception.DaoException;
 import bookstore.exception.ServiceException;
-import bookstore.model.Book;
+import bookstore.model.entity.Book;
 import bookstore.repo.dao.BookDAO;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class BookService implements IService<Book> {
@@ -32,7 +31,7 @@ public class BookService implements IService<Book> {
             List<Book> books = bookDAO.getAll();
             return books;
         } catch (DaoException e) {
-            throw new ServiceException("Failed to get all books", e);
+            throw new ServiceException("Failed to get all books", e.getCause());
         }
     }
 

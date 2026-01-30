@@ -1,6 +1,6 @@
 package bookstore.ui.actions.book;
 
-import  bookstore.model.DataManager;
+import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

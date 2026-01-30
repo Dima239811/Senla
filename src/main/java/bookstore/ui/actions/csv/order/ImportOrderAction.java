@@ -2,8 +2,8 @@ package bookstore.ui.actions.csv.order;
 
 import bookstore.exception.DataImportException;
 import bookstore.exception.DataManagerException;
-import  bookstore.model.DataManager;
-import  bookstore.model.Order;
+import bookstore.model.DataManager;
+import bookstore.model.entity.Order;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

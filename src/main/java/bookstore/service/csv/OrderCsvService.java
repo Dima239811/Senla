@@ -4,9 +4,9 @@ import bookstore.enums.OrderStatus;
 import bookstore.enums.StatusBook;
 import bookstore.exception.DataExportException;
 import bookstore.exception.DataImportException;
-import  bookstore.model.Book;
-import  bookstore.model.Customer;
-import  bookstore.model.Order;
+import bookstore.model.entity.Book;
+import bookstore.model.entity.Customer;
+import bookstore.model.entity.Order;
 
 import java.io.*;
 import java.text.SimpleDateFormat;

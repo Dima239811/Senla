@@ -4,7 +4,7 @@ import bookstore.enums.StatusBook;
 import bookstore.exception.DataExportException;
 import bookstore.exception.DataImportException;
 import bookstore.exception.DataValidationException;
-import  bookstore.model.Book;
+import bookstore.model.entity.Book;
 
 import java.io.*;
 import java.util.ArrayList;

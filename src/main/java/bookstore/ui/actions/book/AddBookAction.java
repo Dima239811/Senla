@@ -3,7 +3,7 @@ package bookstore.ui.actions.book;
 import bookstore.enums.StatusBook;
 import bookstore.exception.DataManagerException;
 import bookstore.exception.DataValidationException;
-import bookstore.model.Book;
+import bookstore.model.entity.Book;
 import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;

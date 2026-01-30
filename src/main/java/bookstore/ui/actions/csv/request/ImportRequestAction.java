@@ -2,8 +2,8 @@ package bookstore.ui.actions.csv.request;
 
 import bookstore.exception.DataImportException;
 import bookstore.exception.DataManagerException;
-import  bookstore.model.DataManager;
-import  bookstore.model.RequestBook;
+import bookstore.model.DataManager;
+import bookstore.model.entity.RequestBook;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +38,7 @@ public class ImportRequestAction implements IAction {
         } catch (DataManagerException e) {
             logger.error("Ошибка при добавлении запросов в базу: {}", e.getMessage());
             System.err.println("Ошибка при добавлении запросов в базу: " + e.getMessage());
-        }catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Неожиданная ошибка при импорте запросов {}", e.getMessage());
             System.err.println("Неожиданная ошибка: " + e.getMessage());
         }

@@ -2,8 +2,6 @@ package bookstore.repo.dao;
 
 import bookstore.exception.DaoException;
 import bookstore.repo.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,24 +17,18 @@ public class HibernateAbstractDao <T> implements GenericDAO<T> {
 
     @Override
     public void create(T object) {
-        Session session = HibernateUtil.getSession();
-        Transaction tx = session.beginTransaction();
         try {
-            session.persist(object);
-            tx.commit();
+            HibernateUtil.getSession().persist(object);
         } catch (Exception e) {
-            tx.rollback();
             logger.error("Error creating " + type.getName(), e);
             throw new DaoException("Failed to create " + type.getName(), e);
-        } finally {
-            session.close();
         }
     }
 
     @Override
     public T findById(int id) {
-        try (Session session = HibernateUtil.getSession()) {
-            return session.get(type, id);
+        try {
+            return HibernateUtil.getSession().get(type, id);
         } catch (Exception e) {
             logger.error("Error creating " + type.getName(), e);
             throw new DaoException("Failed to find " + type.getName(), e);
@@ -45,36 +37,24 @@ public class HibernateAbstractDao <T> implements GenericDAO<T> {
 
     @Override
     public void update(T object) {
-        Session session = HibernateUtil.getSession();
-        Transaction tx = session.beginTransaction();
         try {
-            session.merge(object);
-            tx.commit();
+            HibernateUtil.getSession().merge(object);
         } catch (Exception e) {
-            tx.rollback();
             logger.error("Error updating " + type.getName(), e);
             throw new DaoException("Failed to update " + type.getName(), e);
-        } finally {
-            session.close();
         }
     }
 
     @Override
     public void delete(int id) {
-        Session session = HibernateUtil.getSession();
-        Transaction tx = session.beginTransaction();
         try {
-            T entity = session.get(type, id);
+            T entity = HibernateUtil.getSession().get(type, id);
             if (entity != null) {
-                session.remove(entity);
-                tx.commit();
+                HibernateUtil.getSession().remove(entity);
             }
         } catch (Exception e) {
-            tx.rollback();
             logger.error("Error deleting {}", type.getName(), e);
             throw new DaoException("Failed to delete " + type.getName(), e);
-        } finally {
-            session.close();
         }
     }
 

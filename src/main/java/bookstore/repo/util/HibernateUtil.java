@@ -1,9 +1,9 @@
 package bookstore.repo.util;
 
-import bookstore.model.Book;
-import bookstore.model.Customer;
-import bookstore.model.Order;
-import bookstore.model.RequestBook;
+import bookstore.model.entity.Book;
+import bookstore.model.entity.Customer;
+import bookstore.model.entity.Order;
+import bookstore.model.entity.RequestBook;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -12,6 +12,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class HibernateUtil {
     private static SessionFactory sessionFactory;
+    private static Session session;
 
     static {
         try {
@@ -33,7 +34,12 @@ public class HibernateUtil {
     }
 
     public static Session getSession() {
-        return sessionFactory.openSession();
+        if (session != null && session.isOpen()) {
+            return session;
+        }
+        System.out.println("создание сессии");
+        session = sessionFactory.openSession();
+        return session;
     }
 
     public static void shutdown() {

@@ -1,7 +1,7 @@
 package bookstore.comporator.request;
 
 import bookstore.comporator.book.LetterComporator;
-import bookstore.model.RequestBook;
+import bookstore.model.entity.RequestBook;
 
 import java.util.Comparator;
 

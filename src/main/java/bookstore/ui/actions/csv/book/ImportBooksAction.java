@@ -2,8 +2,8 @@ package bookstore.ui.actions.csv.book;
 
 import bookstore.exception.DataImportException;
 import bookstore.exception.DataManagerException;
-import  bookstore.model.Book;
-import  bookstore.model.DataManager;
+import bookstore.model.entity.Book;
+import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,11 +34,9 @@ public class ImportBooksAction implements IAction {
         } catch (DataImportException e) {
             logger.error("Ошибка при импорте книг: {}", e.getMessage());
             System.err.println("Ошибка импорта: " + e.getMessage());
-
         } catch (DataManagerException e) {
             logger.error("Ошибка при добавлении книг в базу: {}", e.getMessage());
             System.err.println("Ошибка при добавлении книг в базу: " + e.getMessage());
-
         } catch (Exception e) {
             logger.error("Неожиданная ошибка при импорте книг", e);
             System.err.println("Неожиданная ошибка: " + e.getMessage());

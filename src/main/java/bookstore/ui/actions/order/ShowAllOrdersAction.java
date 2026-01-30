@@ -1,7 +1,8 @@
 package bookstore.ui.actions.order;
 
-import  bookstore.model.DataManager;
-import  bookstore.model.Order;
+import bookstore.exception.DataManagerException;
+import bookstore.model.DataManager;
+import bookstore.model.entity.Order;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,19 +22,27 @@ public class ShowAllOrdersAction implements IAction {
         logger.info("Пользователь выбрал команду: просмотр  всех заказов");
         System.out.println("Список всех заказов");
         System.out.println("вывод из списка заказов");
-        List<Order> oders = dataManager.getAllOrder();
-        System.out.println("\n=== СПИСОК ВСЕХ заказов ===");
-        System.out.println("Всего заказов: " + oders.size());
-        System.out.println("-----------------------------------------------");
 
-        if (oders.isEmpty()) {
-            logger.info("список заказов пуст");
-            System.out.println("заказы не найдены");
-        } else {
-            logger.info("выведено {} заказов", oders.size());
-            oders.forEach(System.out::println);
+        try {
+            List<Order> oders = dataManager.getAllOrder();
+            System.out.println("\n=== СПИСОК ВСЕХ заказов ===");
+            System.out.println("Всего заказов: " + oders.size());
+            System.out.println("-----------------------------------------------");
+
+            if (oders.isEmpty()) {
+                logger.info("список заказов пуст");
+                System.out.println("заказы не найдены");
+            } else {
+                logger.info("выведено {} заказов", oders.size());
+                oders.forEach(System.out::println);
+            }
+
+            System.out.println("-----------------------------------------------");
+        } catch (DataManagerException ex) {
+            System.out.println("Ошибка при получении всех заказов из бд " + ex.getCause());
+            logger.error("Ошибка при получении всех заказов из бд " + ex.getCause());
+        } catch (Exception ex) {
+            System.out.println("Неожиданная ошибка" + ex.getMessage());
         }
-
-        System.out.println("-----------------------------------------------");
     }
 }

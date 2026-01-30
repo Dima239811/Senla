@@ -2,7 +2,7 @@ package bookstore.ui.actions.order;
 
 import bookstore.exception.DataManagerException;
 import bookstore.exception.IncorrectNumberException;
-import  bookstore.model.DataManager;
+import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

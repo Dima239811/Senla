@@ -3,7 +3,7 @@ package bookstore.service.csv;
 
 import bookstore.exception.DataExportException;
 import bookstore.exception.DataImportException;
-import  bookstore.model.Customer;
+import bookstore.model.entity.Customer;
 
 import java.io.*;
 import java.util.ArrayList;

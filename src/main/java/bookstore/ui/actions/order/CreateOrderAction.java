@@ -1,10 +1,10 @@
 package bookstore.ui.actions.order;
 
 import bookstore.exception.DataManagerException;
-import  bookstore.model.Book;
-import  bookstore.model.Customer;
-import  bookstore.model.DataManager;
-import bookstore.model.Order;
+import bookstore.model.entity.Book;
+import bookstore.model.entity.Customer;
+import bookstore.model.DataManager;
+import bookstore.model.entity.Order;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,16 +39,18 @@ public class CreateOrderAction implements IAction {
             }
 
             System.out.println("Ваша книга найдена!");
-            System.out.println("Введите имя клиента");
-            String name = scanner.nextLine();
-            System.out.println("Введите возраст клиента");
-            int age = scanner.nextInt();
+
+            // Поиск клиента
+            System.out.println("\nКлиент должен быть в базе!");
+            System.out.print("Введите ID клиента: ");
+            int customerId = scanner.nextInt();
             scanner.nextLine();
-            System.out.println("Введите email клиента");
-            String email = scanner.nextLine();
-            System.out.println("Введите адресс клиента");
-            String address = scanner.nextLine();
-            Customer customer = new Customer(name, age, "+79855566", email, address);
+
+            Customer customer = dataManager.getCustomerById(customerId);
+            if (customer == null) {
+                throw new IllegalArgumentException("Клиент с ID " + customerId + " не найден");
+            }
+            System.out.println("Найден клиент: " + customer.getFullName());
 
             Order order = new Order(book, customer, new Date(), book.getPrice());
             dataManager.createOrder(order);

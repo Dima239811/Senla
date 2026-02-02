@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class AddBookAction implements IAction {
 
-    private DataManager dataManager;
+    private final DataManager dataManager;
     private static final Logger logger = LoggerFactory.getLogger(AddBookAction.class);
 
     public AddBookAction(DataManager dataManager) {

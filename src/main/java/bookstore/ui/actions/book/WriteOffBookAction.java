@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Scanner;
 
 public class WriteOffBookAction implements IAction {
-    private DataManager dataManager;
+    private final DataManager dataManager;
     private static final Logger logger = LoggerFactory.getLogger(WriteOffBookAction.class);
 
     public WriteOffBookAction(DataManager dataManager) {

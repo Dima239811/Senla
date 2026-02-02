@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class ShowCompletedOrdersCountAction implements IAction {
-    private DataManager dataManager;
+    private final DataManager dataManager;
     private static final Logger logger = LoggerFactory.getLogger(ShowCompletedOrdersCountAction.class);
 
     public ShowCompletedOrdersCountAction(DataManager dataManager) {

@@ -5,7 +5,9 @@ import bookstore.model.entity.Book;
 import bookstore.repo.util.HibernateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class BookDAO extends HibernateAbstractDao<Book> {
     private static final Logger logger = LoggerFactory.getLogger(BookDAO.class);
 

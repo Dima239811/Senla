@@ -1,24 +1,25 @@
 package bookstore.service.entityService;
 
-import bookstore.comporator.book.AvailiableComporator;
+import bookstore.comporator.book.AvailableComparator;
 import bookstore.comporator.book.LetterComporator;
 import bookstore.comporator.book.PriceComporator;
 import bookstore.comporator.book.YearComporator;
-import bookstore.dependesies.annotation.Inject;
-import bookstore.dependesies.annotation.PostConstruct;
 import bookstore.enums.StatusBook;
 import bookstore.exception.DaoException;
 import bookstore.exception.ServiceException;
 import bookstore.model.entity.Book;
 import bookstore.repo.dao.BookDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
+@Service
 public class BookService implements IService<Book> {
 
-    @Inject
+    @Autowired
     private BookDAO bookDAO;
-
 
     @PostConstruct
     public void postConstruct() {
@@ -87,7 +88,7 @@ public class BookService implements IService<Book> {
                     books.sort(new YearComporator());
                     return books;
                 case "по наличию на складе":
-                    books.sort(new AvailiableComporator());
+                    books.sort(new AvailableComparator());
                     return books;
                 default:
                     System.out.println("Ошибка: неопознанный критерий сортировки.");

@@ -13,7 +13,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CreateBookRequestAction implements IAction {
-    private DataManager dataManager;
+    private final DataManager dataManager;
     private static final Logger logger = LoggerFactory.getLogger(CreateBookRequestAction.class);
 
     public CreateBookRequestAction(DataManager dataManager) {

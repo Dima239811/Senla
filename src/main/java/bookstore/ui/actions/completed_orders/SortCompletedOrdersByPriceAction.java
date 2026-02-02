@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SortCompletedOrdersByPriceAction implements IAction {
-    private DataManager dataManager;
+    private final DataManager dataManager;
     private static final Logger logger = LoggerFactory.getLogger(SortCompletedOrdersByPriceAction.class);
 
     public SortCompletedOrdersByPriceAction(DataManager dataManager) {
@@ -43,7 +43,7 @@ public class SortCompletedOrdersByPriceAction implements IAction {
                 } else {
                     System.out.println("\nРезультаты (" + orders.size() + " заказов):");
                     System.out.println("-----------------------------------------------");
-                    orders.forEach(order -> System.out.println(order));
+                    orders.forEach(System.out::println);
                     System.out.println("-----------------------------------------------");
                     logger.info("В период с {} по {} отсортировано {} заказов по цене", from, to, orders.size());
                 }

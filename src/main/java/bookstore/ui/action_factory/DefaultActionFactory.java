@@ -1,6 +1,5 @@
 package bookstore.ui.action_factory;
 
-import bookstore.dependesies.annotation.Inject;
 import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import bookstore.ui.actions.book.*;
@@ -24,13 +23,15 @@ import bookstore.ui.actions.request.ShowAllBookRequestsAction;
 import bookstore.ui.actions.request.SortRequestsByCountAction;
 import bookstore.ui.actions.request.SortRequestsByTitleAction;
 import bookstore.util.LibraryConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DefaultActionFactory implements ActionFactory {
-
-    @Inject
+    @Autowired
     private DataManager dataManager;
 
-    @Inject
+    @Autowired
     private LibraryConfig libraryConfig;
 
 

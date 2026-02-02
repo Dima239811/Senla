@@ -1,18 +1,17 @@
 package bookstore.util;
 
-import bookstore.dependesies.annotation.ConfigProperty;
 
-public class LibraryConfig { @ConfigProperty(propertyName = "book.stale.months", type = Integer.class)
-private int staleMonths;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-    @ConfigProperty(propertyName = "book.auto.close.requests", type = Boolean.class)
+@Component
+@Getter
+public class LibraryConfig {
+
+    @Value("${book.stale.months}")
+    private int staleMonths;
+
+    @Value("${book.auto.close.requests}")
     private boolean autoCloseRequests;
-
-    public int getStaleMonths() {
-        return staleMonths;
-    }
-
-    public boolean isAutoCloseRequests() {
-        return autoCloseRequests;
-    }
 }

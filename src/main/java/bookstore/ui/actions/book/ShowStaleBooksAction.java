@@ -1,7 +1,5 @@
 package bookstore.ui.actions.book;
 
-
-import bookstore.dependesies.annotation.Inject;
 import bookstore.exception.DataManagerException;
 import bookstore.model.entity.Book;
 import bookstore.model.DataManager;
@@ -9,18 +7,19 @@ import bookstore.ui.actions.IAction;
 import bookstore.util.LibraryConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class ShowStaleBooksAction implements IAction {
 
-    private DataManager dataManager;
+    private final DataManager dataManager;
     private static final Logger logger = LoggerFactory.getLogger(ShowStaleBooksAction.class);
 
 
-    private LibraryConfig libraryConfig;
+    private final LibraryConfig libraryConfig;
 
-    @Inject
+    @Autowired
     public ShowStaleBooksAction(DataManager dataManager, LibraryConfig libraryConfig) {
         this.dataManager = dataManager;
         this.libraryConfig = libraryConfig;

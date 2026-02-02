@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class SortOrdersByStatusAction implements IAction {
-    private DataManager dataManager;
+    private final DataManager dataManager;
     private static final Logger logger = LoggerFactory.getLogger(SortOrdersByStatusAction.class);
 
     public SortOrdersByStatusAction(DataManager dataManager) {

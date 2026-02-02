@@ -1,8 +1,5 @@
 package bookstore.model;
 
-import bookstore.dependesies.annotation.Inject;
-import bookstore.dependesies.annotation.PostConstruct;
-import bookstore.dependesies.annotation.Qualifier;
 import bookstore.enums.OrderStatus;
 import bookstore.exception.DataExportException;
 import bookstore.exception.DataImportException;
@@ -21,43 +18,48 @@ import bookstore.service.csv.ICsvService;
 import bookstore.util.LibraryConfig;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class DataManager {
-    @Inject
+    @Autowired
     private BookService bookService;
 
-    @Inject
+    @Autowired
     private OrderService orderService;
 
-    @Inject
+    @Autowired
     private CustomerService customerService;
 
-    @Inject
+    @Autowired
     private RequestBookService requestService;
 
-    @Inject
+    @Autowired
     @Qualifier("bookCsvService")
     private ICsvService<Book> bookCsvService;
 
-    @Inject
+    @Autowired
     @Qualifier("orderCsvService")
     private ICsvService<Order> orderCsvService;
 
-    @Inject
+    @Autowired
     @Qualifier("customerCsvService")
     private ICsvService<Customer> customerCsvService;
 
-    @Inject
+    @Autowired
     @Qualifier("requestBookCsvService")
     private ICsvService<RequestBook> requestBookCsvService;
 
-    @Inject
+    @Autowired
     private LibraryConfig libraryConfig;
 
     // отладочный метод
@@ -256,7 +258,7 @@ public class DataManager {
 
     public double calculateIncomeForPeriod(Date from, Date to) {
         try {
-            return orderService.calculateIncomeForPerioud(from, to);
+            return orderService.calculateIncomeForPeriod(from, to);
         } catch (ServiceException ex) {
             throw new DataManagerException("fail to calculate income for period", ex.getCause());
         }

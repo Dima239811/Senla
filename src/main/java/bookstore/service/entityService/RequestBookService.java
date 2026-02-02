@@ -1,7 +1,6 @@
 package bookstore.service.entityService;
 
 import bookstore.comporator.request.LetterRequestComporator;
-import bookstore.dependesies.annotation.Inject;
 import bookstore.enums.RequestStatus;
 import bookstore.exception.DaoException;
 import bookstore.exception.ServiceException;
@@ -9,13 +8,16 @@ import bookstore.model.entity.Book;
 import bookstore.model.entity.Customer;
 import bookstore.model.entity.RequestBook;
 import bookstore.repo.dao.RequestBookDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class RequestBookService implements IService<RequestBook> {
 
-    @Inject
+    @Autowired
     private RequestBookDAO requestBookDAO;
 
     public void closeRequest(Book book) {

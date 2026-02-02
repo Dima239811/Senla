@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class AddCustomerAction implements IAction {
     private static final Logger logger = LoggerFactory.getLogger(AddCustomerAction.class);
-    private DataManager dataManager;
+    private final DataManager dataManager;
 
     public AddCustomerAction(DataManager dataManager) {
         this.dataManager = dataManager;

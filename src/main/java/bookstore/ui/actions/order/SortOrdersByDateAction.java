@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class SortOrdersByDateAction implements IAction {
-    private DataManager dataManager;
+    private final DataManager dataManager;
     private static final Logger logger = LoggerFactory.getLogger(SortOrdersByDateAction.class);
 
     public SortOrdersByDateAction(DataManager dataManager) {
@@ -35,7 +35,7 @@ public class SortOrdersByDateAction implements IAction {
             System.out.println("-----------------------------------------------");
         } catch (DataManagerException ex) {
             System.out.println("Ошибка при сортировке пользователей по дате " + ex.getCause());
-            logger.error("Ошибка при сортировке пользователей по дате " + ex.getCause());
+            logger.error("Ошибка при сортировке пользователей по дате {}", String.valueOf(ex.getCause()));
         }
     }
 }

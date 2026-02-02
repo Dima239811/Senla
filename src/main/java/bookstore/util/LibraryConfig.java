@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 @Getter
 public class LibraryConfig {
 
-    @Value("${book.stale.months}")
+    @Value("${book.stale.months: 3}")
     private int staleMonths;
 
-    @Value("${book.auto.close.requests}")
+    @Value("${book.auto.close.requests: false}")
     private boolean autoCloseRequests;
 }

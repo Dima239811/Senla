@@ -2,7 +2,9 @@ package bookstore.ui.menu_items;
 
 import bookstore.ui.Menu;
 import bookstore.ui.actions.IAction;
+import lombok.Getter;
 
+@Getter
 public class MenuItem {
     private String title;
     private IAction action;
@@ -20,15 +22,4 @@ public class MenuItem {
         }
     };
 
-    public String getTitle() {
-        return title;
-    }
-
-    public IAction getAction() {
-        return action;
-    }
-
-    public Menu getNextMenu() {
-        return nextMenu;
-    }
 }

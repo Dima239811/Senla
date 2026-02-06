@@ -5,13 +5,14 @@ import bookstore.exception.DataExportException;
 import bookstore.exception.DataImportException;
 import bookstore.exception.DataValidationException;
 import bookstore.model.entity.Book;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
+@Service
 public class BookCsvService implements ICsvService<Book> {
     @Override
     public void exportToCsv(List<Book> items, String filePath) throws DataExportException {
@@ -86,7 +87,6 @@ public class BookCsvService implements ICsvService<Book> {
         return books;
     }
 
-
     private Book parseBookFromCsvLine(String line) throws DataValidationException {
         String[] parts = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
@@ -122,7 +122,6 @@ public class BookCsvService implements ICsvService<Book> {
             throw new DataValidationException("Некорректный числовой формат");
         }
     }
-
 
     private void validateBook(Book book) throws DataValidationException {
         if (book.getName() == null || book.getName().trim().isEmpty()) {

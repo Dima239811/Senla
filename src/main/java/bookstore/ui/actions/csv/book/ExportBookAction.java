@@ -17,6 +17,7 @@ public class ExportBookAction implements IAction {
         this.dataManager = dataManager;
         this.scanner = new Scanner(System.in);
     }
+
     @Override
     public void execute() {
         logger.info("Запуск действия: экспорт книг в CSV.");

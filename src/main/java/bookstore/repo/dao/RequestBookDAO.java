@@ -6,9 +6,11 @@ import bookstore.repo.util.HibernateUtil;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class RequestBookDAO extends HibernateAbstractDao<RequestBook> {
     private static final Logger logger = LoggerFactory.getLogger(RequestBookDAO.class);
 
@@ -23,15 +25,9 @@ public class RequestBookDAO extends HibernateAbstractDao<RequestBook> {
             Query<RequestBook> query = HibernateUtil.getSession().createQuery(hql, RequestBook.class);
             query.setParameter("bookId", id);
 
-            RequestBook requestBook = query.uniqueResult();
-
-            if (requestBook != null) {
-                return requestBook;
-            } else {
-                return null;
-            }
+            return query.uniqueResult();
         } catch (Exception e) {
-            logger.error("Error finding RequestBook with bookId: " + id, e);
+            logger.error("Error finding RequestBook with bookId: {}", id, e);
             throw new DaoException("Error fetching RequestBook with bookId: " + id, e);
         }
     }

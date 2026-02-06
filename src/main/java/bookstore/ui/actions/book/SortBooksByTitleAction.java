@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class SortBooksByTitleAction implements IAction {
-    private DataManager dataManager;
+    private final DataManager dataManager;
     private static final Logger logger = LoggerFactory.getLogger(SortBooksByTitleAction.class);
 
     public SortBooksByTitleAction(DataManager dataManager) {

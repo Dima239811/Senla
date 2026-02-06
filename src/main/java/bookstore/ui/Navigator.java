@@ -1,21 +1,19 @@
 package bookstore.ui;
 
-import bookstore.dependesies.annotation.Inject;
 import bookstore.ui.menu_items.MenuItem;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 import java.util.List;
 import java.util.Stack;
 
 public class Navigator {
+    @Setter
     private Menu currentMenu;
     private final Stack<Menu> history = new Stack<>();
 
-    @Inject
     public Navigator(Menu currentMenu) {
-        this.currentMenu = currentMenu;
-    }
-
-    public void setCurrentMenu(Menu currentMenu) {
         this.currentMenu = currentMenu;
     }
 

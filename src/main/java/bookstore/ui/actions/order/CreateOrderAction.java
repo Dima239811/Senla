@@ -14,7 +14,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CreateOrderAction implements IAction {
-    private DataManager dataManager;
+    private final DataManager dataManager;
     private static final Logger logger = LoggerFactory.getLogger(CreateOrderAction.class);
 
     public CreateOrderAction(DataManager dataManager) {

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Scanner;
 
 public class ChangeOrderStatusAction implements IAction {
-    private DataManager dataManager;
+    private final DataManager dataManager;
     private static final Logger logger = LoggerFactory.getLogger(ChangeOrderStatusAction.class);
 
     public ChangeOrderStatusAction(DataManager dataManager) {

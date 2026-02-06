@@ -3,7 +3,6 @@ package bookstore.service.entityService;
 import bookstore.comporator.order.DateOrderComporator;
 import bookstore.comporator.order.PriceOrderComporator;
 import bookstore.comporator.order.StatusOrderComporator;
-import bookstore.dependesies.annotation.Inject;
 import bookstore.enums.OrderStatus;
 import bookstore.exception.DaoException;
 import bookstore.exception.ServiceException;
@@ -11,14 +10,17 @@ import bookstore.model.entity.Book;
 import bookstore.model.entity.Customer;
 import bookstore.model.entity.Order;
 import bookstore.repo.dao.OrderDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class OrderService implements IService<Order> {
 
-    @Inject
+    @Autowired
     private OrderDAO orderDAO;
 
     public void createOrder(Book book, Customer customer, Date orderDate) {
@@ -73,54 +75,58 @@ public class OrderService implements IService<Order> {
     public List<Order> sortOrders(String criteria) {
         try {
             List<Order> orders = orderDAO.getAllWithBooksAndCustomers();
-            switch (criteria.toLowerCase()) {
-                case "по дате":
+            return switch (criteria.toLowerCase()) {
+                case "по дате" -> {
                     orders.sort(new DateOrderComporator());
-                    return orders;
-                case "по цене":
+                    yield orders;
+                }
+                case "по цене" -> {
                     orders.sort(new PriceOrderComporator());
-                    return orders;
-                case "по статусу":
+                    yield orders;
+                }
+                case "по статусу" -> {
                     orders.sort(new StatusOrderComporator());
-                    return orders;
-                default:
+                    yield orders;
+                }
+                default -> {
                     System.out.println("Ошибка: неопознанный критерий сортировки.");
-                    return orders;
-            }
+                    yield orders;
+                }
+            };
         } catch (DaoException e) {
             throw new ServiceException("Fail to get all order " +  " in orderSevice in sortOrders()", e);
         }
     }
 
-    private List<Order> filterOrdersByDateAndStatus(Date from, Date to, OrderStatus status) {
+    private List<Order> filterOrdersByDateAndStatus(Date from, Date to) {
         return orderDAO.getAllWithBooksAndCustomers().stream()
-                .filter(order -> order.getStatus() == status)
+                .filter(order -> order.getStatus() == OrderStatus.COMPLETED)
                 .filter(order -> !order.getOrderDate().before(from) && !order.getOrderDate().after(to))
                 .collect(Collectors.toList());
     }
 
     public List<Order> sortPerformOrders(String criteria, Date from, Date to) {
         try {
-            List<Order> completedOrders = filterOrdersByDateAndStatus(from, to, OrderStatus.COMPLETED);
-            //System.out.println("выполненные заказы в методе " + completedOrders);
-            switch (criteria.toLowerCase()) {
-                case "по дате":
+            List<Order> completedOrders = filterOrdersByDateAndStatus(from, to);
+            return switch (criteria.toLowerCase()) {
+                case "по дате" -> {
                     completedOrders.sort(new DateOrderComporator());
-                    return completedOrders;
-                case "по цене":
+                    yield completedOrders;
+                }
+                case "по цене" -> {
                     completedOrders.sort(new PriceOrderComporator());
-                    return completedOrders;
-                default:
-                    return completedOrders;
-            }
+                    yield completedOrders;
+                }
+                default -> completedOrders;
+            };
         } catch (DaoException e) {
             throw new ServiceException("Fail sortPerformOrders " +  " in orderSevice in sortPerformOrders()", e);
         }
     }
 
-    public double calculateIncomeForPerioud(Date from, Date to) {
+    public double calculateIncomeForPeriod(Date from, Date to) {
         try {
-            return filterOrdersByDateAndStatus(from, to, OrderStatus.COMPLETED)
+            return filterOrdersByDateAndStatus(from, to)
                     .stream()
                     .mapToDouble(Order::getFinalPrice)
                     .sum();
@@ -132,13 +138,12 @@ public class OrderService implements IService<Order> {
 
     public int getCountPerformedOrder(Date from, Date to) {
         try {
-            return filterOrdersByDateAndStatus(from, to, OrderStatus.COMPLETED).size();
+            return filterOrdersByDateAndStatus(from, to).size();
         } catch (DaoException e) {
             throw new ServiceException("Fail getCountPerformedOrder " +
                     " in orderSevice in getCountPerformedOrder()", e);
         }
     }
-
 
     @Override
     public List<Order> getAll() {

@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class ShowTotalRevenueAction implements IAction {
-    private DataManager dataManager;
+    private final DataManager dataManager;
     private static final Logger logger = LoggerFactory.getLogger(ShowTotalRevenueAction.class);
 
     public ShowTotalRevenueAction(DataManager dataManager) {

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class AllBooksListAction implements IAction {
 
-    private DataManager dataManager;
+    private final DataManager dataManager;
     private static final Logger logger = LoggerFactory.getLogger(AllBooksListAction.class);
 
     public AllBooksListAction(DataManager dataManager) {
@@ -35,7 +35,7 @@ public class AllBooksListAction implements IAction {
                 System.out.println("Книги не найдены");
             } else {
                 logger.info("Выведено {} книг", books.size());
-                books.forEach(book -> System.out.println(book));
+                books.forEach(System.out::println);
             }
 
             System.out.println("-----------------------------------------------");

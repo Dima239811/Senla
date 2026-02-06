@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class SortRequestsByTitleAction implements IAction {
-    private DataManager dataManager;
+    private final DataManager dataManager;
     private static final Logger logger = LoggerFactory.getLogger(SortRequestsByTitleAction.class);
 
     public SortRequestsByTitleAction(DataManager dataManager) {

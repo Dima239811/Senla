@@ -1,20 +1,22 @@
 package bookstore.ui;
 
-import bookstore.dependesies.annotation.Inject;
-import bookstore.dependesies.annotation.PostConstruct;
 import bookstore.model.DataManager;
 import bookstore.ui.action_factory.ActionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Scanner;
 
+@Component
 public class MenuController {
-    @Inject
+    @Autowired
     private DataManager dataManager;
 
-    @Inject
+    @Autowired
     private ActionFactory actionFactory;
 
-    @Inject
+    @Autowired
     private Builder builder;
 
     private Navigator navigator;

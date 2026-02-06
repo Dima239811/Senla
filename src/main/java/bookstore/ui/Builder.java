@@ -1,6 +1,6 @@
 package bookstore.ui;
 
-import bookstore.model.DataManager;
+import bookstore.service.ApplicationService;
 import bookstore.ui.action_factory.ActionFactory;
 import bookstore.ui.menu_items.MenuItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ public class Builder {
     private Menu rootMenu;
 
     @Autowired
-    private DataManager dataManager;
+    private ApplicationService applicationService;
 
     @Autowired
     private ActionFactory actionFactory;

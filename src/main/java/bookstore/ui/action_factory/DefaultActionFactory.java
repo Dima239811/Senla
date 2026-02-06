@@ -1,6 +1,7 @@
 package bookstore.ui.action_factory;
 
-import bookstore.model.DataManager;
+import bookstore.controller.*;
+import bookstore.service.ApplicationService;
 import bookstore.ui.actions.IAction;
 import bookstore.ui.actions.book.*;
 import bookstore.ui.actions.completed_orders.ShowCompletedOrdersCountAction;
@@ -29,174 +30,189 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultActionFactory implements ActionFactory {
     @Autowired
-    private DataManager dataManager;
+    private ApplicationService applicationService;
 
     @Autowired
     private LibraryConfig libraryConfig;
 
+    @Autowired
+    private BookController bookController;
+
+    @Autowired
+    private OrderController orderController;
+
+    @Autowired
+    private CustomerController customerController;
+
+    @Autowired
+    private RequestBookController requestBookController;
+
+    @Autowired
+    private DataTransferController dataTransferController;
+
 
     @Override
     public IAction createAddBookAction() {
-        return new AddBookAction(dataManager);
+        return new AddBookAction(bookController);
     }
 
     @Override
     public IAction writeOffBookAction() {
-        return new WriteOffBookAction(dataManager);
+        return new WriteOffBookAction(bookController);
     }
 
     @Override
     public IAction allBooksListAction() {
-        return new AllBooksListAction(dataManager);
+        return new AllBooksListAction(bookController);
     }
 
     @Override
     public IAction sortBooksByTitleAction() {
-        return new SortBooksByTitleAction(dataManager);
+        return new SortBooksByTitleAction(bookController);
     }
 
     @Override
     public IAction sortBooksByPriceAction() {
-        return new SortBooksByPriceAction(dataManager);
+        return new SortBooksByPriceAction(bookController);
     }
 
     @Override
     public IAction sortBooksByYearDescAction() {
-        return new SortBooksByYearDescAction(dataManager);
+        return new SortBooksByYearDescAction(bookController);
     }
 
     @Override
     public IAction sortBooksByAvailiable() {
-        return new SortBooksByAvailiable(dataManager);
+        return new SortBooksByAvailiable(bookController);
     }
 
     @Override
     public IAction createOrderAction() {
-        return new CreateOrderAction(dataManager);
+        return new CreateOrderAction(bookController, customerController, orderController);
     }
 
     @Override
     public IAction cancelOrderAction() {
-        return new CancelOrderAction(dataManager);
+        return new CancelOrderAction(orderController);
     }
 
     @Override
     public IAction changeOrderStatusAction() {
-        return new ChangeOrderStatusAction(dataManager);
+        return new ChangeOrderStatusAction(orderController);
     }
 
     @Override
     public IAction showAllOrdersAction() {
-        return new ShowAllOrdersAction(dataManager);
+        return new ShowAllOrdersAction(orderController);
     }
 
     @Override
     public IAction sortOrdersByDateAction() {
-        return new SortOrdersByDateAction(dataManager);
+        return new SortOrdersByDateAction(orderController);
     }
 
     @Override
     public IAction sortOrdersByPriceAction() {
-        return new SortOrdersByPriceAction(dataManager);
+        return new SortOrdersByPriceAction(orderController);
     }
 
     @Override
     public IAction sortOrdersByStatusAction() {
-        return new SortOrdersByStatusAction(dataManager);
+        return new SortOrdersByStatusAction(orderController);
     }
 
     @Override
     public IAction createBookRequestAction() {
-        return new CreateBookRequestAction(dataManager);
+        return new CreateBookRequestAction(requestBookController, bookController);
     }
 
     @Override
     public IAction showAllBookRequestsAction() {
-        return new ShowAllBookRequestsAction(dataManager);
+        return new ShowAllBookRequestsAction(requestBookController);
     }
 
     @Override
     public IAction sortRequestsByCountAction() {
-        return new SortRequestsByCountAction(dataManager);
+        return new SortRequestsByCountAction(requestBookController);
     }
 
     @Override
     public IAction sortRequestsByTitleAction() {
-        return new SortRequestsByTitleAction(dataManager);
+        return new SortRequestsByTitleAction(requestBookController);
     }
 
     @Override
     public IAction sortCompletedOrdersByDateAction() {
-        return new SortCompletedOrdersByDateAction(dataManager);
+        return new SortCompletedOrdersByDateAction(orderController);
     }
 
     @Override
     public IAction sortCompletedOrdersByPriceAction() {
-        return new SortCompletedOrdersByPriceAction(dataManager);
+        return new SortCompletedOrdersByPriceAction(orderController);
     }
 
     @Override
     public IAction showCompletedOrdersCountAction() {
-        return new ShowCompletedOrdersCountAction(dataManager);
+        return new ShowCompletedOrdersCountAction(orderController);
     }
 
     @Override
     public IAction showTotalRevenueAction() {
-        return new ShowTotalRevenueAction(dataManager);
+        return new ShowTotalRevenueAction(orderController);
     }
 
     @Override
     public IAction showAllCustomer() {
-        return new ShowAllCustomer(dataManager);
+        return new ShowAllCustomer(customerController);
     }
 
     @Override
     public IAction importBooksAction() {
-        return new ImportBooksAction(dataManager);
+        return new ImportBooksAction(dataTransferController);
     }
 
     @Override
     public IAction exportBooksAction() {
-        return new ExportBookAction(dataManager);
+        return new ExportBookAction(dataTransferController);
     }
 
     @Override
     public IAction exportOrderAction() {
-        return new ExportOrderAction(dataManager);
+        return new ExportOrderAction(dataTransferController);
     }
 
     @Override
     public IAction importOrderAction() {
-        return new ImportOrderAction(dataManager);
+        return new ImportOrderAction(dataTransferController);
     }
 
     @Override
     public IAction importClient() {
-        return new ImportCustomerAction(dataManager);
+        return new ImportCustomerAction(dataTransferController);
     }
 
     @Override
     public IAction exportClient() {
-        return new ExportCustomerAction(dataManager);
+        return new ExportCustomerAction(dataTransferController);
     }
 
     @Override
     public IAction importRequestAction() {
-        return new ImportRequestAction(dataManager);
+        return new ImportRequestAction(dataTransferController);
     }
 
     @Override
     public IAction exportRequestAction() {
-        return new ExportRequestAction(dataManager);
+        return new ExportRequestAction(dataTransferController);
     }
 
     @Override
     public IAction showStaleBooksAction() {
-        return new ShowStaleBooksAction(dataManager, libraryConfig);
+        return new ShowStaleBooksAction(bookController, libraryConfig);
     }
 
     @Override
     public IAction addCustomerAction() {
-        return new AddCustomerAction(dataManager);
+        return new AddCustomerAction(customerController);
     }
 }

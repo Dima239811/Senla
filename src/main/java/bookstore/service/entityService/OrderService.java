@@ -19,9 +19,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class OrderService implements IService<Order> {
+    private final OrderDAO orderDAO;
 
     @Autowired
-    private OrderDAO orderDAO;
+    public OrderService(OrderDAO orderDAO) {
+        this.orderDAO = orderDAO;
+    }
 
     public void createOrder(Book book, Customer customer, Date orderDate) {
         Order order = new Order(book, customer, orderDate, book.getPrice());

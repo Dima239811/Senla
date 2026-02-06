@@ -1,4 +1,4 @@
-package bookstore.model;
+package bookstore.service;
 
 import bookstore.enums.OrderStatus;
 import bookstore.exception.DataExportException;
@@ -20,17 +20,16 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-public class DataManager {
+@Service
+public class ApplicationService {
     @Autowired
     private BookService bookService;
 
@@ -61,12 +60,6 @@ public class DataManager {
 
     @Autowired
     private LibraryConfig libraryConfig;
-
-    // отладочный метод
-    @PostConstruct
-    public void postConstruct() {
-        System.out.println("Дата менеджер создался!");
-    }
 
     // транзакция
     public void writeOffBook(int bookId) {

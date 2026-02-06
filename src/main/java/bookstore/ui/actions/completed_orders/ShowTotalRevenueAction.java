@@ -1,7 +1,8 @@
 package bookstore.ui.actions.completed_orders;
 
+import bookstore.controller.OrderController;
 import bookstore.exception.DataManagerException;
-import bookstore.model.DataManager;
+import bookstore.service.ApplicationService;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +13,11 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class ShowTotalRevenueAction implements IAction {
-    private final DataManager dataManager;
+    private final OrderController orderController;
     private static final Logger logger = LoggerFactory.getLogger(ShowTotalRevenueAction.class);
 
-    public ShowTotalRevenueAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public ShowTotalRevenueAction(OrderController orderController) {
+        this.orderController = orderController;
     }
 
 
@@ -34,7 +35,7 @@ public class ShowTotalRevenueAction implements IAction {
 
             try {
                 // Получение и вывод отсортированных заказов
-                var price = dataManager.calculateIncomeForPeriod(from, to);
+                var price = orderController.calculateIncomeForPeriod(from, to);
 
                 System.out.println("за период заработано " + price);
                 logger.info("Количество заработанных средств за период: {}", price);

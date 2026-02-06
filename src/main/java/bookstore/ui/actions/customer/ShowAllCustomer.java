@@ -1,8 +1,9 @@
 package bookstore.ui.actions.customer;
 
+import bookstore.controller.CustomerController;
 import bookstore.exception.DataManagerException;
+import bookstore.service.ApplicationService;
 import bookstore.model.entity.Customer;
-import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +11,11 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class ShowAllCustomer implements IAction {
-    private final DataManager dataManager;
+    private final CustomerController customerController;
     private static final Logger logger = LoggerFactory.getLogger(ShowAllCustomer.class);
 
-    public ShowAllCustomer(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public ShowAllCustomer(CustomerController customerController) {
+        this.customerController = customerController;
     }
 
     @Override
@@ -24,7 +25,7 @@ public class ShowAllCustomer implements IAction {
         System.out.println("вывод из клиентов книг");
 
         try {
-            List<Customer> customers = dataManager.getAllCustomers();
+            List<Customer> customers = customerController.getAllCustomer();
             System.out.println("\n=== СПИСОК ВСЕХ КЛИЕНТОВ ===");
             System.out.println("Всего клиентов: " + customers.size());
             System.out.println("-----------------------------------------------");

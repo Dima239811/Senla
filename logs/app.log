@@ -1,5 +1,5 @@
 2026-02-02 10:21:36 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: I/O failure while processing configuration class [bookstore.util.SpringConfig]
-2026-02-02 10:22:49 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataManager': Unsatisfied dependency expressed through field 'libraryConfig': No qualifying bean of type 'bookstore.util.LibraryConfig' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2026-02-02 10:22:49 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'applicationService': Unsatisfied dependency expressed through field 'libraryConfig': No qualifying bean of type 'bookstore.util.LibraryConfig' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
 2026-02-02 10:23:18 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'builder': Unsatisfied dependency expressed through field 'actionFactory': No qualifying bean of type 'bookstore.ui.action_factory.ActionFactory' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
 2026-02-02 10:24:00 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'navigator' defined in file [D:\code\alghoritm\target\classes\bookstore\ui\Navigator.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'bookstore.ui.Menu' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
 2026-02-02 10:25:58 INFO  [main] b.ui.actions.book.AllBooksListAction - Пользователь выбрал команду: вывод всех книг
@@ -34,3 +34,38 @@
 2026-02-02 10:26:57 INFO  [main] b.u.a.book.ShowStaleBooksAction - Найдено 14 залежавшихся книг
 2026-02-02 10:27:14 INFO  [main] b.u.a.order.SortOrdersByStatusAction - Пользователь выбрал команду: сортировка всех заказов по дате
 2026-02-02 10:27:14 INFO  [main] b.u.a.order.SortOrdersByStatusAction - выведено 18 заказов
+2026-02-06 17:41:16 INFO  [main] b.u.a.customer.AddCustomerAction - Пользователь выбрал команду: добавление клиента
+2026-02-06 17:41:37 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-06 17:41:37 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-06 17:41:38 WARN  [main] o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2026-02-06 17:41:38 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2026-02-06 17:41:38 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/bookstore]
+2026-02-06 17:41:38 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2026-02-06 17:41:38 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2026-02-06 17:41:38 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2026-02-06 17:41:38 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-06 17:41:39 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-06 17:41:39 INFO  [main] o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@68a426c3] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-02-06 17:41:39 INFO  [main] b.u.a.customer.AddCustomerAction - Успешно добавлен клиент: Иван иванов
+2026-02-06 17:41:54 INFO  [main] b.u.actions.customer.ShowAllCustomer - Пользователь выбрал команду: вывод всех клиентов
+2026-02-06 17:41:54 INFO  [main] b.u.actions.customer.ShowAllCustomer - Выведено 16 клиентов
+2026-02-06 17:42:11 INFO  [main] b.ui.actions.order.CreateOrderAction - Начало обработки команды: CreateOrderAction
+2026-02-06 17:42:15 ERROR [main] b.ui.actions.order.CreateOrderAction - Книга с ID 23 не найдена
+2026-02-06 17:42:15 ERROR [main] b.ui.actions.order.CreateOrderAction - Ошибка: Книга с ID 23 не найдена
+2026-02-06 17:42:33 INFO  [main] b.ui.actions.order.CreateOrderAction - Начало обработки команды: CreateOrderAction
+2026-02-06 17:44:16 INFO  [main] b.u.a.order.ShowAllOrdersAction - Пользователь выбрал команду: просмотр  всех заказов
+2026-02-06 17:44:16 INFO  [main] b.u.a.order.ShowAllOrdersAction - выведено 19 заказов
+2026-02-06 18:30:34 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'defaultActionFactory': Unsatisfied dependency expressed through field 'dataTransferController': No qualifying bean of type 'bookstore.controller.DataTransferController' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2026-02-06 18:31:19 INFO  [main] b.u.a.csv.order.ImportOrderAction - Запуск действия: импорт заказов в CSV.
+2026-02-06 18:31:26 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-06 18:31:26 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-06 18:31:26 WARN  [main] o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2026-02-06 18:31:26 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2026-02-06 18:31:26 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/bookstore]
+2026-02-06 18:31:26 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2026-02-06 18:31:26 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2026-02-06 18:31:26 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2026-02-06 18:31:27 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-06 18:31:28 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-06 18:31:28 INFO  [main] o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@11574592] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-02-06 18:31:28 ERROR [main] b.u.a.csv.order.ImportOrderAction - Ошибка при импорте заказов: Ошибка чтения файла fff: fff (Не удается найти указанный файл)

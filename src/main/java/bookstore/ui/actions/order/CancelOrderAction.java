@@ -1,8 +1,9 @@
 package bookstore.ui.actions.order;
 
+import bookstore.controller.OrderController;
 import bookstore.exception.DataManagerException;
 import bookstore.exception.IncorrectNumberException;
-import bookstore.model.DataManager;
+import bookstore.service.ApplicationService;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +11,11 @@ import org.slf4j.LoggerFactory;
 import java.util.Scanner;
 
 public class CancelOrderAction implements IAction {
-    private final DataManager dataManager;
+    private final OrderController orderController;
     private static final Logger logger = LoggerFactory.getLogger(CancelOrderAction.class);
 
-    public CancelOrderAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public CancelOrderAction(OrderController orderController) {
+        this.orderController = orderController;
     }
 
     @Override
@@ -36,7 +37,7 @@ public class CancelOrderAction implements IAction {
                 throw new IncorrectNumberException("ID заказа должен быть положительным числом");
             }
 
-            dataManager.cancelOrder(id);
+            orderController.cancelOrder(id);
             System.out.println("Заказ отменен");
             logger.info("Заказа с id {} успешно отменен", id);
         } catch (IncorrectNumberException e) {

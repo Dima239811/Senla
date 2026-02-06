@@ -12,10 +12,12 @@ import java.util.Collections;
 
 @Service
 public class CustomerService implements IService<Customer> {
+    private final CustomerDAO customerDAO;
 
     @Autowired
-    private CustomerDAO customerDAO;
-
+    public CustomerService(CustomerDAO customerDAO) {
+        this.customerDAO = customerDAO;
+    }
 
     @Override
     public List<Customer> getAll() {

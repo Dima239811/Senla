@@ -1,8 +1,9 @@
 package bookstore.ui.actions.csv.customer;
 
+import bookstore.controller.DataTransferController;
 import bookstore.exception.DataImportException;
+import bookstore.service.ApplicationService;
 import bookstore.model.entity.Customer;
-import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,12 +12,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ImportCustomerAction implements IAction {
-    private final DataManager dataManager;
+    private final DataTransferController dataTransferController;
     private final Scanner scanner;
     private static final Logger logger = LoggerFactory.getLogger(ImportCustomerAction.class);
 
-    public ImportCustomerAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public ImportCustomerAction(DataTransferController dataTransferController) {
+        this.dataTransferController = dataTransferController;
         this.scanner = new Scanner(System.in);
     }
 
@@ -28,7 +29,7 @@ public class ImportCustomerAction implements IAction {
             System.out.print("Введите путь к файлу: ");
             String path = scanner.nextLine().trim();
 
-            List<Customer> imported = dataManager.importCustomersFromCsv(path);
+            List<Customer> imported = dataTransferController.importCustomersFromCsv(path);
             System.out.printf("Успешно импортировано %d клиентов\n", imported.size());
             logger.info("Импорт клиентов завершён успешно. Файл: {}", path);
         } catch (DataImportException e) {

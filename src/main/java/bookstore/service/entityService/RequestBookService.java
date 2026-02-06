@@ -17,8 +17,12 @@ import java.util.stream.Collectors;
 @Service
 public class RequestBookService implements IService<RequestBook> {
 
+    private final RequestBookDAO requestBookDAO;
+
     @Autowired
-    private RequestBookDAO requestBookDAO;
+    public RequestBookService(RequestBookDAO requestBookDAO) {
+        this.requestBookDAO = requestBookDAO;
+    }
 
     public void closeRequest(Book book) {
         List<RequestBook> requestBooks = getAll();

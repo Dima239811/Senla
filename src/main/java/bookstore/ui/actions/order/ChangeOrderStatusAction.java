@@ -1,9 +1,10 @@
 package bookstore.ui.actions.order;
 
+import bookstore.controller.OrderController;
 import bookstore.enums.OrderStatus;
 import bookstore.exception.DataManagerException;
 import bookstore.exception.IncorrectNumberException;
-import bookstore.model.DataManager;
+import bookstore.service.ApplicationService;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +12,11 @@ import org.slf4j.LoggerFactory;
 import java.util.Scanner;
 
 public class ChangeOrderStatusAction implements IAction {
-    private final DataManager dataManager;
+    private final OrderController orderController;
     private static final Logger logger = LoggerFactory.getLogger(ChangeOrderStatusAction.class);
 
-    public ChangeOrderStatusAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public ChangeOrderStatusAction(OrderController orderController) {
+        this.orderController = orderController;
     }
 
     @Override
@@ -53,7 +54,7 @@ public class ChangeOrderStatusAction implements IAction {
                 }
             };
 
-            dataManager.changeStatusOrder(id, selectedStatus);
+            orderController.changeStatusOrder(id, selectedStatus);
             System.out.println("Статус заказа успешно изменен.");
             logger.info("Статус заказа с id {} успешно изменен", id);
         } catch (IncorrectNumberException e) {

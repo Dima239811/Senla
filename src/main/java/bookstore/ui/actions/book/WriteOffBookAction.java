@@ -1,6 +1,7 @@
 package bookstore.ui.actions.book;
 
-import bookstore.model.DataManager;
+import bookstore.controller.BookController;
+import bookstore.service.ApplicationService;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,11 +9,11 @@ import org.slf4j.LoggerFactory;
 import java.util.Scanner;
 
 public class WriteOffBookAction implements IAction {
-    private final DataManager dataManager;
+    private final BookController bookController;
     private static final Logger logger = LoggerFactory.getLogger(WriteOffBookAction.class);
 
-    public WriteOffBookAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public WriteOffBookAction(BookController bookController) {
+        this.bookController = bookController;
     }
 
     @Override
@@ -23,7 +24,7 @@ public class WriteOffBookAction implements IAction {
 
         try {
             int id = scanner.nextInt();
-            dataManager.writeOffBook(id);
+            bookController.writeOffBook(id);
             logger.info("Книга с id " + id + " успешно списана");
         } catch (Exception ex) {
             logger.error("Введено некорректное число");

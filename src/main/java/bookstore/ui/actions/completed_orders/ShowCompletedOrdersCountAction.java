@@ -1,7 +1,8 @@
 package bookstore.ui.actions.completed_orders;
 
+import bookstore.controller.OrderController;
 import bookstore.exception.DataManagerException;
-import bookstore.model.DataManager;
+import bookstore.service.ApplicationService;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +13,11 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class ShowCompletedOrdersCountAction implements IAction {
-    private final DataManager dataManager;
+    private final OrderController orderController;
     private static final Logger logger = LoggerFactory.getLogger(ShowCompletedOrdersCountAction.class);
 
-    public ShowCompletedOrdersCountAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public ShowCompletedOrdersCountAction(OrderController orderController) {
+        this.orderController = orderController;
     }
 
     public void execute() {
@@ -31,7 +32,7 @@ public class ShowCompletedOrdersCountAction implements IAction {
             Date to = parseDate(scanner.nextLine());
 
             try {
-                int count = dataManager.getCountPerformedOrder(from, to);
+                int count = orderController.getCountPerformedOrder(from, to);
 
                 System.out.println("Количество выполненных заказов " + count + " за период с " + from + " по " + to);
                 logger.info("Количество выполненных заказов за период: {}", count);

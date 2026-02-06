@@ -1,8 +1,8 @@
 package bookstore.ui.actions.book;
 
+import bookstore.controller.BookController;
 import bookstore.exception.DataManagerException;
 import bookstore.model.entity.Book;
-import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +11,11 @@ import java.util.List;
 
 public class AllBooksListAction implements IAction {
 
-    private final DataManager dataManager;
+    private final BookController bookController;
     private static final Logger logger = LoggerFactory.getLogger(AllBooksListAction.class);
 
-    public AllBooksListAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public AllBooksListAction(BookController bookController) {
+        this.bookController = bookController;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class AllBooksListAction implements IAction {
         System.out.println("вывод из списка книг");
 
         try {
-            List<Book> books = dataManager.getAllBooks();
+            List<Book> books = bookController.getAllBooks();
             System.out.println("\n=== СПИСОК ВСЕХ КНИГ ===");
             System.out.println("Всего книг: " + books.size());
             System.out.println("-----------------------------------------------");

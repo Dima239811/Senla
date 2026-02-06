@@ -18,12 +18,11 @@ import java.util.List;
 @Service
 public class BookService implements IService<Book> {
 
-    @Autowired
-    private BookDAO bookDAO;
+    private final BookDAO bookDAO;
 
-    @PostConstruct
-    public void postConstruct() {
-        System.out.println("BookService has been inizialized");
+    @Autowired
+    public BookService(BookDAO bookDAO) {
+        this.bookDAO = bookDAO;
     }
 
     @Override

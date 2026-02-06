@@ -1,9 +1,11 @@
 package bookstore.ui.actions.request;
 
+import bookstore.controller.BookController;
+import bookstore.controller.RequestBookController;
 import bookstore.exception.DataManagerException;
+import bookstore.service.ApplicationService;
 import bookstore.model.entity.Book;
 import bookstore.model.entity.Customer;
-import bookstore.model.DataManager;
 import bookstore.model.entity.RequestBook;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
@@ -13,11 +15,13 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CreateBookRequestAction implements IAction {
-    private final DataManager dataManager;
+    private final RequestBookController requestBookController;
+    private final BookController bookController;
     private static final Logger logger = LoggerFactory.getLogger(CreateBookRequestAction.class);
 
-    public CreateBookRequestAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public CreateBookRequestAction(RequestBookController requestBookController, BookController bookController) {
+        this.requestBookController = requestBookController;
+        this.bookController = bookController;
     }
 
     @Override
@@ -31,7 +35,7 @@ public class CreateBookRequestAction implements IAction {
         try {
             int id = scanner.nextInt();
             scanner.nextLine();
-            Book book = dataManager.findBook(id);
+            Book book = bookController.getBookById(id);
 
             if (book == null) {
                 logger.error("книга с {} не найдена в базе", id);
@@ -52,7 +56,7 @@ public class CreateBookRequestAction implements IAction {
 
             RequestBook requestBook = new RequestBook(customer, book);
 
-            dataManager.addRequest(requestBook);
+            requestBookController.addRequest(requestBook);
             logger.info("запрос на книгу успешно создан");
         } catch (IllegalArgumentException e) {
             logger.error("Ошибка валидации: {}", e.getMessage());

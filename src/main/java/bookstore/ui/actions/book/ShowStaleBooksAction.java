@@ -1,8 +1,9 @@
 package bookstore.ui.actions.book;
 
+import bookstore.controller.BookController;
 import bookstore.exception.DataManagerException;
+import bookstore.service.ApplicationService;
 import bookstore.model.entity.Book;
-import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import bookstore.util.LibraryConfig;
 import org.slf4j.Logger;
@@ -13,15 +14,15 @@ import java.util.List;
 
 public class ShowStaleBooksAction implements IAction {
 
-    private final DataManager dataManager;
+    private final BookController bookController;
     private static final Logger logger = LoggerFactory.getLogger(ShowStaleBooksAction.class);
 
 
     private final LibraryConfig libraryConfig;
 
     @Autowired
-    public ShowStaleBooksAction(DataManager dataManager, LibraryConfig libraryConfig) {
-        this.dataManager = dataManager;
+    public ShowStaleBooksAction(BookController bookController, LibraryConfig libraryConfig) {
+        this.bookController = bookController;
         this.libraryConfig = libraryConfig;
     }
 
@@ -32,7 +33,7 @@ public class ShowStaleBooksAction implements IAction {
             int staleMonths = libraryConfig.getStaleMonths();
 
             try {
-                List<Book> staleBooks = dataManager.getStaleBooks(staleMonths);
+                List<Book> staleBooks = bookController.getStaleBooks(staleMonths);
 
                 if (staleBooks.isEmpty()) {
                     logger.info("Залежавшихся книг за последние {} месяцев не найдено", staleMonths);

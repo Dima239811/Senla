@@ -1,7 +1,8 @@
 package bookstore.ui.actions.completed_orders;
 
+import bookstore.controller.OrderController;
 import bookstore.exception.DataManagerException;
-import bookstore.model.DataManager;
+import bookstore.service.ApplicationService;
 import bookstore.model.entity.Order;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
@@ -14,11 +15,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SortCompletedOrdersByPriceAction implements IAction {
-    private final DataManager dataManager;
+    private final OrderController orderController;
     private static final Logger logger = LoggerFactory.getLogger(SortCompletedOrdersByPriceAction.class);
 
-    public SortCompletedOrdersByPriceAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public SortCompletedOrdersByPriceAction(OrderController orderController) {
+        this.orderController = orderController;
     }
 
     @Override
@@ -35,7 +36,7 @@ public class SortCompletedOrdersByPriceAction implements IAction {
 
             try {
                 // Получение и вывод отсортированных заказов
-                List<Order> orders = dataManager.sortPerformOrdersForPeriod("по цене", from, to);
+                List<Order> orders = orderController.sortPerformOrdersForPeriod("по цене", from, to);
 
                 if (orders.isEmpty()) {
                     System.out.println("В указанный период выполненные заказы не найдены.");

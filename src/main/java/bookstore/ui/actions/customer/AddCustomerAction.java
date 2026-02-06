@@ -1,9 +1,10 @@
 package bookstore.ui.actions.customer;
 
+import bookstore.controller.CustomerController;
 import bookstore.exception.DataManagerException;
 import bookstore.exception.DataValidationException;
+import bookstore.service.ApplicationService;
 import bookstore.model.entity.Customer;
-import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,10 +13,10 @@ import java.util.Scanner;
 
 public class AddCustomerAction implements IAction {
     private static final Logger logger = LoggerFactory.getLogger(AddCustomerAction.class);
-    private final DataManager dataManager;
+    private final CustomerController customerController;
 
-    public AddCustomerAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public AddCustomerAction(CustomerController customerController) {
+        this.customerController = customerController;
     }
 
     @Override
@@ -63,7 +64,7 @@ public class AddCustomerAction implements IAction {
 
             // Создание и сохранение клиента
             Customer customer = new Customer(fullName, age, phone, email, address);
-            dataManager.addCustomer(customer);
+            customerController.addCustomer(customer);
 
             logger.info("Успешно добавлен клиент: {}", fullName);
             System.out.println("\nКлиент '" + fullName + "' успешно добавлен!");

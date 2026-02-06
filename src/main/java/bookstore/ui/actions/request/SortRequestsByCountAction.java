@@ -1,7 +1,8 @@
 package bookstore.ui.actions.request;
 
+import bookstore.controller.RequestBookController;
 import bookstore.exception.DataManagerException;
-import bookstore.model.DataManager;
+import bookstore.service.ApplicationService;
 import bookstore.model.entity.RequestBook;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
@@ -10,11 +11,11 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class SortRequestsByCountAction implements IAction {
-    private final DataManager dataManager;
+    private final RequestBookController requestBookController;
     private static final Logger logger = LoggerFactory.getLogger(SortRequestsByCountAction.class);
 
-    public SortRequestsByCountAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public SortRequestsByCountAction(RequestBookController requestBookController) {
+        this.requestBookController = requestBookController;
     }
 
     @Override
@@ -23,7 +24,7 @@ public class SortRequestsByCountAction implements IAction {
         System.out.println("Сортировка по кол-ву запросов: ");
 
         try {
-            List<RequestBook> requestBooks = dataManager.sortRequest("по количеству запросов");
+            List<RequestBook> requestBooks = requestBookController.sortRequest("по количеству запросов");
 
             if (requestBooks.isEmpty()) {
                 logger.info("список запросов пуст");

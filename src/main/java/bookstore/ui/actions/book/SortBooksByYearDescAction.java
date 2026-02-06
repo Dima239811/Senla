@@ -1,9 +1,10 @@
 package bookstore.ui.actions.book;
 
+import bookstore.controller.BookController;
 import bookstore.enums.TypeSortBooks;
 import bookstore.exception.DataManagerException;
+import bookstore.service.ApplicationService;
 import bookstore.model.entity.Book;
-import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +12,11 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class SortBooksByYearDescAction implements IAction {
-    private final DataManager dataManager;
+    private final BookController bookController;
     private static final Logger logger = LoggerFactory.getLogger(SortBooksByYearDescAction.class);
 
-    public SortBooksByYearDescAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public SortBooksByYearDescAction(BookController bookController) {
+        this.bookController = bookController;
     }
     @Override
     public void execute() {
@@ -23,7 +24,7 @@ public class SortBooksByYearDescAction implements IAction {
         System.out.println("Сортировка книг по году издания");
 
         try {
-            List<Book> bookList = dataManager.sortBooks(TypeSortBooks.BY_YEAR.getValue());
+            List<Book> bookList = bookController.sortBooks(TypeSortBooks.BY_YEAR.getValue());
 
             if (bookList.isEmpty()) {
                 logger.info("Книги не найдены");

@@ -1,0 +1,5 @@
+2026-01-22 17:19:46 INFO  [main] org.reflections.Reflections - Reflections took 167 ms to scan 1 urls, producing 15 keys and 77 values
+2026-01-22 17:19:52 INFO  [main] b.ui.actions.book.AddBookAction - Пользователь начал выполнение команды: AddBookAction
+2026-01-22 17:20:17 INFO  [main] b.ui.actions.book.AddBookAction - Книга 'Компьютерные сети' успешно добавлена автором 'Олифер'
+2026-01-22 17:20:25 INFO  [main] b.u.a.book.SortBooksByTitleAction - Пользователь выбрал действие сортировки книг по названию
+2026-01-22 17:20:25 INFO  [main] b.u.a.book.SortBooksByTitleAction - Найдено книг 14

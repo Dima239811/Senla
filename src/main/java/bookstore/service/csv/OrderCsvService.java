@@ -4,9 +4,9 @@ import bookstore.enums.OrderStatus;
 import bookstore.enums.StatusBook;
 import bookstore.exception.DataExportException;
 import bookstore.exception.DataImportException;
-import  bookstore.model.Book;
-import  bookstore.model.Customer;
-import  bookstore.model.Order;
+import bookstore.model.entity.Book;
+import bookstore.model.entity.Customer;
+import bookstore.model.entity.Order;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -18,7 +18,7 @@ import java.util.Locale;
 public class OrderCsvService implements ICsvService<Order> {
 
     @Override
-    public void exportToCsv(List<Order> items, String filePath) throws Exception {
+    public void exportToCsv(List<Order> items, String filePath) throws DataExportException {
         if (items == null) {
             throw new DataExportException("Список заказов не может быть пустым!");
         }
@@ -53,7 +53,7 @@ public class OrderCsvService implements ICsvService<Order> {
 
                         b.getBookId(),
                         quote(b.getName()),
-                        quote(b.getAuthtor()),
+                        quote(b.getAuthor()),
                         b.getYear(),
                         b.getPrice(),
                         b.getStatus().getValue(),
@@ -69,7 +69,7 @@ public class OrderCsvService implements ICsvService<Order> {
 
             printWriter.flush();
         } catch (IOException exception) {
-            throw new DataExportException("Файл " + filePath + " не найден");
+            throw new DataExportException("Файл " + filePath + " не найден " +  exception);
         }
     }
 

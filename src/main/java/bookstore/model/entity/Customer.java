@@ -1,11 +1,33 @@
-package bookstore.model;
+package bookstore.model.entity;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+
+@Entity
+@Table(name = "customer")
 public class Customer {
+    @Column(name = "fullName", nullable = false)
     private String fullName;
+
+    @Column(name = "age", nullable = false)
     private int age;
+
+    @Column(name = "phoneNumber", nullable = false, unique = true)
     private String phoneNumber;
+
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "address", nullable = true)
     private String address;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int customerID;
 
     public Customer() { }
@@ -24,54 +46,6 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
-        this.customerID = customerID;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public int getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(int customerID) {
         this.customerID = customerID;
     }
 

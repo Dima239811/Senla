@@ -19,7 +19,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        //BasicConfigurator.configure();
         Main main = new Main();
         ApplicationContext applicationContext = main.run();
 
@@ -28,15 +27,8 @@ public class Main {
 
         DataManager dataManager = applicationContext.getBean(DataManager.class);
 
-        //dataManager.loadStateFromJson("state.json");
-
         Builder builder = applicationContext.getBean(Builder.class);
         builder.buildMenu();
-
-//        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-//            System.out.println("Сохраняем состояние...");
-//            dataManager.saveStateToJson("state.json");
-//        }));
 
         MenuController menuController = applicationContext.getBean(MenuController.class);
         menuController.run();

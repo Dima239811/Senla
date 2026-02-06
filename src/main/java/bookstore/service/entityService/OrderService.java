@@ -5,13 +5,13 @@ import bookstore.comporator.order.PriceOrderComporator;
 import bookstore.comporator.order.StatusOrderComporator;
 import bookstore.dependesies.annotation.Inject;
 import bookstore.enums.OrderStatus;
-import bookstore.model.Book;
-import bookstore.model.Customer;
-import bookstore.model.Order;
+import bookstore.exception.DaoException;
+import bookstore.exception.ServiceException;
+import bookstore.model.entity.Book;
+import bookstore.model.entity.Customer;
+import bookstore.model.entity.Order;
 import bookstore.repo.dao.OrderDAO;
 
-
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +31,6 @@ public class OrderService implements IService<Order> {
         add(order);
     }
 
-
     public void cancelOrder(int orderId) {
         try {
             Order order = orderDAO.findById(orderId);
@@ -42,11 +41,12 @@ public class OrderService implements IService<Order> {
             order.setStatus(OrderStatus.CANCELLED);
             try {
                 orderDAO.update(order);
-            } catch (SQLException e) {
-                throw new RuntimeException("Fail to update order status " + orderId + " in orderSevice in cancelOrder()" + e.getMessage());
+            } catch (DaoException e) {
+                throw new ServiceException("Fail to update order status " + orderId + " in orderSevice in cancelOrder()",
+                        e);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail to get order by id " + orderId + " in orderSevice in cancelOrder()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Fail to get order by id " + orderId + " in orderSevice in cancelOrder()", e);
         }
     }
 
@@ -60,17 +60,19 @@ public class OrderService implements IService<Order> {
             order.setStatus(status);
             try {
                 orderDAO.update(order);
-            } catch (SQLException e) {
-                throw new RuntimeException("Fail to update order status " + orderId + " in orderSevice in changeOrderStatus()" + e.getMessage());
+            } catch (DaoException e) {
+                throw new ServiceException("Fail to update order status " + orderId +
+                        " in orderSevice in changeOrderStatus()", e);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail to get order by id " + orderId + " in orderSevice in changeOrderStatus()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Fail to get order by id " +
+                    orderId + " in orderSevice in changeOrderStatus()", e);
         }
     }
 
     public List<Order> sortOrders(String criteria) {
         try {
-            List<Order> orders = orderDAO.getAll();
+            List<Order> orders = orderDAO.getAllWithBooksAndCustomers();
             switch (criteria.toLowerCase()) {
                 case "по дате":
                     orders.sort(new DateOrderComporator());
@@ -85,13 +87,13 @@ public class OrderService implements IService<Order> {
                     System.out.println("Ошибка: неопознанный критерий сортировки.");
                     return orders;
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail to get all order " +  " in orderSevice in sortOrders()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Fail to get all order " +  " in orderSevice in sortOrders()", e);
         }
     }
 
-    private List<Order> filterOrdersByDateAndStatus(Date from, Date to, OrderStatus status) throws SQLException {
-        return orderDAO.getAll().stream()
+    private List<Order> filterOrdersByDateAndStatus(Date from, Date to, OrderStatus status) {
+        return orderDAO.getAllWithBooksAndCustomers().stream()
                 .filter(order -> order.getStatus() == status)
                 .filter(order -> !order.getOrderDate().before(from) && !order.getOrderDate().after(to))
                 .collect(Collectors.toList());
@@ -111,8 +113,8 @@ public class OrderService implements IService<Order> {
                 default:
                     return completedOrders;
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail sortPerformOrders " +  " in orderSevice in sortPerformOrders()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Fail sortPerformOrders " +  " in orderSevice in sortPerformOrders()", e);
         }
     }
 
@@ -122,16 +124,18 @@ public class OrderService implements IService<Order> {
                     .stream()
                     .mapToDouble(Order::getFinalPrice)
                     .sum();
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail calculateIncomeForPerioud " +  " in orderSevice in calculateIncomeForPerioud()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Fail calculateIncomeForPerioud " +
+                    " in orderSevice in calculateIncomeForPerioud()", e);
         }
     }
 
     public int getCountPerformedOrder(Date from, Date to) {
         try {
             return filterOrdersByDateAndStatus(from, to, OrderStatus.COMPLETED).size();
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail getCountPerformedOrder " +  " in orderSevice in getCountPerformedOrder()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Fail getCountPerformedOrder " +
+                    " in orderSevice in getCountPerformedOrder()", e);
         }
     }
 
@@ -139,9 +143,9 @@ public class OrderService implements IService<Order> {
     @Override
     public List<Order> getAll() {
         try {
-            return orderDAO.getAll();
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail getAll " +  " in orderSevice in getAll()" + e.getMessage());
+            return orderDAO.getAllWithBooksAndCustomers();
+        } catch (DaoException e) {
+            throw new ServiceException("Fail getAll " +  " in orderSevice in getAll()", e);
         }
     }
 
@@ -149,8 +153,8 @@ public class OrderService implements IService<Order> {
     public Order getById(int id) {
         try {
             return orderDAO.findById(id);
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail getById " +  " in orderSevice in getById()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Fail getById " +  " in orderSevice in getById()", e);
         }
     }
 
@@ -173,8 +177,8 @@ public class OrderService implements IService<Order> {
             } else {
                 orderDAO.create(item);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail add " +  " in orderSevice in add()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Fail add " +  " in orderSevice in add()", e);
         }
     }
 
@@ -182,8 +186,8 @@ public class OrderService implements IService<Order> {
     public void update(Order item) {
         try {
             orderDAO.update(item);
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail update " +  " in orderSevice in update()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Fail update " +  " in orderSevice in update()", e);
         }
     }
 }

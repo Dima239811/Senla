@@ -4,9 +4,9 @@ import bookstore.enums.RequestStatus;
 import bookstore.enums.StatusBook;
 import bookstore.exception.DataExportException;
 import bookstore.exception.DataImportException;
-import  bookstore.model.Book;
-import  bookstore.model.Customer;
-import  bookstore.model.RequestBook;
+import bookstore.model.entity.Book;
+import bookstore.model.entity.Customer;
+import bookstore.model.entity.RequestBook;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class RequestBookCsvService implements ICsvService<RequestBook> {
 
             printWriter.flush();
         } catch (IOException e) {
-            throw new DataExportException("Ошибка записи в файл: " + e.getMessage());
+            throw new DataExportException("Ошибка записи в файл: " + e);
         }
     }
 

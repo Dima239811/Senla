@@ -1,7 +1,8 @@
 package bookstore.ui.actions.completed_orders;
 
-import  bookstore.model.DataManager;
-import  bookstore.model.Order;
+import bookstore.exception.DataManagerException;
+import bookstore.model.DataManager;
+import bookstore.model.entity.Order;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,18 +33,23 @@ public class SortCompletedOrdersByDateAction implements IAction {
             System.out.println("Введите конечную дату (формат: дд.мм.гггг):");
             Date to = parseDate(scanner.nextLine());
 
-            // Получение и вывод отсортированных заказов
-            List<Order> orders = dataManager.sortPerformOrdersForPeriod("по дате", from, to);
+            try {
+                // Получение и вывод отсортированных заказов
+                List<Order> orders = dataManager.sortPerformOrdersForPeriod("по дате", from, to);
 
-            if (orders.isEmpty()) {
-                System.out.println("В указанный период выполненные заказы не найдены.");
-                logger.info("В период с {} по {} заказы не найдены", from, to);
-            } else {
-                System.out.println("\nРезультаты (" + orders.size() + " заказов):");
-                System.out.println("-----------------------------------------------");
-                orders.forEach(order -> System.out.println(order));
-                System.out.println("-----------------------------------------------");
-                logger.info("В период с {} по {} отсортировано {} заказов по дате", from, to, orders.size());
+                if (orders.isEmpty()) {
+                    System.out.println("В указанный период выполненные заказы не найдены.");
+                    logger.info("В период с {} по {} заказы не найдены", from, to);
+                } else {
+                    System.out.println("\nРезультаты (" + orders.size() + " заказов):");
+                    System.out.println("-----------------------------------------------");
+                    orders.forEach(order -> System.out.println(order));
+                    System.out.println("-----------------------------------------------");
+                    logger.info("В период с {} по {} отсортировано {} заказов по дате", from, to, orders.size());
+                }
+            } catch (DataManagerException ex) {
+                System.out.println("Ошибка при сортировке выполненных заказов по дате " + ex.getCause());
+                logger.error("Ошибка при сортировке выполненных заказов по дате {}", String.valueOf(ex.getCause()));
             }
         } catch (ParseException e) {
             logger.error("Ошибка парсинга даты {}", e.getMessage());

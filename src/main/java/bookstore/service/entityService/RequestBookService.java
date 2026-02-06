@@ -3,12 +3,13 @@ package bookstore.service.entityService;
 import bookstore.comporator.request.LetterRequestComporator;
 import bookstore.dependesies.annotation.Inject;
 import bookstore.enums.RequestStatus;
-import bookstore.model.Book;
-import bookstore.model.Customer;
-import bookstore.model.RequestBook;
+import bookstore.exception.DaoException;
+import bookstore.exception.ServiceException;
+import bookstore.model.entity.Book;
+import bookstore.model.entity.Customer;
+import bookstore.model.entity.RequestBook;
 import bookstore.repo.dao.RequestBookDAO;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,15 +32,15 @@ public class RequestBookService implements IService<RequestBook> {
         RequestBook requestBook = new RequestBook(customer, book);
         try {
             requestBookDAO.create(requestBook);
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail to create request for book id: " + book.getBookId() +
-                    " in RequestBookService in createRequest()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Fail to create request for book id: " + book.getBookId() +
+                    " in RequestBookService in createRequest()", e);
         }
     }
 
     public List<RequestBook> sortRequest(String criteria) {
         try {
-            List<RequestBook> requestBooks = requestBookDAO.getAll();
+            List<RequestBook> requestBooks = requestBookDAO.getAllWithBooksAndCustomers();
             if (criteria.equals("по алфавиту")) {
                 requestBooks.sort(new LetterRequestComporator());
                 return requestBooks;
@@ -58,17 +59,17 @@ public class RequestBookService implements IService<RequestBook> {
                 System.out.println("такого критерия сортировки нет");
                 return requestBooks;
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail to create request in RequestBookService in sortRequest()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Fail to create request in RequestBookService in sortRequest()", e);
         }
     }
 
     @Override
     public List<RequestBook> getAll() {
         try {
-            return requestBookDAO.getAll();
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail to get all requests in RequestBookService in getAll()" + e.getMessage());
+            return requestBookDAO.getAllWithBooksAndCustomers();
+        } catch (DaoException e) {
+            throw new ServiceException("Fail to get all requests in RequestBookService in getAll()", e);
         }
     }
 
@@ -76,9 +77,9 @@ public class RequestBookService implements IService<RequestBook> {
     public RequestBook getById(int id) {
         try {
             return requestBookDAO.findById(id);
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail to get request by id: " + id +
-                    " in RequestBookService in getById()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Fail to get request by id: " + id +
+                    " in RequestBookService in getById()", e);
         }
     }
 
@@ -91,9 +92,9 @@ public class RequestBookService implements IService<RequestBook> {
             } else {
                 requestBookDAO.create(item);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail to add request with id: " + item.getRequestId() +
-                    " in RequestBookService in add()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Fail to add request with id: " + item.getRequestId() +
+                    " in RequestBookService in add()", e);
         }
     }
 
@@ -101,9 +102,9 @@ public class RequestBookService implements IService<RequestBook> {
     public void update(RequestBook item) {
         try {
             requestBookDAO.update(item);
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail to update request with id: " + item.getRequestId() +
-                    " in RequestBookService in update()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Fail to update request with id: " + item.getRequestId() +
+                    " in RequestBookService in update()", e);
         }
     }
 }

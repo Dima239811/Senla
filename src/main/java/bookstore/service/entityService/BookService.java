@@ -7,10 +7,11 @@ import bookstore.comporator.book.YearComporator;
 import bookstore.dependesies.annotation.Inject;
 import bookstore.dependesies.annotation.PostConstruct;
 import bookstore.enums.StatusBook;
-import bookstore.model.Book;
+import bookstore.exception.DaoException;
+import bookstore.exception.ServiceException;
+import bookstore.model.entity.Book;
 import bookstore.repo.dao.BookDAO;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class BookService implements IService<Book> {
@@ -29,8 +30,8 @@ public class BookService implements IService<Book> {
         try {
             List<Book> books = bookDAO.getAll();
             return books;
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail to get all book in warehouseSevice in getAll()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to get all books", e.getCause());
         }
     }
 
@@ -39,8 +40,8 @@ public class BookService implements IService<Book> {
         try {
             Book book = bookDAO.findById(id);
             return book;
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail to get book by id " + id + " in warehouseSevice in getById()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to get books by id " + id + " ", e);
         }
     }
 
@@ -54,8 +55,10 @@ public class BookService implements IService<Book> {
             } else {
                 bookDAO.create(item);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail to add book " + item.getBookId() + " in warehouseSevice in add()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException(
+                    "Failed to add or update book with id " + item.getBookId(), e
+            );
         }
     }
 
@@ -63,8 +66,10 @@ public class BookService implements IService<Book> {
     public void update(Book item) {
         try {
             bookDAO.update(item);
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail to update book " + item.getBookId() + " in warehouseSevice in update()" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException(
+                    "Failed to update book with id " + item.getBookId(), e
+            );
         }
     }
 
@@ -88,15 +93,17 @@ public class BookService implements IService<Book> {
                     System.out.println("Ошибка: неопознанный критерий сортировки.");
                     return books;
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Fail to get all book in warehouseSevice in sortBooks" + e.getMessage());
+        } catch (DaoException e) {
+            throw new ServiceException(
+                    "Failed to sort books by criteria: " + criteria, e
+            );
         }
     }
 
     public void writeOffBook(int bookId) {
         List<Book> books = getAll();
         for (Book b: books) {
-            if (b.getBookId() == bookId & b.getStatus().equals(StatusBook.IN_STOCK)) {
+            if (b.getBookId() == bookId && b.getStatus().equals(StatusBook.IN_STOCK)) {
                 b.setStatus(StatusBook.OUT_OF_STOCK);
                 update(b);
                 System.out.println("Статус книги изменен на - отсутсвует");

@@ -1,7 +1,7 @@
 package bookstore.ui.actions.csv.customer;
 
 import bookstore.exception.DataExportException;
-import  bookstore.model.DataManager;
+import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,8 +1,9 @@
 package bookstore.ui.actions.book;
 
 import bookstore.enums.StatusBook;
+import bookstore.exception.DataManagerException;
 import bookstore.exception.DataValidationException;
-import bookstore.model.Book;
+import bookstore.model.entity.Book;
 import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
@@ -70,6 +71,9 @@ public class AddBookAction implements IAction {
         } catch (DataValidationException e) {
             logger.error("Ошибка валидации при добавлении книги: {}", e.getMessage());
             System.out.println("Ошибка валидации: " + e.getMessage());
+        } catch (DataManagerException e) {
+            logger.error("Ошибка при добавлении книги на склад: {}", e.getMessage());
+            System.out.println("Ошибка при добавлении книги: " + e.getMessage());
         } catch (Exception e) {
             logger.error("Неожиданная ошибка при добавлении книги", e);
             System.out.println("Неожиданная ошибка: " + e.getMessage());

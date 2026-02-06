@@ -2,7 +2,7 @@ package bookstore.comporator.book;
 
 
 
-import  bookstore.model.Book;
+import bookstore.model.entity.Book;
 
 import java.util.Comparator;
 

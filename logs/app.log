@@ -69,3 +69,142 @@
 2026-02-06 18:31:28 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
 2026-02-06 18:31:28 INFO  [main] o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@11574592] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
 2026-02-06 18:31:28 ERROR [main] b.u.a.csv.order.ImportOrderAction - Ошибка при импорте заказов: Ошибка чтения файла fff: fff (Не удается найти указанный файл)
+2026-02-17 16:48:08 INFO  [main] b.u.actions.customer.ShowAllCustomer - Пользователь выбрал команду: вывод всех клиентов
+2026-02-17 16:48:08 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-17 16:48:08 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-17 16:48:08 WARN  [main] o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2026-02-17 16:48:08 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2026-02-17 16:48:08 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/bookstore]
+2026-02-17 16:48:08 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2026-02-17 16:48:08 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2026-02-17 16:48:08 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2026-02-17 16:48:08 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-17 16:48:09 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17 16:48:09 INFO  [main] o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@25c8c71e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-02-17 16:48:09 INFO  [main] b.u.actions.customer.ShowAllCustomer - Выведено 21 клиентов
+2026-02-17 17:35:54 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'bookServiceImpl' defined in file [D:\code\Senla\target\classes\bookstore\service\entityService\BookService.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'orderService' defined in file [D:\code\Senla\target\classes\bookstore\service\entityService\OrderService.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'bookServiceImpl': Requested bean is currently in creation: Is there an unresolvable circular reference or an asynchronous initialization dependency?
+2026-02-17 17:36:51 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'bookServiceImpl' defined in file [D:\code\Senla\target\classes\bookstore\service\entityService\BookService.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'orderService' defined in file [D:\code\Senla\target\classes\bookstore\service\entityService\OrderService.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'bookServiceImpl': Requested bean is currently in creation: Is there an unresolvable circular reference or an asynchronous initialization dependency?
+2026-02-17 17:52:58 INFO  [main] b.u.actions.customer.ShowAllCustomer - Пользователь выбрал команду: вывод всех клиентов
+2026-02-17 17:52:58 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-17 17:52:58 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-17 17:52:58 WARN  [main] o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2026-02-17 17:52:58 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2026-02-17 17:52:58 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/bookstore]
+2026-02-17 17:52:58 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2026-02-17 17:52:58 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2026-02-17 17:52:58 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2026-02-17 17:52:58 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-17 17:52:59 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17 17:52:59 INFO  [main] o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5cba890e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-02-17 17:52:59 INFO  [main] b.u.actions.customer.ShowAllCustomer - Выведено 21 клиентов
+2026-02-17 17:53:06 INFO  [main] b.u.a.order.ShowAllOrdersAction - Пользователь выбрал команду: просмотр  всех заказов
+2026-02-17 17:53:06 INFO  [main] b.u.a.order.ShowAllOrdersAction - выведено 19 заказов
+2026-02-17 17:53:17 INFO  [main] b.ui.actions.book.AddBookAction - Пользователь начал выполнение команды: AddBookAction
+2026-02-17 17:53:34 INFO  [main] b.ui.actions.book.AddBookAction - Книга 'Психбольница в руках пациентов' успешно добавлена автором 'Алан Купер'
+2026-02-17 17:53:44 INFO  [main] b.ui.actions.book.AllBooksListAction - Пользователь выбрал команду: вывод всех книг
+2026-02-17 17:53:44 ERROR [main] b.repo.dao.HibernateAbstractDao - Error getting all bookstore.model.entity.Book
+jakarta.persistence.PersistenceException: Error attempting to apply AttributeConverter
+	at org.hibernate.type.descriptor.converter.internal.JpaAttributeConverterImpl.toDomainValue(JpaAttributeConverterImpl.java:93)
+	at org.hibernate.sql.results.graph.basic.BasicResultAssembler.assemble(BasicResultAssembler.java:80)
+	at org.hibernate.sql.results.graph.DomainResultAssembler.assemble(DomainResultAssembler.java:33)
+	at org.hibernate.sql.results.graph.entity.AbstractEntityInitializer.extractConcreteTypeStateValues(AbstractEntityInitializer.java:1081)
+	at org.hibernate.sql.results.graph.entity.AbstractEntityInitializer.initializeEntityInstance(AbstractEntityInitializer.java:838)
+	at org.hibernate.sql.results.graph.entity.AbstractEntityInitializer.initializeEntity(AbstractEntityInitializer.java:813)
+	at org.hibernate.sql.results.graph.entity.AbstractEntityInitializer.initializeInstance(AbstractEntityInitializer.java:799)
+	at org.hibernate.sql.results.internal.InitializersList.initializeInstance(InitializersList.java:70)
+	at org.hibernate.sql.results.internal.StandardRowReader.coordinateInitializers(StandardRowReader.java:109)
+	at org.hibernate.sql.results.internal.StandardRowReader.readRow(StandardRowReader.java:86)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:203)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:209)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.lambda$new$2(ConcreteSqmSelectQueryPlan.java:137)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:362)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:303)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.doList(QuerySqmImpl.java:509)
+	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:427)
+	at org.hibernate.query.Query.getResultList(Query.java:120)
+	at bookstore.repo.dao.HibernateAbstractDao.getAll(HibernateAbstractDao.java:66)
+	at bookstore.service.entityService.BookServiceImpl.getAll(BookService.java:39)
+	at bookstore.controller.BookController.getAllBooks(BookController.java:32)
+	at bookstore.ui.actions.book.AllBooksListAction.execute(AllBooksListAction.java:28)
+	at bookstore.ui.Navigator.navigate(Navigator.java:49)
+	at bookstore.ui.MenuController.run(MenuController.java:53)
+	at bookstore.Main.main(Main.java:19)
+Caused by: java.lang.IllegalArgumentException: Неизвестный статус книги: AVAILABLE
+	at bookstore.enums.StatusBook.fromValue(StatusBook.java:23)
+	at bookstore.model.converters.StatusBookConverter.convertToEntityAttribute(StatusBookConverter.java:19)
+	at bookstore.model.converters.StatusBookConverter.convertToEntityAttribute(StatusBookConverter.java:6)
+	at org.hibernate.type.descriptor.converter.internal.JpaAttributeConverterImpl.toDomainValue(JpaAttributeConverterImpl.java:87)
+	... 28 common frames omitted
+2026-02-17 18:00:23 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [bookstore/util/LiquibaseConfig.class]: liquibase.exception.CommandExecutionException: liquibase.exception.ChangeLogParseException: Error parsing classpath:changelog/changelog-master.yaml : Multiple nodes match null/file
+2026-02-17 18:01:35 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [bookstore/util/LiquibaseConfig.class]: liquibase.exception.CommandExecutionException: liquibase.exception.ChangeLogParseException: Error parsing classpath:changelog/changelog-master.yaml : No 'file' attribute on 'include'
+2026-02-17 18:02:16 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [bookstore/util/LiquibaseConfig.class]: liquibase.exception.CommandExecutionException: liquibase.exception.ChangeLogParseException: Error parsing classpath:changelog/changelog-master.yaml : No 'file' attribute on 'include'
+2026-02-17 18:03:08 INFO  [main] b.ui.actions.book.AllBooksListAction - Пользователь выбрал команду: вывод всех книг
+2026-02-17 18:03:08 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-17 18:03:08 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-17 18:03:08 WARN  [main] o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2026-02-17 18:03:08 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2026-02-17 18:03:08 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/bookstore]
+2026-02-17 18:03:08 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2026-02-17 18:03:08 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2026-02-17 18:03:08 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2026-02-17 18:03:08 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-17 18:03:09 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17 18:03:09 INFO  [main] o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@652a1a17] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-02-17 18:03:09 INFO  [main] b.ui.actions.book.AllBooksListAction - Выведено 21 книг
+2026-02-17 18:03:22 INFO  [main] b.ui.actions.book.AddBookAction - Пользователь начал выполнение команды: AddBookAction
+2026-02-17 18:03:36 INFO  [main] b.ui.actions.book.AddBookAction - Книга 'Психбольница в руках пациентов' успешно добавлена автором 'алан купер'
+2026-02-17 18:03:41 INFO  [main] b.ui.actions.book.AllBooksListAction - Пользователь выбрал команду: вывод всех книг
+2026-02-17 18:03:41 INFO  [main] b.ui.actions.book.AllBooksListAction - Выведено 21 книг
+2026-02-17 18:24:04 INFO  [main] b.u.a.customer.AddCustomerAction - Пользователь выбрал команду: добавление клиента
+2026-02-17 18:24:21 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-17 18:24:21 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-17 18:24:21 WARN  [main] o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2026-02-17 18:24:21 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2026-02-17 18:24:21 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/bookstore]
+2026-02-17 18:24:21 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2026-02-17 18:24:21 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2026-02-17 18:24:21 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2026-02-17 18:24:21 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-17 18:24:22 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17 18:24:22 INFO  [main] o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5d4a34ff] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-02-17 18:24:22 INFO  [main] b.u.a.customer.AddCustomerAction - Успешно добавлен клиент: Димка
+2026-02-17 18:24:25 INFO  [main] b.u.actions.customer.ShowAllCustomer - Пользователь выбрал команду: вывод всех клиентов
+2026-02-17 18:24:25 INFO  [main] b.u.actions.customer.ShowAllCustomer - Выведено 21 клиентов
+2026-02-17 18:36:02 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-17 18:36:02 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-17 18:36:02 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-17 18:36:03 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17 18:36:10 INFO  [main] b.ui.actions.book.AddBookAction - Пользователь начал выполнение команды: AddBookAction
+2026-02-17 18:36:21 INFO  [main] b.ui.actions.book.AddBookAction - Книга 'Онегин' успешно добавлена автором 'пушкин'
+2026-02-17 18:36:27 INFO  [main] b.ui.actions.book.AllBooksListAction - Пользователь выбрал команду: вывод всех книг
+2026-02-17 18:36:27 ERROR [main] b.repo.dao.HibernateAbstractDao - Error getting all bookstore.model.entity.Book
+org.hibernate.HibernateException: Could not obtain transaction-synchronized Session for current thread
+	at org.springframework.orm.hibernate5.SpringSessionContext.currentSession(SpringSessionContext.java:140)
+	at org.hibernate.internal.SessionFactoryImpl.getCurrentSession(SessionFactoryImpl.java:642)
+	at bookstore.repo.dao.HibernateAbstractDao.getCurrentSession(HibernateAbstractDao.java:23)
+	at bookstore.repo.dao.HibernateAbstractDao.getAll(HibernateAbstractDao.java:72)
+	at bookstore.service.entityService.BookServiceImpl.getAll(BookService.java:39)
+	at bookstore.controller.BookController.getAllBooks(BookController.java:32)
+	at bookstore.ui.actions.book.AllBooksListAction.execute(AllBooksListAction.java:28)
+	at bookstore.ui.Navigator.navigate(Navigator.java:49)
+	at bookstore.ui.MenuController.run(MenuController.java:53)
+	at bookstore.Main.main(Main.java:19)
+2026-02-17 19:11:18 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-17 19:11:19 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-17 19:11:19 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-17 19:11:20 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17 19:11:20 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Bean named 'bookServiceImpl' is expected to be of type 'bookstore.service.entityService.BookServiceImpl' but was actually of type 'jdk.proxy2.$Proxy64'
+2026-02-17 19:15:27 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-17 19:15:27 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-17 19:15:27 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-17 19:15:28 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17 19:15:28 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Bean named 'bookServiceImpl' is expected to be of type 'bookstore.service.entityService.BookServiceImpl' but was actually of type 'jdk.proxy2.$Proxy64'
+2026-02-17 19:16:24 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-17 19:16:24 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-17 19:16:25 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-17 19:16:25 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17 19:16:25 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Bean named 'bookServiceImpl' is expected to be of type 'bookstore.service.entityService.BookServiceImpl' but was actually of type 'jdk.proxy2.$Proxy64'

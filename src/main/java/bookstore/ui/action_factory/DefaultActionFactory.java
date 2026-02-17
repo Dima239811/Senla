@@ -1,7 +1,6 @@
 package bookstore.ui.action_factory;
 
 import bookstore.controller.*;
-import bookstore.service.ApplicationService;
 import bookstore.ui.actions.IAction;
 import bookstore.ui.actions.book.*;
 import bookstore.ui.actions.completed_orders.ShowCompletedOrdersCountAction;
@@ -29,9 +28,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DefaultActionFactory implements ActionFactory {
-    @Autowired
-    private ApplicationService applicationService;
-
     @Autowired
     private LibraryConfig libraryConfig;
 

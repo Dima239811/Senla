@@ -6,7 +6,7 @@ import bookstore.model.entity.Book;
 import bookstore.model.entity.Customer;
 import bookstore.model.entity.Order;
 import bookstore.model.entity.RequestBook;
-import bookstore.service.ApplicationService;
+import bookstore.service.DataTransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -15,43 +15,43 @@ import java.util.List;
 @Controller
 public class DataTransferController {
 
-    private final ApplicationService applicationService;
+    private final DataTransferService dataTransferService;
 
     @Autowired
-    public DataTransferController(ApplicationService applicationService) {
-        this.applicationService = applicationService;
+    public DataTransferController(DataTransferService dataTransferService) {
+        this.dataTransferService = dataTransferService;
     }
 
 
     public void exportBooksToCsv(String filePath) throws DataExportException {
-        applicationService.exportBooksToCsv(filePath);
+        dataTransferService.exportBooksToCsv(filePath);
     }
 
     public List<Book> importBooksFromCsv(String filePath) throws DataImportException {
-        return applicationService.importBooksFromCsv(filePath);
+        return dataTransferService.importBooksFromCsv(filePath);
     }
 
     public void exportOrdersToCsv(String filePath) throws DataExportException {
-        applicationService.exportOrdersToCsv(filePath);
+        dataTransferService.exportOrdersToCsv(filePath);
     }
 
     public List<Order> importOrdersFromCsv(String filePath) throws DataImportException {
-        return applicationService.importOrdersFromCsv(filePath);
+        return dataTransferService.importOrdersFromCsv(filePath);
     }
 
     public void exportCustomersToCsv(String filePath) throws DataExportException {
-        applicationService.exportCustomersToCsv(filePath);
+        dataTransferService.exportCustomersToCsv(filePath);
     }
 
     public List<Customer> importCustomersFromCsv(String filePath) throws DataImportException {
-        return applicationService.importCustomersFromCsv(filePath);
+        return dataTransferService.importCustomersFromCsv(filePath);
     }
 
     public void exportRequestToCsv(String filePath) throws DataExportException {
-        applicationService.exportRequestToCsv(filePath);
+        dataTransferService.exportRequestToCsv(filePath);
     }
 
     public List<RequestBook> importRequestFromCsv(String filePath) throws DataImportException {
-        return applicationService.importRequestFromCsv(filePath);
+        return dataTransferService.importRequestFromCsv(filePath);
     }
 }

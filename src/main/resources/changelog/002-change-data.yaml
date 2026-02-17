@@ -1,0 +1,12 @@
+databaseChangeLog:
+- changeSet:
+    id: 003-update-book-status-available
+    author: Dima
+    changes:
+      - update:
+          tableName: book
+          columns:
+            - column:
+                name: status
+                value: "В наличии"
+          where: status = 'AVAILABLE'

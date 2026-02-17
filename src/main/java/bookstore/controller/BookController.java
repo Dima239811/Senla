@@ -1,7 +1,9 @@
 package bookstore.controller;
 
 import bookstore.model.entity.Book;
-import bookstore.service.ApplicationService;
+import bookstore.service.InventoryService;
+import bookstore.service.entityService.BookServiceImpl;
+import bookstore.service.entityService.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -9,34 +11,37 @@ import java.util.List;
 
 @Controller
 public class BookController {
-    private final ApplicationService applicationService;
+    private final IService<Book> bookService;
+
+    private final InventoryService inventoryService;
 
     @Autowired
-    public BookController(ApplicationService applicationService) {
-        this.applicationService = applicationService;
+    public BookController(BookServiceImpl bookServiceImpl, InventoryService inventoryService) {
+        this.bookService = bookServiceImpl;
+        this.inventoryService = inventoryService;
     }
 
     public Book getBookById(int id) {
-        return applicationService.findBook(id);
+        return bookService.getById(id);
     }
 
     public void addBook(Book book) {
-        applicationService.addBookToWareHouse(book);
+        inventoryService.addBookToWarehouse(book);
     }
 
     public List<Book> getAllBooks() {
-        return applicationService.getAllBooks();
+        return bookService.getAll();
     }
 
     public List<Book> sortBooks(String criteria) {
-        return applicationService.sortBooks(criteria);
+        return bookService.sortBooks(criteria);
     }
 
     public void writeOffBook(int id) {
-        applicationService.writeOffBook(id);
+        bookService.writeOffBook(id);
     }
 
     public List<Book> getStaleBooks(int staleMonths) {
-        return applicationService.getStaleBooks(staleMonths);
+        return inventoryService.getStaleBooks(staleMonths);
     }
 }

@@ -1,7 +1,7 @@
 package bookstore.controller;
 
 import bookstore.model.entity.Customer;
-import bookstore.service.ApplicationService;
+import bookstore.service.entityService.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -9,22 +9,22 @@ import java.util.List;
 
 @Controller
 public class CustomerController {
-    private final ApplicationService applicationService;
+    private final CustomerService customerService;
 
     @Autowired
-    public CustomerController(ApplicationService applicationService) {
-        this.applicationService = applicationService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     public Customer getCustomerById(int id) {
-        return applicationService.getCustomerById(id);
+        return customerService.getById(id);
     }
 
     public void addCustomer(Customer customer) {
-        applicationService.addCustomer(customer);
+        customerService.add(customer);
     }
 
     public List<Customer> getAllCustomer() {
-        return applicationService.getAllCustomers();
+        return customerService.getAll();
     }
 }

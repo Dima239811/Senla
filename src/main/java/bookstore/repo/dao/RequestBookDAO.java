@@ -2,7 +2,7 @@ package bookstore.repo.dao;
 
 import bookstore.exception.DaoException;
 import bookstore.model.entity.RequestBook;
-import bookstore.repo.util.HibernateUtil;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,15 +14,15 @@ import java.util.List;
 public class RequestBookDAO extends HibernateAbstractDao<RequestBook> {
     private static final Logger logger = LoggerFactory.getLogger(RequestBookDAO.class);
 
-    public RequestBookDAO() {
-        super(RequestBook.class);
+    public RequestBookDAO(SessionFactory sessionFactory) {
+        super(RequestBook.class, sessionFactory);
     }
 
     public RequestBook findByBookId(int id) {
         try {
 
             String hql = "FROM RequestBook  WHERE bookid = :bookId";
-            Query<RequestBook> query = HibernateUtil.getSession().createQuery(hql, RequestBook.class);
+            Query<RequestBook> query = getCurrentSession().createQuery(hql, RequestBook.class);
             query.setParameter("bookId", id);
 
             return query.uniqueResult();
@@ -34,7 +34,7 @@ public class RequestBookDAO extends HibernateAbstractDao<RequestBook> {
 
     public List<RequestBook> getAllWithBooksAndCustomers() {
         try {
-            return HibernateUtil.getSession().createQuery(
+            return getCurrentSession().createQuery(
                             "SELECT DISTINCT r FROM RequestBook  r " +
                                     "LEFT JOIN FETCH r.book " +
                                     "LEFT JOIN FETCH r.customer", RequestBook.class)

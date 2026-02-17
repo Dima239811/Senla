@@ -2,7 +2,6 @@ package bookstore.ui.actions.csv.customer;
 
 import bookstore.controller.DataTransferController;
 import bookstore.exception.DataImportException;
-import bookstore.service.ApplicationService;
 import bookstore.model.entity.Customer;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;

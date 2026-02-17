@@ -1,6 +1,5 @@
 package bookstore.ui;
 
-import bookstore.service.ApplicationService;
 import bookstore.ui.action_factory.ActionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,8 +9,8 @@ import java.util.Scanner;
 
 @Component
 public class MenuController {
-    @Autowired
-    private ApplicationService applicationService;
+    //@Autowired
+    //private ApplicationService applicationService;
 
     @Autowired
     private ActionFactory actionFactory;
@@ -23,7 +22,6 @@ public class MenuController {
 
     @PostConstruct
     public void init() {
-        System.out.println("DataManager в MenuController: " + applicationService);
         System.out.println("вызвана инициализация навигатора в контроллре");
         this.navigator = new Navigator(builder.getRootMenu());
     }

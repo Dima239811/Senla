@@ -10,8 +10,10 @@ import bookstore.model.entity.Book;
 import bookstore.model.entity.Customer;
 import bookstore.model.entity.Order;
 import bookstore.repo.dao.OrderDAO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -20,10 +22,17 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService implements IService<Order> {
     private final OrderDAO orderDAO;
+    private final CustomerService customerService;
+    private final BookServiceImpl bookServiceImpl;
+    private final RequestBookService requestService;
 
     @Autowired
-    public OrderService(OrderDAO orderDAO) {
+    public OrderService(OrderDAO orderDAO, CustomerService customerService, BookServiceImpl bookServiceImpl,
+                        RequestBookService requestService) {
         this.orderDAO = orderDAO;
+        this.customerService = customerService;
+        this.bookServiceImpl = bookServiceImpl;
+        this.requestService = requestService;
     }
 
     public void createOrder(Book book, Customer customer, Date orderDate) {
@@ -36,6 +45,7 @@ public class OrderService implements IService<Order> {
         add(order);
     }
 
+    @Transactional
     public void cancelOrder(int orderId) {
         try {
             Order order = orderDAO.findById(orderId);
@@ -55,6 +65,7 @@ public class OrderService implements IService<Order> {
         }
     }
 
+    @Transactional
     public void changeOrderStatus(int orderId, OrderStatus status) {
         try {
             Order order = orderDAO.findById(orderId);
@@ -196,6 +207,26 @@ public class OrderService implements IService<Order> {
             orderDAO.update(item);
         } catch (DaoException e) {
             throw new ServiceException("Fail update " +  " in orderSevice in update()", e);
+        }
+    }
+
+    @Transactional
+    public void createOrder(Order order) {
+        try {
+            customerService.add(order.getCustomer());
+
+            Book findBook = bookServiceImpl.getById(order.getBook().getBookId());
+
+            if (findBook == null) {
+                requestService.createRequest(order.getBook(), order.getCustomer());
+                order.setStatus(OrderStatus.WAITING_FOR_BOOK);
+            } else {
+                order.setStatus(OrderStatus.NEW);
+            }
+
+            add(order);
+        } catch (Exception e) {
+            throw new ServiceException("Ошибка при создании заказа", e);
         }
     }
 }

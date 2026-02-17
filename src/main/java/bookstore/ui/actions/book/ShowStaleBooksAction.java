@@ -2,7 +2,6 @@ package bookstore.ui.actions.book;
 
 import bookstore.controller.BookController;
 import bookstore.exception.DataManagerException;
-import bookstore.service.ApplicationService;
 import bookstore.model.entity.Book;
 import bookstore.ui.actions.IAction;
 import bookstore.util.LibraryConfig;

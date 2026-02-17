@@ -1,7 +1,6 @@
 package bookstore.ui.actions.book;
 
 import bookstore.controller.BookController;
-import bookstore.service.ApplicationService;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

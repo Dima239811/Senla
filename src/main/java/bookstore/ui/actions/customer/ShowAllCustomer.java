@@ -2,7 +2,6 @@ package bookstore.ui.actions.customer;
 
 import bookstore.controller.CustomerController;
 import bookstore.exception.DataManagerException;
-import bookstore.service.ApplicationService;
 import bookstore.model.entity.Customer;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;

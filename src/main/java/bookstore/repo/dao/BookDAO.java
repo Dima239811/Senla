@@ -2,7 +2,7 @@ package bookstore.repo.dao;
 
 import bookstore.exception.DaoException;
 import bookstore.model.entity.Book;
-import bookstore.repo.util.HibernateUtil;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -11,14 +11,14 @@ import org.springframework.stereotype.Repository;
 public class BookDAO extends HibernateAbstractDao<Book> {
     private static final Logger logger = LoggerFactory.getLogger(BookDAO.class);
 
-    public BookDAO() {
-        super(Book.class);
+    public BookDAO(SessionFactory sessionFactory) {
+        super(Book.class, sessionFactory);
         System.out.println("вызван bookDAO");
     }
 
     public boolean existsByNameAndAuthor(String name, String author) {
         try {
-            Long count = HibernateUtil.getSession().createQuery(
+            Long count = getCurrentSession().createQuery(
                             "SELECT COUNT(b) FROM Book b WHERE LOWER(b.name) = LOWER(:name) " +
                                     "AND LOWER(b.author) = LOWER(:author)", Long.class)
                     .setParameter("name", name)

@@ -4,7 +4,6 @@ import bookstore.controller.BookController;
 import bookstore.enums.StatusBook;
 import bookstore.exception.DataManagerException;
 import bookstore.exception.DataValidationException;
-import bookstore.service.ApplicationService;
 import bookstore.model.entity.Book;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;

@@ -2,7 +2,6 @@ package bookstore.ui.actions.completed_orders;
 
 import bookstore.controller.OrderController;
 import bookstore.exception.DataManagerException;
-import bookstore.service.ApplicationService;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

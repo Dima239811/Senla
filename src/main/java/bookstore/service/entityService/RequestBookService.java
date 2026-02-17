@@ -3,6 +3,7 @@ package bookstore.service.entityService;
 import bookstore.comporator.request.LetterRequestComporator;
 import bookstore.enums.RequestStatus;
 import bookstore.exception.DaoException;
+import bookstore.exception.DataManagerException;
 import bookstore.exception.ServiceException;
 import bookstore.model.entity.Book;
 import bookstore.model.entity.Customer;
@@ -10,6 +11,7 @@ import bookstore.model.entity.RequestBook;
 import bookstore.repo.dao.RequestBookDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,9 +21,12 @@ public class RequestBookService implements IService<RequestBook> {
 
     private final RequestBookDAO requestBookDAO;
 
+    private final CustomerService customerService;
+
     @Autowired
-    public RequestBookService(RequestBookDAO requestBookDAO) {
+    public RequestBookService(RequestBookDAO requestBookDAO, CustomerService customerService) {
         this.requestBookDAO = requestBookDAO;
+        this.customerService = customerService;
     }
 
     public void closeRequest(Book book) {
@@ -111,6 +116,16 @@ public class RequestBookService implements IService<RequestBook> {
         } catch (DaoException e) {
             throw new ServiceException("Fail to update request with id: " + item.getRequestId() +
                     " in RequestBookService in update()", e);
+        }
+    }
+
+    @Transactional
+    public void addRequest(RequestBook requestBook) {
+        try {
+            customerService.add(requestBook.getCustomer());
+            add(requestBook);
+        } catch (Exception e) {
+            throw new DataManagerException("Ошибка при добавлении заявки: " + e.getMessage(), e);
         }
     }
 }

@@ -2,7 +2,6 @@ package bookstore.ui.actions.csv.book;
 
 import bookstore.controller.DataTransferController;
 import bookstore.exception.DataExportException;
-import bookstore.service.ApplicationService;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

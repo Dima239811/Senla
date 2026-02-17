@@ -3,7 +3,6 @@ package bookstore.ui.actions.request;
 import bookstore.controller.BookController;
 import bookstore.controller.RequestBookController;
 import bookstore.exception.DataManagerException;
-import bookstore.service.ApplicationService;
 import bookstore.model.entity.Book;
 import bookstore.model.entity.Customer;
 import bookstore.model.entity.RequestBook;

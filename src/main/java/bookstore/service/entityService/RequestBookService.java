@@ -3,10 +3,8 @@ package bookstore.service.entityService;
 import bookstore.comporator.request.LetterRequestComporator;
 import bookstore.enums.RequestStatus;
 import bookstore.exception.DaoException;
-import bookstore.exception.DataManagerException;
 import bookstore.exception.ServiceException;
 import bookstore.model.entity.Book;
-import bookstore.model.entity.Customer;
 import bookstore.model.entity.RequestBook;
 import bookstore.repo.dao.RequestBookDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +19,12 @@ public class RequestBookService implements IService<RequestBook> {
 
     private final RequestBookDAO requestBookDAO;
 
-    private final CustomerService customerService;
-
     @Autowired
-    public RequestBookService(RequestBookDAO requestBookDAO, CustomerService customerService) {
+    public RequestBookService(RequestBookDAO requestBookDAO) {
         this.requestBookDAO = requestBookDAO;
-        this.customerService = customerService;
     }
 
+    @Transactional
     public void closeRequest(Book book) {
         List<RequestBook> requestBooks = getAll();
         for (RequestBook requests : requestBooks) {
@@ -39,16 +35,7 @@ public class RequestBookService implements IService<RequestBook> {
         }
     }
 
-    public void createRequest(Book book, Customer customer) {
-        RequestBook requestBook = new RequestBook(customer, book);
-        try {
-            requestBookDAO.create(requestBook);
-        } catch (DaoException e) {
-            throw new ServiceException("Fail to create request for book id: " + book.getBookId() +
-                    " in RequestBookService in createRequest()", e);
-        }
-    }
-
+    @Transactional(readOnly = true)
     public List<RequestBook> sortRequest(String criteria) {
         try {
             List<RequestBook> requestBooks = requestBookDAO.getAllWithBooksAndCustomers();
@@ -75,6 +62,7 @@ public class RequestBookService implements IService<RequestBook> {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<RequestBook> getAll() {
         try {
@@ -84,6 +72,7 @@ public class RequestBookService implements IService<RequestBook> {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public RequestBook getById(int id) {
         try {
@@ -94,6 +83,7 @@ public class RequestBookService implements IService<RequestBook> {
         }
     }
 
+    @Transactional
     @Override
     public void add(RequestBook item) {
         try {
@@ -109,6 +99,7 @@ public class RequestBookService implements IService<RequestBook> {
         }
     }
 
+    @Transactional
     @Override
     public void update(RequestBook item) {
         try {
@@ -116,16 +107,6 @@ public class RequestBookService implements IService<RequestBook> {
         } catch (DaoException e) {
             throw new ServiceException("Fail to update request with id: " + item.getRequestId() +
                     " in RequestBookService in update()", e);
-        }
-    }
-
-    @Transactional
-    public void addRequest(RequestBook requestBook) {
-        try {
-            customerService.add(requestBook.getCustomer());
-            add(requestBook);
-        } catch (Exception e) {
-            throw new DataManagerException("Ошибка при добавлении заявки: " + e.getMessage(), e);
         }
     }
 }

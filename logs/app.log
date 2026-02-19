@@ -82,8 +82,8 @@
 2026-02-17 16:48:09 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
 2026-02-17 16:48:09 INFO  [main] o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@25c8c71e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
 2026-02-17 16:48:09 INFO  [main] b.u.actions.customer.ShowAllCustomer - Выведено 21 клиентов
-2026-02-17 17:35:54 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'bookServiceImpl' defined in file [D:\code\Senla\target\classes\bookstore\service\entityService\BookService.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'orderService' defined in file [D:\code\Senla\target\classes\bookstore\service\entityService\OrderService.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'bookServiceImpl': Requested bean is currently in creation: Is there an unresolvable circular reference or an asynchronous initialization dependency?
-2026-02-17 17:36:51 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'bookServiceImpl' defined in file [D:\code\Senla\target\classes\bookstore\service\entityService\BookService.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'orderService' defined in file [D:\code\Senla\target\classes\bookstore\service\entityService\OrderService.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'bookServiceImpl': Requested bean is currently in creation: Is there an unresolvable circular reference or an asynchronous initialization dependency?
+2026-02-17 17:35:54 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'bookService' defined in file [D:\code\Senla\target\classes\bookstore\service\entityService\BookService.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'orderService' defined in file [D:\code\Senla\target\classes\bookstore\service\entityService\OrderService.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'bookService': Requested bean is currently in creation: Is there an unresolvable circular reference or an asynchronous initialization dependency?
+2026-02-17 17:36:51 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'bookService' defined in file [D:\code\Senla\target\classes\bookstore\service\entityService\BookService.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'orderService' defined in file [D:\code\Senla\target\classes\bookstore\service\entityService\OrderService.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'bookService': Requested bean is currently in creation: Is there an unresolvable circular reference or an asynchronous initialization dependency?
 2026-02-17 17:52:58 INFO  [main] b.u.actions.customer.ShowAllCustomer - Пользователь выбрал команду: вывод всех клиентов
 2026-02-17 17:52:58 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
 2026-02-17 17:52:58 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
@@ -127,7 +127,7 @@ jakarta.persistence.PersistenceException: Error attempting to apply AttributeCon
 	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:427)
 	at org.hibernate.query.Query.getResultList(Query.java:120)
 	at bookstore.repo.dao.HibernateAbstractDao.getAll(HibernateAbstractDao.java:66)
-	at bookstore.service.entityService.BookServiceImpl.getAll(BookService.java:39)
+	at bookstore.service.entityService.BookService.getAll(BookService.java:39)
 	at bookstore.controller.BookController.getAllBooks(BookController.java:32)
 	at bookstore.ui.actions.book.AllBooksListAction.execute(AllBooksListAction.java:28)
 	at bookstore.ui.Navigator.navigate(Navigator.java:49)
@@ -187,7 +187,7 @@ org.hibernate.HibernateException: Could not obtain transaction-synchronized Sess
 	at org.hibernate.internal.SessionFactoryImpl.getCurrentSession(SessionFactoryImpl.java:642)
 	at bookstore.repo.dao.HibernateAbstractDao.getCurrentSession(HibernateAbstractDao.java:23)
 	at bookstore.repo.dao.HibernateAbstractDao.getAll(HibernateAbstractDao.java:72)
-	at bookstore.service.entityService.BookServiceImpl.getAll(BookService.java:39)
+	at bookstore.service.entityService.BookService.getAll(BookService.java:39)
 	at bookstore.controller.BookController.getAllBooks(BookController.java:32)
 	at bookstore.ui.actions.book.AllBooksListAction.execute(AllBooksListAction.java:28)
 	at bookstore.ui.Navigator.navigate(Navigator.java:49)
@@ -197,14 +197,285 @@ org.hibernate.HibernateException: Could not obtain transaction-synchronized Sess
 2026-02-17 19:11:19 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
 2026-02-17 19:11:19 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
 2026-02-17 19:11:20 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-02-17 19:11:20 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Bean named 'bookServiceImpl' is expected to be of type 'bookstore.service.entityService.BookServiceImpl' but was actually of type 'jdk.proxy2.$Proxy64'
+2026-02-17 19:11:20 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Bean named 'bookService' is expected to be of type 'bookstore.service.entityService.BookService' but was actually of type 'jdk.proxy2.$Proxy64'
 2026-02-17 19:15:27 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
 2026-02-17 19:15:27 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
 2026-02-17 19:15:27 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
 2026-02-17 19:15:28 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-02-17 19:15:28 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Bean named 'bookServiceImpl' is expected to be of type 'bookstore.service.entityService.BookServiceImpl' but was actually of type 'jdk.proxy2.$Proxy64'
+2026-02-17 19:15:28 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Bean named 'bookService' is expected to be of type 'bookstore.service.entityService.BookService' but was actually of type 'jdk.proxy2.$Proxy64'
 2026-02-17 19:16:24 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
 2026-02-17 19:16:24 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
 2026-02-17 19:16:25 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
 2026-02-17 19:16:25 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-02-17 19:16:25 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Bean named 'bookServiceImpl' is expected to be of type 'bookstore.service.entityService.BookServiceImpl' but was actually of type 'jdk.proxy2.$Proxy64'
+2026-02-17 19:16:25 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Bean named 'bookService' is expected to be of type 'bookstore.service.entityService.BookService' but was actually of type 'jdk.proxy2.$Proxy64'
+2026-02-17 19:22:25 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-17 19:22:25 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-17 19:22:26 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-17 19:22:27 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17 19:22:27 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'inventoryService' defined in file [D:\code\Senla\target\classes\bookstore\service\InventoryService.class]: Unsatisfied dependency expressed through constructor parameter 0: Bean named 'bookService' is expected to be of type 'bookstore.service.entityService.BookService' but was actually of type 'jdk.proxy2.$Proxy64'
+2026-02-17 19:28:50 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-17 19:28:50 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-17 19:28:50 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-17 19:28:51 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17 19:28:51 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Bean named 'bookService' is expected to be of type 'bookstore.service.entityService.BookService' but was actually of type 'jdk.proxy2.$Proxy65'
+2026-02-19 13:59:59 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-19 13:59:59 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-19 13:59:59 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-19 14:00:00 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-19 14:00:00 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Bean named 'bookService' is expected to be of type 'bookstore.service.entityService.BookService' but was actually of type 'jdk.proxy2.$Proxy65'
+2026-02-19 14:01:25 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-19 14:01:25 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-19 14:01:25 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-19 14:01:26 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-19 14:01:26 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'bookController' defined in file [D:\code\Senla\target\classes\bookstore\controller\BookController.class]: Unsatisfied dependency expressed through constructor parameter 0: Bean named 'bookService' is expected to be of type 'bookstore.service.entityService.BookService' but was actually of type 'jdk.proxy2.$Proxy65'
+2026-02-19 14:02:54 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.aop.config.internalAutoProxyCreator': org/aspectj/lang/annotation/Pointcut
+2026-02-19 14:03:43 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-19 14:03:43 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-19 14:03:43 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-19 14:03:44 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-19 14:03:52 INFO  [main] b.u.actions.customer.ShowAllCustomer - Пользователь выбрал команду: вывод всех клиентов
+2026-02-19 14:03:52 ERROR [main] b.repo.dao.HibernateAbstractDao - Error getting all bookstore.model.entity.Customer
+org.hibernate.HibernateException: Could not obtain transaction-synchronized Session for current thread
+	at org.springframework.orm.hibernate5.SpringSessionContext.currentSession(SpringSessionContext.java:140)
+	at org.hibernate.internal.SessionFactoryImpl.getCurrentSession(SessionFactoryImpl.java:642)
+	at bookstore.repo.dao.HibernateAbstractDao.getCurrentSession(HibernateAbstractDao.java:23)
+	at bookstore.repo.dao.HibernateAbstractDao.getAll(HibernateAbstractDao.java:72)
+	at bookstore.service.entityService.CustomerService.getAll(CustomerService.java:26)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:724)
+	at bookstore.service.entityService.CustomerService$$SpringCGLIB$$0.getAll(<generated>)
+	at bookstore.controller.CustomerController.getAllCustomer(CustomerController.java:28)
+	at bookstore.ui.actions.customer.ShowAllCustomer.execute(ShowAllCustomer.java:27)
+	at bookstore.ui.Navigator.navigate(Navigator.java:49)
+	at bookstore.ui.MenuController.run(MenuController.java:53)
+	at bookstore.Main.main(Main.java:19)
+2026-02-19 14:08:26 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-19 14:08:26 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-19 14:08:27 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-19 14:08:27 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-19 14:08:33 INFO  [main] b.u.actions.customer.ShowAllCustomer - Пользователь выбрал команду: вывод всех клиентов
+2026-02-19 14:08:33 INFO  [main] b.u.actions.customer.ShowAllCustomer - Выведено 21 клиентов
+2026-02-19 14:08:47 INFO  [main] b.ui.actions.book.AllBooksListAction - Пользователь выбрал команду: вывод всех книг
+2026-02-19 14:08:47 INFO  [main] b.ui.actions.book.AllBooksListAction - Выведено 22 книг
+2026-02-19 14:08:50 INFO  [main] b.ui.actions.book.AddBookAction - Пользователь начал выполнение команды: AddBookAction
+2026-02-19 14:09:08 INFO  [main] b.ui.actions.book.AddBookAction - Книга 'Психбольница в рукац пациентов' успешно добавлена автором 'Алан Купер'
+2026-02-19 14:09:12 INFO  [main] b.ui.actions.book.AllBooksListAction - Пользователь выбрал команду: вывод всех книг
+2026-02-19 14:09:12 INFO  [main] b.ui.actions.book.AllBooksListAction - Выведено 23 книг
+2026-02-19 14:17:27 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-19 14:17:27 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-19 14:17:27 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-19 14:17:28 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-19 14:17:33 INFO  [main] b.u.actions.customer.ShowAllCustomer - Пользователь выбрал команду: вывод всех клиентов
+2026-02-19 14:17:33 INFO  [main] b.u.actions.customer.ShowAllCustomer - Выведено 21 клиентов
+2026-02-19 14:17:34 INFO  [main] b.u.a.customer.AddCustomerAction - Пользователь выбрал команду: добавление клиента
+2026-02-19 14:17:48 INFO  [main] b.u.a.customer.AddCustomerAction - Успешно добавлен клиент: Димка
+2026-02-19 14:17:53 INFO  [main] b.u.actions.customer.ShowAllCustomer - Пользователь выбрал команду: вывод всех клиентов
+2026-02-19 14:17:53 INFO  [main] b.u.actions.customer.ShowAllCustomer - Выведено 22 клиентов
+2026-02-19 14:19:57 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-19 14:19:57 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-19 14:19:57 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-19 14:19:58 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-19 14:19:58 DEBUG [main] o.s.o.h.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@60641ec8] of Hibernate SessionFactory for HibernateTransactionManager
+2026-02-19 14:20:02 INFO  [main] b.u.actions.customer.ShowAllCustomer - Пользователь выбрал команду: вывод всех клиентов
+2026-02-19 14:20:02 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.entityService.CustomerService.getAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2026-02-19 14:20:02 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(1328382325<open>)] for Hibernate transaction
+2026-02-19 14:20:02 DEBUG [main] o.s.o.h.HibernateTransactionManager - Preparing JDBC Connection of Hibernate Session [SessionImpl(1328382325<open>)]
+2026-02-19 14:20:02 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$781/0x0000020a136bcea8@46a97805]
+2026-02-19 14:20:02 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:20:02 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(1328382325<open>)]
+2026-02-19 14:20:02 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1328382325<open>)] after transaction
+2026-02-19 14:20:02 INFO  [main] b.u.actions.customer.ShowAllCustomer - Выведено 22 клиентов
+2026-02-19 14:20:27 INFO  [main] b.ui.actions.order.CreateOrderAction - Начало обработки команды: CreateOrderAction
+2026-02-19 14:20:29 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.entityService.BookService.getById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2026-02-19 14:20:29 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(1642133945<open>)] for Hibernate transaction
+2026-02-19 14:20:29 DEBUG [main] o.s.o.h.HibernateTransactionManager - Preparing JDBC Connection of Hibernate Session [SessionImpl(1642133945<open>)]
+2026-02-19 14:20:29 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$781/0x0000020a136bcea8@3cae4518]
+2026-02-19 14:20:29 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:20:29 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(1642133945<open>)]
+2026-02-19 14:20:29 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1642133945<open>)] after transaction
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.entityService.CustomerService.getById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(1052905932<open>)] for Hibernate transaction
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Preparing JDBC Connection of Hibernate Session [SessionImpl(1052905932<open>)]
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$781/0x0000020a136bcea8@6b94c200]
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(1052905932<open>)]
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1052905932<open>)] after transaction
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.entityService.OrderService.createOrder]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(1661745907<open>)] for Hibernate transaction
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$781/0x0000020a136bcea8@2e40ea48]
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Found thread-bound Session [SessionImpl(1661745907<open>)] for Hibernate transaction
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Participating in existing transaction
+2026-02-19 14:20:40 ERROR [main] b.repo.dao.HibernateAbstractDao - Error creating bookstore.model.entity.Customer
+jakarta.persistence.EntityExistsException: detached entity passed to persist: bookstore.model.entity.Customer
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:126)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:167)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:173)
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:760)
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:738)
+	at bookstore.repo.dao.HibernateAbstractDao.create(HibernateAbstractDao.java:29)
+	at bookstore.service.entityService.CustomerService.add(CustomerService.java:49)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+	at bookstore.service.entityService.CustomerService$$SpringCGLIB$$0.add(<generated>)
+	at bookstore.service.entityService.OrderService.createOrder(OrderService.java:226)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+	at bookstore.service.entityService.OrderService$$SpringCGLIB$$0.createOrder(<generated>)
+	at bookstore.controller.OrderController.createOrder(OrderController.java:22)
+	at bookstore.ui.actions.order.CreateOrderAction.execute(CreateOrderAction.java:63)
+	at bookstore.ui.Navigator.navigate(Navigator.java:49)
+	at bookstore.ui.MenuController.run(MenuController.java:53)
+	at bookstore.Main.main(Main.java:19)
+Caused by: org.hibernate.PersistentObjectException: detached entity passed to persist: bookstore.model.entity.Customer
+	at org.hibernate.event.internal.DefaultPersistEventListener.persist(DefaultPersistEventListener.java:88)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:77)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:54)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127)
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:754)
+	... 33 common frames omitted
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Participating transaction failed - marking existing transaction as rollback-only
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Setting Hibernate transaction on Session [SessionImpl(1661745907<open>)] rollback-only
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction rollback
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Rolling back Hibernate transaction on Session [SessionImpl(1661745907<open>)]
+2026-02-19 14:20:40 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1661745907<open>)] after transaction
+2026-02-19 14:24:18 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-19 14:24:18 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-19 14:24:19 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-19 14:24:20 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-19 14:24:20 DEBUG [main] o.s.o.h.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@60641ec8] of Hibernate SessionFactory for HibernateTransactionManager
+2026-02-19 14:24:24 INFO  [main] b.ui.actions.order.CreateOrderAction - Начало обработки команды: CreateOrderAction
+2026-02-19 14:24:27 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.entityService.BookService.getById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2026-02-19 14:24:27 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(1005742096<open>)] for Hibernate transaction
+2026-02-19 14:24:27 DEBUG [main] o.s.o.h.HibernateTransactionManager - Preparing JDBC Connection of Hibernate Session [SessionImpl(1005742096<open>)]
+2026-02-19 14:24:27 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$782/0x000001e40d6c1fa8@663cf5d7]
+2026-02-19 14:24:27 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:24:27 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(1005742096<open>)]
+2026-02-19 14:24:27 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1005742096<open>)] after transaction
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.entityService.CustomerService.getById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(1544474221<open>)] for Hibernate transaction
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Preparing JDBC Connection of Hibernate Session [SessionImpl(1544474221<open>)]
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$782/0x000001e40d6c1fa8@96075c0]
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(1544474221<open>)]
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1544474221<open>)] after transaction
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.entityService.OrderService.createOrder]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(1474657733<open>)] for Hibernate transaction
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$782/0x000001e40d6c1fa8@5bba9949]
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Found thread-bound Session [SessionImpl(1474657733<open>)] for Hibernate transaction
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Participating in existing transaction
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(1474657733<open>)]
+2026-02-19 14:24:30 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1474657733<open>)] after transaction
+2026-02-19 14:24:44 INFO  [main] b.u.a.order.ShowAllOrdersAction - Пользователь выбрал команду: просмотр  всех заказов
+2026-02-19 14:24:44 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.entityService.OrderService.getAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2026-02-19 14:24:44 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(899589525<open>)] for Hibernate transaction
+2026-02-19 14:24:44 DEBUG [main] o.s.o.h.HibernateTransactionManager - Preparing JDBC Connection of Hibernate Session [SessionImpl(899589525<open>)]
+2026-02-19 14:24:44 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$782/0x000001e40d6c1fa8@8d7718e]
+2026-02-19 14:24:44 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:24:44 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(899589525<open>)]
+2026-02-19 14:24:44 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(899589525<open>)] after transaction
+2026-02-19 14:24:44 INFO  [main] b.u.a.order.ShowAllOrdersAction - выведено 20 заказов
+2026-02-19 14:30:57 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-19 14:30:57 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-19 14:30:58 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-19 14:30:59 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-19 14:30:59 DEBUG [main] o.s.o.h.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@60641ec8] of Hibernate SessionFactory for HibernateTransactionManager
+2026-02-19 14:31:03 INFO  [main] b.ui.actions.order.CreateOrderAction - Начало обработки команды: CreateOrderAction
+2026-02-19 14:31:05 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.entityService.BookService.getById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2026-02-19 14:31:05 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(1658724563<open>)] for Hibernate transaction
+2026-02-19 14:31:05 DEBUG [main] o.s.o.h.HibernateTransactionManager - Preparing JDBC Connection of Hibernate Session [SessionImpl(1658724563<open>)]
+2026-02-19 14:31:05 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$781/0x00000271566bcea8@6f430ea8]
+2026-02-19 14:31:05 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:31:05 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(1658724563<open>)]
+2026-02-19 14:31:05 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1658724563<open>)] after transaction
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.entityService.CustomerService.getById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(1137422246<open>)] for Hibernate transaction
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Preparing JDBC Connection of Hibernate Session [SessionImpl(1137422246<open>)]
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$781/0x00000271566bcea8@5cf3a7f9]
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(1137422246<open>)]
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1137422246<open>)] after transaction
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.InventoryService.createOrder]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(870869323<open>)] for Hibernate transaction
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$781/0x00000271566bcea8@4fc71437]
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Found thread-bound Session [SessionImpl(870869323<open>)] for Hibernate transaction
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Participating in existing transaction
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Found thread-bound Session [SessionImpl(870869323<open>)] for Hibernate transaction
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Participating in existing transaction
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(870869323<open>)]
+2026-02-19 14:31:07 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(870869323<open>)] after transaction
+2026-02-19 14:31:12 INFO  [main] b.u.a.order.ShowAllOrdersAction - Пользователь выбрал команду: просмотр  всех заказов
+2026-02-19 14:31:12 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.entityService.OrderService.getAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2026-02-19 14:31:12 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(1810368041<open>)] for Hibernate transaction
+2026-02-19 14:31:12 DEBUG [main] o.s.o.h.HibernateTransactionManager - Preparing JDBC Connection of Hibernate Session [SessionImpl(1810368041<open>)]
+2026-02-19 14:31:12 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$781/0x00000271566bcea8@20a4cba7]
+2026-02-19 14:31:12 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:31:12 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(1810368041<open>)]
+2026-02-19 14:31:12 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1810368041<open>)] after transaction
+2026-02-19 14:31:12 INFO  [main] b.u.a.order.ShowAllOrdersAction - выведено 21 заказов
+2026-02-19 14:44:16 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-19 14:44:16 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-19 14:44:16 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-19 14:44:17 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-19 14:44:18 DEBUG [main] o.s.o.h.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@60641ec8] of Hibernate SessionFactory for HibernateTransactionManager
+2026-02-19 14:44:23 INFO  [main] b.u.a.r.CreateBookRequestAction - Пользователь выбрал команду: создание запроса на книгу
+2026-02-19 14:44:27 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.entityService.BookService.getById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2026-02-19 14:44:27 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(1147244518<open>)] for Hibernate transaction
+2026-02-19 14:44:27 DEBUG [main] o.s.o.h.HibernateTransactionManager - Preparing JDBC Connection of Hibernate Session [SessionImpl(1147244518<open>)]
+2026-02-19 14:44:27 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$782/0x0000025c316bcea8@667dd150]
+2026-02-19 14:44:27 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:44:27 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(1147244518<open>)]
+2026-02-19 14:44:27 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1147244518<open>)] after transaction
+2026-02-19 14:44:27 ERROR [main] b.u.a.r.CreateBookRequestAction - книга с 42 не найдена в базе
+2026-02-19 14:44:27 ERROR [main] b.u.a.r.CreateBookRequestAction - Ошибка валидации: Книга с ID 42 не найдена
+2026-02-19 14:44:34 INFO  [main] b.u.a.r.CreateBookRequestAction - Пользователь выбрал команду: создание запроса на книгу
+2026-02-19 14:44:35 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.entityService.BookService.getById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2026-02-19 14:44:35 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(1182042884<open>)] for Hibernate transaction
+2026-02-19 14:44:35 DEBUG [main] o.s.o.h.HibernateTransactionManager - Preparing JDBC Connection of Hibernate Session [SessionImpl(1182042884<open>)]
+2026-02-19 14:44:35 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$782/0x0000025c316bcea8@7cbede2b]
+2026-02-19 14:44:35 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:44:35 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(1182042884<open>)]
+2026-02-19 14:44:35 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(1182042884<open>)] after transaction
+2026-02-19 14:44:49 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.InventoryService.createRequest]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2026-02-19 14:44:49 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(2136906057<open>)] for Hibernate transaction
+2026-02-19 14:44:50 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$782/0x0000025c316bcea8@323eecf8]
+2026-02-19 14:44:50 DEBUG [main] o.s.o.h.HibernateTransactionManager - Found thread-bound Session [SessionImpl(2136906057<open>)] for Hibernate transaction
+2026-02-19 14:44:50 DEBUG [main] o.s.o.h.HibernateTransactionManager - Participating in existing transaction
+2026-02-19 14:44:50 DEBUG [main] o.s.o.h.HibernateTransactionManager - Found thread-bound Session [SessionImpl(2136906057<open>)] for Hibernate transaction
+2026-02-19 14:44:50 DEBUG [main] o.s.o.h.HibernateTransactionManager - Participating in existing transaction
+2026-02-19 14:44:50 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:44:50 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(2136906057<open>)]
+2026-02-19 14:44:50 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(2136906057<open>)] after transaction
+2026-02-19 14:44:50 INFO  [main] b.u.a.r.CreateBookRequestAction - запрос на книгу успешно создан
+2026-02-19 14:44:58 INFO  [main] b.u.a.r.ShowAllBookRequestsAction - Пользователь выбрал команду: просмотр всех запросов на книги
+2026-02-19 14:44:58 DEBUG [main] o.s.o.h.HibernateTransactionManager - Creating new transaction with name [bookstore.service.entityService.RequestBookService.getAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2026-02-19 14:44:58 DEBUG [main] o.s.o.h.HibernateTransactionManager - Opened new Session [SessionImpl(908802124<open>)] for Hibernate transaction
+2026-02-19 14:44:58 DEBUG [main] o.s.o.h.HibernateTransactionManager - Preparing JDBC Connection of Hibernate Session [SessionImpl(908802124<open>)]
+2026-02-19 14:44:58 DEBUG [main] o.s.o.h.HibernateTransactionManager - Exposing Hibernate transaction as JDBC [org.springframework.orm.hibernate5.HibernateTransactionManager$$Lambda$782/0x0000025c316bcea8@433b546f]
+2026-02-19 14:44:59 DEBUG [main] o.s.o.h.HibernateTransactionManager - Initiating transaction commit
+2026-02-19 14:44:59 DEBUG [main] o.s.o.h.HibernateTransactionManager - Committing Hibernate transaction on Session [SessionImpl(908802124<open>)]
+2026-02-19 14:44:59 DEBUG [main] o.s.o.h.HibernateTransactionManager - Closing Hibernate Session [SessionImpl(908802124<open>)] after transaction
+2026-02-19 14:44:59 INFO  [main] b.u.a.r.ShowAllBookRequestsAction - выведено 11 запросов на книги

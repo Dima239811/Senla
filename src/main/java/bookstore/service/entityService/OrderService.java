@@ -6,8 +6,6 @@ import bookstore.comporator.order.StatusOrderComporator;
 import bookstore.enums.OrderStatus;
 import bookstore.exception.DaoException;
 import bookstore.exception.ServiceException;
-import bookstore.model.entity.Book;
-import bookstore.model.entity.Customer;
 import bookstore.model.entity.Order;
 import bookstore.repo.dao.OrderDAO;
 
@@ -22,27 +20,10 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService implements IService<Order> {
     private final OrderDAO orderDAO;
-    private final CustomerService customerService;
-    private final BookServiceImpl bookServiceImpl;
-    private final RequestBookService requestService;
 
     @Autowired
-    public OrderService(OrderDAO orderDAO, CustomerService customerService, BookServiceImpl bookServiceImpl,
-                        RequestBookService requestService) {
+    public OrderService(OrderDAO orderDAO) {
         this.orderDAO = orderDAO;
-        this.customerService = customerService;
-        this.bookServiceImpl = bookServiceImpl;
-        this.requestService = requestService;
-    }
-
-    public void createOrder(Book book, Customer customer, Date orderDate) {
-        Order order = new Order(book, customer, orderDate, book.getPrice());
-        add(order);
-    }
-
-    public void createOrderWithStatus(Book book, Customer customer, Date orderDate, OrderStatus status) {
-        Order order = new Order(book, customer, orderDate, book.getPrice(), status);
-        add(order);
     }
 
     @Transactional
@@ -86,6 +67,7 @@ public class OrderService implements IService<Order> {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<Order> sortOrders(String criteria) {
         try {
             List<Order> orders = orderDAO.getAllWithBooksAndCustomers();
@@ -112,6 +94,7 @@ public class OrderService implements IService<Order> {
         }
     }
 
+    @Transactional(readOnly = true)
     private List<Order> filterOrdersByDateAndStatus(Date from, Date to) {
         return orderDAO.getAllWithBooksAndCustomers().stream()
                 .filter(order -> order.getStatus() == OrderStatus.COMPLETED)
@@ -119,6 +102,7 @@ public class OrderService implements IService<Order> {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<Order> sortPerformOrders(String criteria, Date from, Date to) {
         try {
             List<Order> completedOrders = filterOrdersByDateAndStatus(from, to);
@@ -138,6 +122,7 @@ public class OrderService implements IService<Order> {
         }
     }
 
+    @Transactional(readOnly = true)
     public double calculateIncomeForPeriod(Date from, Date to) {
         try {
             return filterOrdersByDateAndStatus(from, to)
@@ -159,6 +144,7 @@ public class OrderService implements IService<Order> {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Order> getAll() {
         try {
@@ -168,6 +154,7 @@ public class OrderService implements IService<Order> {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Order getById(int id) {
         try {
@@ -177,6 +164,7 @@ public class OrderService implements IService<Order> {
         }
     }
 
+    @Transactional
     @Override
     public void add(Order item) {
 
@@ -201,32 +189,13 @@ public class OrderService implements IService<Order> {
         }
     }
 
+    @Transactional
     @Override
     public void update(Order item) {
         try {
             orderDAO.update(item);
         } catch (DaoException e) {
             throw new ServiceException("Fail update " +  " in orderSevice in update()", e);
-        }
-    }
-
-    @Transactional
-    public void createOrder(Order order) {
-        try {
-            customerService.add(order.getCustomer());
-
-            Book findBook = bookServiceImpl.getById(order.getBook().getBookId());
-
-            if (findBook == null) {
-                requestService.createRequest(order.getBook(), order.getCustomer());
-                order.setStatus(OrderStatus.WAITING_FOR_BOOK);
-            } else {
-                order.setStatus(OrderStatus.NEW);
-            }
-
-            add(order);
-        } catch (Exception e) {
-            throw new ServiceException("Ошибка при создании заказа", e);
         }
     }
 }

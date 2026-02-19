@@ -1,6 +1,7 @@
 package bookstore.controller;
 
 import bookstore.model.entity.RequestBook;
+import bookstore.service.InventoryService;
 import bookstore.service.entityService.RequestBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,12 @@ import java.util.List;
 public class RequestBookController {
     private final RequestBookService requestBookService;
 
+    private final InventoryService inventoryService;
+
     @Autowired
-    public RequestBookController(RequestBookService requestBookService) {
+    public RequestBookController(RequestBookService requestBookService, InventoryService inventoryService) {
         this.requestBookService = requestBookService;
+        this.inventoryService = inventoryService;
     }
 
     public List<RequestBook> getAllRequestBook() {
@@ -21,7 +25,7 @@ public class RequestBookController {
     }
 
     public void addRequest(RequestBook requestBook) {
-        requestBookService.addRequest(requestBook);
+        inventoryService.createRequest(requestBook);
     }
 
     public List<RequestBook> sortRequest(String criteria) {

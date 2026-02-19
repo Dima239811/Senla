@@ -4,8 +4,11 @@ import bookstore.enums.OrderStatus;
 import bookstore.exception.DataManagerException;
 import bookstore.exception.ServiceException;
 import bookstore.model.entity.Book;
+import bookstore.model.entity.Customer;
 import bookstore.model.entity.Order;
-import bookstore.service.entityService.BookServiceImpl;
+import bookstore.model.entity.RequestBook;
+import bookstore.service.entityService.BookService;
+import bookstore.service.entityService.CustomerService;
 import bookstore.service.entityService.OrderService;
 import bookstore.service.entityService.RequestBookService;
 import bookstore.util.LibraryConfig;
@@ -23,26 +26,29 @@ import java.util.stream.Collectors;
 @Service
 public class InventoryService {
 
-    private final BookServiceImpl bookServiceImpl;
+    private final BookService bookService;
 
     private final OrderService orderService;
 
     private final RequestBookService requestBookService;
 
+    private final CustomerService customerService;
+
     private final LibraryConfig libraryConfig;
 
     @Autowired
-    public InventoryService(BookServiceImpl bookServiceImpl, OrderService orderService, RequestBookService requestBookService,
+    public InventoryService(BookService bookService, OrderService orderService, RequestBookService requestBookService, CustomerService customerService,
                             LibraryConfig libraryConfig) {
-        this.bookServiceImpl = bookServiceImpl;
+        this.bookService = bookService;
         this.orderService = orderService;
         this.requestBookService = requestBookService;
+        this.customerService = customerService;
         this.libraryConfig = libraryConfig;
     }
 
     @Transactional
     public void addBookToWarehouse(Book book) {
-        bookServiceImpl.add(book);
+        bookService.add(book);
 
         if (libraryConfig.isAutoCloseRequests()) {
             requestBookService.closeRequest(book);
@@ -61,10 +67,11 @@ public class InventoryService {
     }
 
 
+    @Transactional(readOnly = true)
     public List<Book> getStaleBooks(int staleMonths) {
         LocalDate staleDate = LocalDate.now().minusMonths(staleMonths);
         try {
-            return bookServiceImpl.getAll().stream()
+            return bookService.getAll().stream()
                     .filter(book -> isBookStale(book, staleDate))
                     .collect(Collectors.toList());
         } catch (ServiceException | DataManagerException ex) {
@@ -86,6 +93,7 @@ public class InventoryService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<Order> getOrdersForBook(int bookId) {
         try {
             return orderService.getAll().stream()
@@ -94,5 +102,37 @@ public class InventoryService {
         } catch (ServiceException ex) {
             throw new DataManagerException("fail to get orders For Book ", ex.getCause());
         }
+    }
+
+
+    @Transactional
+    public void createOrder(Order order) {
+
+        Book persistedBook = bookService.getById(order.getBook().getBookId());
+
+        if (persistedBook == null) {
+            createRequestForMissingBooks(order.getCustomer(), order.getBook());
+            order.setStatus(OrderStatus.WAITING_FOR_BOOK);
+        } else {
+            order.setStatus(OrderStatus.NEW);
+        }
+        orderService.add(order);
+    }
+
+    @Transactional
+    public void createRequestForMissingBooks(Customer customer, Book book) {
+        try {
+            customerService.add(customer);
+            RequestBook requestBook = new RequestBook(customer, book);
+            requestBookService.add(requestBook);
+        } catch (Exception e) {
+            throw new DataManagerException("Ошибка при добавлении заявки: " + e.getMessage(), e);
+        }
+    }
+
+    @Transactional
+    public void createRequest(RequestBook requestBook) {
+        customerService.add(requestBook.getCustomer());
+        requestBookService.add(requestBook);
     }
 }

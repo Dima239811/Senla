@@ -1,5 +1,6 @@
 package bookstore.service.entityService;
 
+
 import java.util.List;
 
 public interface IService<T> {

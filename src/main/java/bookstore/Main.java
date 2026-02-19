@@ -11,7 +11,6 @@ public class Main {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(SpringConfig.class);
 
-        //ApplicationService applicationService = context.getBean(ApplicationService.class);
         Builder builder = context.getBean(Builder.class);
         MenuController menuController = context.getBean(MenuController.class);
 

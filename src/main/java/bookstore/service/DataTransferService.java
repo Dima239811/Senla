@@ -8,7 +8,7 @@ import bookstore.model.entity.Customer;
 import bookstore.model.entity.Order;
 import bookstore.model.entity.RequestBook;
 import bookstore.service.csv.ICsvService;
-import bookstore.service.entityService.BookServiceImpl;
+import bookstore.service.entityService.BookService;
 import bookstore.service.entityService.CustomerService;
 import bookstore.service.entityService.OrderService;
 import bookstore.service.entityService.RequestBookService;
@@ -22,7 +22,7 @@ import java.util.List;
 @Service
 public class DataTransferService {
     @Autowired
-    private BookServiceImpl bookServiceImpl;
+    private BookService bookService;
 
     @Autowired
     private CustomerService customerService;
@@ -49,8 +49,9 @@ public class DataTransferService {
     @Qualifier("requestBookCsvService")
     private ICsvService<RequestBook> requestBookCsvService;
 
+    @Transactional(readOnly = true)
     public void exportBooksToCsv(String filePath) throws DataExportException {
-        List<Book> books = bookServiceImpl.getAll();
+        List<Book> books = bookService.getAll();
         System.out.println("передано на экспорт " + books.size() + " книг");
         bookCsvService.exportToCsv(books, filePath);
     }
@@ -60,7 +61,7 @@ public class DataTransferService {
             try {
                 List<Book> imported = bookCsvService.importFromCsv(filePath);
                 for (Book b : imported) {
-                    bookServiceImpl.add(b);
+                    bookService.add(b);
                 }
                 return imported;
             } catch (DataImportException e) {
@@ -70,19 +71,19 @@ public class DataTransferService {
             }
     }
 
+    @Transactional(readOnly = true)
     public void exportOrdersToCsv(String filePath) throws DataExportException {
         List<Order> orders = orderService.getAll();
         orderCsvService.exportToCsv(orders, filePath);
     }
 
     @Transactional
-
     public List<Order> importOrdersFromCsv(String filePath) throws DataImportException {
             try {
                 List<Order> imported = orderCsvService.importFromCsv(filePath);
                 for (Order b : imported) {
                     orderService.add(b);
-                    bookServiceImpl.add(b.getBook());
+                    bookService.add(b.getBook());
                     customerService.add(b.getCustomer());
                 }
                 return imported;
@@ -92,7 +93,7 @@ public class DataTransferService {
                 throw new DataManagerException("fail in data manager importOrdersFromCsv ", e);
             }
         }
-
+    @Transactional(readOnly = true)
     public void exportCustomersToCsv(String filePath) throws DataExportException {
         List<Customer> customers = customerService.getAll();
         System.out.println("передано на экспорт " + customers.size() + " клиентов");
@@ -108,6 +109,7 @@ public class DataTransferService {
         return imported;
     }
 
+    @Transactional(readOnly = true)
     public void exportRequestToCsv(String filePath) throws DataExportException {
         List<RequestBook> requestBooks = requestBookService.getAll();
         requestBookCsvService.exportToCsv(requestBooks, filePath);
@@ -119,7 +121,7 @@ public class DataTransferService {
                 List<RequestBook> imported = requestBookCsvService.importFromCsv(filePath);
                 for (RequestBook b : imported) {
                     requestBookService.add(b);
-                    bookServiceImpl.add(b.getBook());
+                    bookService.add(b.getBook());
                     customerService.add(b.getCustomer());
                 }
                 return imported;

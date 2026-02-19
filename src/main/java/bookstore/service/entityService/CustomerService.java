@@ -20,6 +20,7 @@ public class CustomerService implements IService<Customer> {
         this.customerDAO = customerDAO;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Customer> getAll() {
         try {
@@ -30,7 +31,7 @@ public class CustomerService implements IService<Customer> {
         }
     }
 
-    // вернет null если не найдет
+    @Transactional(readOnly = true)
     @Override
     public Customer getById(int id) {
         try {
@@ -51,6 +52,7 @@ public class CustomerService implements IService<Customer> {
         }
     }
 
+    @Transactional
     @Override
     public void update(Customer item) {
         try {

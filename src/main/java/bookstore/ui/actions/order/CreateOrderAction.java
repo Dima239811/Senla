@@ -3,6 +3,7 @@ package bookstore.ui.actions.order;
 import bookstore.controller.BookController;
 import bookstore.controller.CustomerController;
 import bookstore.controller.OrderController;
+import bookstore.dto.BookResponse;
 import bookstore.dto.CustomerResponse;
 import bookstore.dto.OrderRequest;
 import bookstore.exception.DataManagerException;
@@ -40,7 +41,7 @@ public class CreateOrderAction implements IAction {
         try {
             int id = scanner.nextInt();
             scanner.nextLine();
-            Book book = bookController.getBookById(id);
+            BookResponse book = bookController.getBookById(id);
 
             if (book == null) {
                 logger.error("Книга с ID {} не найдена", id);
@@ -62,7 +63,7 @@ public class CreateOrderAction implements IAction {
             System.out.println("Найден клиент: " + customer.fullName());
 
             //Order order = new Order(book, customer, new Date(), book.getPrice());
-            OrderRequest order = new OrderRequest(customer.customerID(), book.getBookId());
+            OrderRequest order = new OrderRequest(customer.customerID(), book.bookId());
             orderController.createOrder(order);
         } catch (IllegalArgumentException e) {
             logger.error("Ошибка: {}", e.getMessage());

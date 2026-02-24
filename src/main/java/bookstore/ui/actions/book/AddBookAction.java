@@ -1,6 +1,7 @@
 package bookstore.ui.actions.book;
 
 import bookstore.controller.BookController;
+import bookstore.dto.BookRequest;
 import bookstore.enums.StatusBook;
 import bookstore.exception.DataManagerException;
 import bookstore.exception.DataValidationException;
@@ -64,7 +65,8 @@ public class AddBookAction implements IAction {
                 scanner.nextLine(); // Очистка буфера
             }
 
-            Book book = new Book(name, author, year, price, StatusBook.IN_STOCK);
+            //Book book = new Book(name, author, year, price, StatusBook.IN_STOCK);
+            BookRequest book = new BookRequest(name, author, year, price);
             bookController.addBook(book);
             System.out.println("Книга '" + name + "' автора '" + author + "' добавлена.");
             logger.info("Книга '{}' успешно добавлена автором '{}'", name, author);

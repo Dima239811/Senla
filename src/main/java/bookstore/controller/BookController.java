@@ -1,5 +1,7 @@
 package bookstore.controller;
 
+import bookstore.dto.BookRequest;
+import bookstore.dto.BookResponse;
 import bookstore.model.entity.Book;
 import bookstore.service.InventoryService;
 import bookstore.service.entityService.BookService;
@@ -20,19 +22,19 @@ public class BookController {
         this.inventoryService = inventoryService;
     }
 
-    public Book getBookById(int id) {
+    public BookResponse getBookById(int id) {
         return bookService.getById(id);
     }
 
-    public void addBook(Book book) {
+    public void addBook(BookRequest book) {
         inventoryService.addBookToWarehouse(book);
     }
 
-    public List<Book> getAllBooks() {
+    public List<BookResponse> getAllBooks() {
         return bookService.getAll();
     }
 
-    public List<Book> sortBooks(String criteria) {
+    public List<BookResponse> sortBooks(String criteria) {
         return bookService.sortBooks(criteria);
     }
 
@@ -40,7 +42,7 @@ public class BookController {
         bookService.writeOffBook(id);
     }
 
-    public List<Book> getStaleBooks(int staleMonths) {
+    public List<BookResponse> getStaleBooks(int staleMonths) {
         return inventoryService.getStaleBooks(staleMonths);
     }
 }

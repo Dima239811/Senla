@@ -1,6 +1,7 @@
 package bookstore.ui.actions.customer;
 
 import bookstore.controller.CustomerController;
+import bookstore.dto.CustomerRequest;
 import bookstore.exception.DataManagerException;
 import bookstore.exception.DataValidationException;
 import bookstore.model.entity.Customer;
@@ -62,7 +63,7 @@ public class AddCustomerAction implements IAction {
             String address = scanner.nextLine();
 
             // Создание и сохранение клиента
-            Customer customer = new Customer(fullName, age, phone, email, address);
+            CustomerRequest customer = new CustomerRequest(fullName, age, phone, email, address);
             customerController.addCustomer(customer);
 
             logger.info("Успешно добавлен клиент: {}", fullName);

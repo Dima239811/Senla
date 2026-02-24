@@ -2,6 +2,9 @@ package bookstore.ui.actions.request;
 
 import bookstore.controller.BookController;
 import bookstore.controller.RequestBookController;
+import bookstore.dto.BookResponse;
+import bookstore.dto.CustomerRequest;
+import bookstore.dto.RequestBookRequest;
 import bookstore.exception.DataManagerException;
 import bookstore.model.entity.Book;
 import bookstore.model.entity.Customer;
@@ -34,7 +37,7 @@ public class CreateBookRequestAction implements IAction {
         try {
             int id = scanner.nextInt();
             scanner.nextLine();
-            Book book = bookController.getBookById(id);
+            BookResponse book = bookController.getBookById(id);
 
             if (book == null) {
                 logger.error("книга с {} не найдена в базе", id);
@@ -51,9 +54,9 @@ public class CreateBookRequestAction implements IAction {
             String email = scanner.nextLine();
             System.out.println("Введите адресс клиента");
             String address = scanner.nextLine();
-            Customer customer = new Customer(name, age, "+79855566", email, address);
+            CustomerRequest customer = new CustomerRequest(name, age, "+79855566", email, address);
 
-            RequestBook requestBook = new RequestBook(customer, book);
+            RequestBookRequest requestBook = new RequestBookRequest(customer, book.bookId());
 
             requestBookController.addRequest(requestBook);
             logger.info("запрос на книгу успешно создан");

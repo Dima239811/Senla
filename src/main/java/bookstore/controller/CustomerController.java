@@ -1,13 +1,17 @@
 package bookstore.controller;
 
+import bookstore.dto.CustomerRequest;
+import bookstore.dto.CustomerResponse;
 import bookstore.model.entity.Customer;
 import bookstore.service.entityService.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/customer")
 public class CustomerController {
     private final CustomerService customerService;
 
@@ -16,15 +20,18 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    public Customer getCustomerById(int id) {
+    @GetMapping("{id}")
+    public CustomerResponse getCustomerById(@PathVariable("id") int id) {
         return customerService.getById(id);
     }
 
-    public void addCustomer(Customer customer) {
+    @PostMapping
+    public void addCustomer(CustomerRequest customer) {
         customerService.add(customer);
     }
 
-    public List<Customer> getAllCustomer() {
+    @GetMapping
+    public List<CustomerResponse> getAllCustomer() {
         return customerService.getAll();
     }
 }

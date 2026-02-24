@@ -1,5 +1,6 @@
 package bookstore.service;
 
+import bookstore.dto.*;
 import bookstore.enums.OrderStatus;
 import bookstore.exception.DataManagerException;
 import bookstore.exception.ServiceException;
@@ -7,6 +8,7 @@ import bookstore.model.entity.Book;
 import bookstore.model.entity.Customer;
 import bookstore.model.entity.Order;
 import bookstore.model.entity.RequestBook;
+import bookstore.model.mapper.BookMapper;
 import bookstore.service.entityService.BookService;
 import bookstore.service.entityService.CustomerService;
 import bookstore.service.entityService.OrderService;
@@ -21,6 +23,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,27 +39,31 @@ public class InventoryService {
 
     private final LibraryConfig libraryConfig;
 
+    private final BookMapper bookMapper;
+
     @Autowired
     public InventoryService(BookService bookService, OrderService orderService, RequestBookService requestBookService, CustomerService customerService,
-                            LibraryConfig libraryConfig) {
+                            LibraryConfig libraryConfig, BookMapper bookMapper) {
         this.bookService = bookService;
         this.orderService = orderService;
         this.requestBookService = requestBookService;
         this.customerService = customerService;
         this.libraryConfig = libraryConfig;
+        this.bookMapper = bookMapper;
     }
 
     @Transactional
-    public void addBookToWarehouse(Book book) {
+    public void addBookToWarehouse(BookRequest book) {
         bookService.add(book);
 
         if (libraryConfig.isAutoCloseRequests()) {
-            requestBookService.closeRequest(book);
+            requestBookService.closeRequest(book.name(), book.author());
         }
 
-        List<Order> orders = orderService.getAll();
+        List<Order> orders = orderService.getAllOrder();
         for (Order order : orders) {
-            if (order.getBook().getBookId() == book.getBookId()
+            if (Objects.equals(order.getBook().getName(), book.name()) &&
+                    Objects.equals(order.getBook().getAuthor(), book.author())
                     && order.getStatus() == OrderStatus.WAITING_FOR_BOOK) {
 
                 orderService.changeOrderStatus(order.getOrderId(), OrderStatus.NEW);
@@ -68,12 +75,12 @@ public class InventoryService {
 
 
     @Transactional(readOnly = true)
-    public List<Book> getStaleBooks(int staleMonths) {
+    public List<BookResponse> getStaleBooks(int staleMonths) {
         LocalDate staleDate = LocalDate.now().minusMonths(staleMonths);
         try {
-            return bookService.getAll().stream()
+            return bookMapper.toBookResponseList(bookService.getAllEntities().stream()
                     .filter(book -> isBookStale(book, staleDate))
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toList()));
         } catch (ServiceException | DataManagerException ex) {
             throw new DataManagerException("fail to get stale books ", ex.getCause());
         }
@@ -96,7 +103,7 @@ public class InventoryService {
     @Transactional(readOnly = true)
     public List<Order> getOrdersForBook(int bookId) {
         try {
-            return orderService.getAll().stream()
+            return orderService.getAllOrder().stream()
                     .filter(order -> order.getBook().getBookId() == bookId)
                     .collect(Collectors.toList());
         } catch (ServiceException ex) {
@@ -106,33 +113,32 @@ public class InventoryService {
 
 
     @Transactional
-    public void createOrder(Order order) {
+    public void createOrder(OrderRequest order) {
 
-        Book persistedBook = bookService.getById(order.getBook().getBookId());
+        Book persistedBook = bookService.getEntityById(order.bookId());
+        Customer customer = customerService.getEntityById(order.customerId());
 
-        if (persistedBook == null) {
-            createRequestForMissingBooks(order.getCustomer(), order.getBook());
-            order.setStatus(OrderStatus.WAITING_FOR_BOOK);
-        } else {
-            order.setStatus(OrderStatus.NEW);
-        }
-        orderService.add(order);
+        Order newOrder = new Order(persistedBook, customer, new Date(), persistedBook.getPrice());
+
+        orderService.add(newOrder);
     }
+//
+//    @Transactional
+//    public void createRequestForMissingBooks(Customer customer, Book book) {
+//        try {
+//            customerService.add(customer);
+//            RequestBook requestBook = new RequestBook(customer, book);
+//            requestBookService.add(requestBook);
+//        } catch (Exception e) {
+//            throw new DataManagerException("Ошибка при добавлении заявки: " + e.getMessage(), e);
+//        }
+//    }
 
     @Transactional
-    public void createRequestForMissingBooks(Customer customer, Book book) {
-        try {
-            customerService.add(customer);
-            RequestBook requestBook = new RequestBook(customer, book);
-            requestBookService.add(requestBook);
-        } catch (Exception e) {
-            throw new DataManagerException("Ошибка при добавлении заявки: " + e.getMessage(), e);
-        }
-    }
-
-    @Transactional
-    public void createRequest(RequestBook requestBook) {
-        customerService.add(requestBook.getCustomer());
-        requestBookService.add(requestBook);
+    public void createRequest(RequestBookRequest requestBook) {
+        customerService.add(requestBook.customerRequest());
+        RequestBook requestBookNew = new RequestBook(customerService.findByEmail(requestBook.customerRequest().email()),
+                bookService.getEntityById(requestBook.bookId()));
+        requestBookService.add(requestBookNew);
     }
 }

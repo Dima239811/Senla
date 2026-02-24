@@ -1,5 +1,7 @@
 package bookstore.controller;
 
+import bookstore.dto.RequestBookRequest;
+import bookstore.dto.RequestBookResponse;
 import bookstore.model.entity.RequestBook;
 import bookstore.service.InventoryService;
 import bookstore.service.entityService.RequestBookService;
@@ -20,15 +22,15 @@ public class RequestBookController {
         this.inventoryService = inventoryService;
     }
 
-    public List<RequestBook> getAllRequestBook() {
+    public List<RequestBookResponse> getAllRequestBook() {
         return requestBookService.getAll();
     }
 
-    public void addRequest(RequestBook requestBook) {
+    public void addRequest(RequestBookRequest requestBook) {
         inventoryService.createRequest(requestBook);
     }
 
-    public List<RequestBook> sortRequest(String criteria) {
+    public List<RequestBookResponse> sortRequest(String criteria) {
         return requestBookService.sortRequest(criteria);
     }
 }

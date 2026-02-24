@@ -4,10 +4,14 @@ import bookstore.comporator.book.AvailableComparator;
 import bookstore.comporator.book.LetterComporator;
 import bookstore.comporator.book.PriceComporator;
 import bookstore.comporator.book.YearComporator;
+import bookstore.dto.BookRequest;
+import bookstore.dto.BookResponse;
 import bookstore.enums.StatusBook;
 import bookstore.exception.DaoException;
 import bookstore.exception.ServiceException;
 import bookstore.model.entity.Book;
+import bookstore.model.entity.Customer;
+import bookstore.model.mapper.BookMapper;
 import bookstore.repo.dao.BookDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,87 +22,80 @@ import java.util.List;
 
 
 @Service
-public class BookService implements IService<Book> {
+public class BookService {
 
     private final BookDAO bookDAO;
+    private final BookMapper bookMapper;
 
     @Autowired
-    public BookService(BookDAO bookDAO) {
+    public BookService(BookDAO bookDAO, BookMapper bookMapper) {
         this.bookDAO = bookDAO;
+        this.bookMapper = bookMapper;
     }
 
     @Transactional(readOnly = true)
-    @Override
-    public List<Book> getAll() {
+    public List<BookResponse> getAll() {
         try {
             List<Book> books = bookDAO.getAll();
-            return books;
+            return bookMapper.toBookResponseList(books);
         } catch (DaoException e) {
             throw new ServiceException("Failed to get all books", e.getCause());
         }
     }
 
     @Transactional(readOnly = true)
-    @Override
-    public Book getById(int id) {
+    public BookResponse getById(int id) {
         try {
             Book book = bookDAO.findById(id);
-            return book;
+            return bookMapper.toBookResponse(book);
         } catch (DaoException e) {
             throw new ServiceException("Failed to get books by id " + id + " ", e);
         }
     }
 
     @Transactional
-    @Override
-    public void add(Book item) {
+    public void add(BookRequest item) {
         try {
-            Book book = bookDAO.findById(item.getBookId());
-            if (book != null) {
-                System.out.println("Книга с таким id же существует, ее данные будут обновлены");
-                bookDAO.update(item);
-            } else {
-                bookDAO.create(item);
-            }
+            Book book = bookMapper.toEntity(item);
+            bookDAO.create(book);
         } catch (DaoException e) {
             throw new ServiceException(
-                    "Failed to add or update book with id " + item.getBookId(), e
+                    "Failed to add book with name: " + item.name(), e
             );
         }
     }
 
     @Transactional
-    @Override
     public void update(Book item) {
         try {
             bookDAO.update(item);
         } catch (DaoException e) {
             throw new ServiceException(
-                    "Failed to update book with id " + item.getBookId(), e
+                    "Failed to update book with name: " + item.getName(), e
             );
         }
     }
 
     @Transactional(readOnly = true)
-    public List<Book> sortBooks(String criteria) {
+    public List<BookResponse> sortBooks(String criteria) {
         try {
             List<Book> books = bookDAO.getAll();
             switch (criteria.toLowerCase()) {
                 case "по алфавиту":
                     books.sort(new LetterComporator());
-                    return books;
+                    return bookMapper.toBookResponseList(books);
                 case "по цене":
                     books.sort(new PriceComporator());
-                    return books;
+                    return bookMapper.toBookResponseList(books);
                 case "по году издания":
                     books.sort(new YearComporator());
-                    return books;
+                    return bookMapper.toBookResponseList(books);
                 case "по наличию на складе":
                     books.sort(new AvailableComparator());
-                    return books;
+                    return bookMapper.toBookResponseList(books);
                 default:
                     System.out.println("Ошибка: неопознанный критерий сортировки.");
-                    return books;
+                    return bookMapper.toBookResponseList(books);
             }
         } catch (DaoException e) {
             throw new ServiceException(
@@ -109,7 +106,7 @@ public class BookService implements IService<Book> {
 
     @Transactional
     public void writeOffBook(int bookId) {
-        List<Book> books = getAll();
+        List<Book> books = getAllEntities();
         for (Book b: books) {
             if (b.getBookId() == bookId && b.getStatus().equals(StatusBook.IN_STOCK)) {
                 b.setStatus(StatusBook.OUT_OF_STOCK);
@@ -119,5 +116,15 @@ public class BookService implements IService<Book> {
             }
         }
         System.out.println("Книга с id " + bookId + "  не найдена");
+    }
+
+    @Transactional(readOnly = true)
+    public Book getEntityById(int id) {
+        return bookDAO.findById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Book> getAllEntities() {
+        return bookDAO.getAll();
     }
 }

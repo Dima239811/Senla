@@ -1,8 +1,8 @@
 package bookstore.ui.actions.request;
 
 import bookstore.controller.RequestBookController;
+import bookstore.dto.RequestBookResponse;
 import bookstore.exception.DataManagerException;
-import bookstore.model.entity.RequestBook;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ public class ShowAllBookRequestsAction implements IAction {
         System.out.println("вывод из списка запросов");
 
         try {
-            List<RequestBook> requestBooks = requestBookController.getAllRequestBook();
+            List<RequestBookResponse> requestBooks = requestBookController.getAllRequestBook();
             System.out.println("\n=== СПИСОК ВСЕХ запросов ===");
             System.out.println("Всего запросов: " + requestBooks.size());
             System.out.println("-----------------------------------------------");

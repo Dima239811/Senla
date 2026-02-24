@@ -3,10 +3,12 @@ package bookstore.service.entityService;
 import bookstore.comporator.order.DateOrderComporator;
 import bookstore.comporator.order.PriceOrderComporator;
 import bookstore.comporator.order.StatusOrderComporator;
+import bookstore.dto.OrderResponse;
 import bookstore.enums.OrderStatus;
 import bookstore.exception.DaoException;
 import bookstore.exception.ServiceException;
 import bookstore.model.entity.Order;
+import bookstore.model.mapper.OrderMapper;
 import bookstore.repo.dao.OrderDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class OrderService implements IService<Order> {
+public class OrderService {
     private final OrderDAO orderDAO;
+    private final OrderMapper orderMapper;
 
     @Autowired
-    public OrderService(OrderDAO orderDAO) {
+    public OrderService(OrderDAO orderDAO, OrderMapper orderMapper) {
         this.orderDAO = orderDAO;
+        this.orderMapper = orderMapper;
     }
 
     @Transactional
@@ -68,25 +72,25 @@ public class OrderService implements IService<Order> {
     }
 
     @Transactional(readOnly = true)
-    public List<Order> sortOrders(String criteria) {
+    public List<OrderResponse> sortOrders(String criteria) {
         try {
             List<Order> orders = orderDAO.getAllWithBooksAndCustomers();
             return switch (criteria.toLowerCase()) {
                 case "по дате" -> {
                     orders.sort(new DateOrderComporator());
-                    yield orders;
+                    yield orderMapper.toOrderResponseList(orders);
                 }
                 case "по цене" -> {
                     orders.sort(new PriceOrderComporator());
-                    yield orders;
+                    yield orderMapper.toOrderResponseList(orders);
                 }
                 case "по статусу" -> {
                     orders.sort(new StatusOrderComporator());
-                    yield orders;
+                    yield orderMapper.toOrderResponseList(orders);
                 }
                 default -> {
                     System.out.println("Ошибка: неопознанный критерий сортировки.");
-                    yield orders;
+                    yield orderMapper.toOrderResponseList(orders);
                 }
             };
         } catch (DaoException e) {
@@ -94,7 +98,6 @@ public class OrderService implements IService<Order> {
         }
     }
 
-    @Transactional(readOnly = true)
     private List<Order> filterOrdersByDateAndStatus(Date from, Date to) {
         return orderDAO.getAllWithBooksAndCustomers().stream()
                 .filter(order -> order.getStatus() == OrderStatus.COMPLETED)
@@ -103,19 +106,19 @@ public class OrderService implements IService<Order> {
     }
 
     @Transactional(readOnly = true)
-    public List<Order> sortPerformOrders(String criteria, Date from, Date to) {
+    public List<OrderResponse> sortPerformOrders(String criteria, Date from, Date to) {
         try {
             List<Order> completedOrders = filterOrdersByDateAndStatus(from, to);
             return switch (criteria.toLowerCase()) {
                 case "по дате" -> {
                     completedOrders.sort(new DateOrderComporator());
-                    yield completedOrders;
+                    yield orderMapper.toOrderResponseList(completedOrders);
                 }
                 case "по цене" -> {
                     completedOrders.sort(new PriceOrderComporator());
-                    yield completedOrders;
+                    yield orderMapper.toOrderResponseList(completedOrders);
                 }
-                default -> completedOrders;
+                default -> orderMapper.toOrderResponseList(completedOrders);
             };
         } catch (DaoException e) {
             throw new ServiceException("Fail sortPerformOrders " +  " in orderSevice in sortPerformOrders()", e);
@@ -145,27 +148,26 @@ public class OrderService implements IService<Order> {
     }
 
     @Transactional(readOnly = true)
-    @Override
-    public List<Order> getAll() {
+    public List<OrderResponse> getAll() {
         try {
-            return orderDAO.getAllWithBooksAndCustomers();
+            List<Order> orders = orderDAO.getAllWithBooksAndCustomers();
+            return orderMapper.toOrderResponseList(orders);
         } catch (DaoException e) {
             throw new ServiceException("Fail getAll " +  " in orderSevice in getAll()", e);
         }
     }
 
     @Transactional(readOnly = true)
-    @Override
-    public Order getById(int id) {
+    public OrderResponse getById(int id) {
         try {
-            return orderDAO.findById(id);
+            Order order = orderDAO.findById(id);
+            return orderMapper.toOrderResponse(order);
         } catch (DaoException e) {
             throw new ServiceException("Fail getById " +  " in orderSevice in getById()", e);
         }
     }
 
     @Transactional
-    @Override
     public void add(Order item) {
 
         if (item.getCustomer() == null || item.getCustomer().getCustomerID() <= 0) {
@@ -177,25 +179,23 @@ public class OrderService implements IService<Order> {
         }
 
         try {
-            Order existing = orderDAO.findById(item.getOrderId());
-            System.out.println("ID КЛИЕНТА в ордер сервис =  " + item.getCustomer().getCustomerID());
-            if (existing != null) {
-                update(item);
-            } else {
                 orderDAO.create(item);
-            }
         } catch (DaoException e) {
             throw new ServiceException("Fail add " +  " in orderSevice in add()", e);
         }
     }
 
-    @Transactional
-    @Override
-    public void update(Order item) {
-        try {
-            orderDAO.update(item);
-        } catch (DaoException e) {
-            throw new ServiceException("Fail update " +  " in orderSevice in update()", e);
-        }
+    @Transactional(readOnly = true)
+    public List<Order> getAllOrder() {
+        return orderDAO.getAll();
     }
+//
+//    @Transactional
+//    public void update(Order item) {
+//        try {
+//            orderDAO.update(item);
+//        } catch (DaoException e) {
+//            throw new ServiceException("Fail update " +  " in orderSevice in update()", e);
+//        }
+//    }
 }

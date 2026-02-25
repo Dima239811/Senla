@@ -51,7 +51,7 @@ public class DataTransferService {
 
     @Transactional(readOnly = true)
     public void exportBooksToCsv(String filePath) throws DataExportException {
-        List<Book> books = bookService.getAll();
+        List<Book> books = bookService.getAllBooks();
         System.out.println("передано на экспорт " + books.size() + " книг");
         bookCsvService.exportToCsv(books, filePath);
     }
@@ -73,7 +73,7 @@ public class DataTransferService {
 
     @Transactional(readOnly = true)
     public void exportOrdersToCsv(String filePath) throws DataExportException {
-        List<Order> orders = orderService.getAll();
+        List<Order> orders = orderService.getAllOrder();
         orderCsvService.exportToCsv(orders, filePath);
     }
 
@@ -84,7 +84,7 @@ public class DataTransferService {
                 for (Order b : imported) {
                     orderService.add(b);
                     bookService.add(b.getBook());
-                    customerService.add(b.getCustomer());
+                    customerService.addCustomerEntity(b.getCustomer());
                 }
                 return imported;
             } catch (DataImportException e) {
@@ -93,9 +93,10 @@ public class DataTransferService {
                 throw new DataManagerException("fail in data manager importOrdersFromCsv ", e);
             }
         }
+
     @Transactional(readOnly = true)
     public void exportCustomersToCsv(String filePath) throws DataExportException {
-        List<Customer> customers = customerService.getAll();
+        List<Customer> customers = customerService.getAllCustomer();
         System.out.println("передано на экспорт " + customers.size() + " клиентов");
         customerCsvService.exportToCsv(customers, filePath);
     }
@@ -104,14 +105,14 @@ public class DataTransferService {
     public List<Customer> importCustomersFromCsv(String filePath) throws DataImportException {
         List<Customer> imported = customerCsvService.importFromCsv(filePath);
         for (Customer b: imported) {
-            customerService.add(b);
+            customerService.addCustomerEntity(b);
         }
         return imported;
     }
 
     @Transactional(readOnly = true)
     public void exportRequestToCsv(String filePath) throws DataExportException {
-        List<RequestBook> requestBooks = requestBookService.getAll();
+        List<RequestBook> requestBooks = requestBookService.getAllRequestBook();
         requestBookCsvService.exportToCsv(requestBooks, filePath);
     }
 
@@ -122,7 +123,7 @@ public class DataTransferService {
                 for (RequestBook b : imported) {
                     requestBookService.add(b);
                     bookService.add(b.getBook());
-                    customerService.add(b.getCustomer());
+                    customerService.addCustomerEntity(b.getCustomer());
                 }
                 return imported;
             } catch (DataImportException e) {

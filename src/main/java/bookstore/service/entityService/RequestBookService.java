@@ -1,6 +1,7 @@
 package bookstore.service.entityService;
 
 import bookstore.comporator.request.LetterRequestComporator;
+import bookstore.dto.RequestBookRequest;
 import bookstore.dto.RequestBookResponse;
 import bookstore.enums.RequestStatus;
 import bookstore.exception.DaoException;
@@ -8,6 +9,7 @@ import bookstore.exception.ServiceException;
 import bookstore.model.entity.Book;
 import bookstore.model.entity.RequestBook;
 import bookstore.model.mapper.RequestBookMapper;
+import bookstore.repo.dao.BookDAO;
 import bookstore.repo.dao.RequestBookDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,11 +24,16 @@ public class RequestBookService {
 
     private final RequestBookDAO requestBookDAO;
     private final RequestBookMapper requestBookMapper;
+    private final CustomerService customerService;
+    private final BookDAO bookDAO;
 
     @Autowired
-    public RequestBookService(RequestBookDAO requestBookDAO, RequestBookMapper requestBookMapper) {
+    public RequestBookService(RequestBookDAO requestBookDAO, RequestBookMapper requestBookMapper,
+                              CustomerService customerService, BookDAO bookDAO) {
         this.requestBookDAO = requestBookDAO;
         this.requestBookMapper = requestBookMapper;
+        this.customerService = customerService;
+        this.bookDAO = bookDAO;
     }
 
     @Transactional
@@ -114,7 +121,25 @@ public class RequestBookService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<RequestBook> getAllRequest() {
         return requestBookDAO.getAll();
+    }
+
+    @Transactional
+    public void createRequest(RequestBookRequest requestBook) {
+        customerService.add(requestBook.customerRequest());
+        RequestBook requestBookNew = new RequestBook(customerService.findByEmail(requestBook.customerRequest().email()),
+                bookDAO.findById(requestBook.bookId()));
+        add(requestBookNew);
+    }
+
+    @Transactional(readOnly = true)
+    public List<RequestBook> getAllRequestBook() {
+        try {
+            return requestBookDAO.getAll();
+        } catch (DaoException e) {
+            throw new ServiceException("Fail to get all requests in RequestBookService in getAll()", e);
+        }
     }
 }

@@ -9,12 +9,15 @@ import org.mapstruct.MappingConstants;
 
 import java.util.List;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(
+        componentModel = MappingConstants.ComponentModel.SPRING,
+        imports = {bookstore.enums.StatusBook.class}
+)
 public interface BookMapper {
     BookResponse toBookResponse(Book book);
     List<BookResponse> toBookResponseList(List<Book> books);
 
     @Mapping(target = "bookId", ignore = true)
-    @Mapping(target = "status", expression = "java(StatusBook.AVAILABLE)")
+    @Mapping(target = "status", expression = "java(StatusBook.IN_STOCK)")
     Book toEntity(BookRequest request);
 }

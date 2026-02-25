@@ -74,4 +74,18 @@ public class CustomerService {
     public Customer findByEmail(String email) {
         return customerDAO.findByEmail(email);
     }
+
+    @Transactional
+    public void addCustomerEntity(Customer customer) {
+        try {
+            customerDAO.create(customer);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to add customer with ID " + customer.getFullName(), e);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<Customer> getAllCustomer() {
+        return customerDAO.getAll();
+    }
 }

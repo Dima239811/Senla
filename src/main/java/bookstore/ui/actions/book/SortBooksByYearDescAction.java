@@ -1,9 +1,9 @@
 package bookstore.ui.actions.book;
 
 import bookstore.controller.BookController;
+import bookstore.dto.BookResponse;
 import bookstore.enums.TypeSortBooks;
 import bookstore.exception.DataManagerException;
-import bookstore.model.entity.Book;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class SortBooksByYearDescAction implements IAction {
         System.out.println("Сортировка книг по году издания");
 
         try {
-            List<Book> bookList = bookController.sortBooks(TypeSortBooks.BY_YEAR.getValue());
+            List<BookResponse> bookList = bookController.sortBooks(TypeSortBooks.BY_YEAR.getValue());
 
             if (bookList.isEmpty()) {
                 logger.info("Книги не найдены");

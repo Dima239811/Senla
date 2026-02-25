@@ -3,12 +3,17 @@ package bookstore.service.entityService;
 import bookstore.comporator.order.DateOrderComporator;
 import bookstore.comporator.order.PriceOrderComporator;
 import bookstore.comporator.order.StatusOrderComporator;
+import bookstore.dto.OrderRequest;
 import bookstore.dto.OrderResponse;
 import bookstore.enums.OrderStatus;
 import bookstore.exception.DaoException;
 import bookstore.exception.ServiceException;
+import bookstore.model.entity.Book;
+import bookstore.model.entity.Customer;
 import bookstore.model.entity.Order;
 import bookstore.model.mapper.OrderMapper;
+import bookstore.repo.dao.BookDAO;
+import bookstore.repo.dao.CustomerDAO;
 import bookstore.repo.dao.OrderDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +27,19 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService {
     private final OrderDAO orderDAO;
+
+    private final BookDAO bookDAO;
+
+    private final CustomerDAO customerDAO;
+
     private final OrderMapper orderMapper;
 
+
     @Autowired
-    public OrderService(OrderDAO orderDAO, OrderMapper orderMapper) {
+    public OrderService(OrderDAO orderDAO, BookDAO bookDAO, CustomerService customerService, CustomerDAO customerDAO, OrderMapper orderMapper) {
         this.orderDAO = orderDAO;
+        this.bookDAO = bookDAO;
+        this.customerDAO = customerDAO;
         this.orderMapper = orderMapper;
     }
 
@@ -189,13 +202,15 @@ public class OrderService {
     public List<Order> getAllOrder() {
         return orderDAO.getAll();
     }
-//
-//    @Transactional
-//    public void update(Order item) {
-//        try {
-//            orderDAO.update(item);
-//        } catch (DaoException e) {
-//            throw new ServiceException("Fail update " +  " in orderSevice in update()", e);
-//        }
-//    }
+
+    @Transactional
+    public void createOrder(OrderRequest order) {
+
+        Book persistedBook = bookDAO.findById(order.bookId());
+        Customer customer = customerDAO.findById(order.customerId());
+
+        Order newOrder = new Order(persistedBook, customer, new Date(), persistedBook.getPrice());
+
+        add(newOrder);
+    }
 }

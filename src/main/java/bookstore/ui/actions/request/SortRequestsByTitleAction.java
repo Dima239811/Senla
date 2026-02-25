@@ -1,8 +1,8 @@
 package bookstore.ui.actions.request;
 
 import bookstore.controller.RequestBookController;
+import bookstore.dto.RequestBookResponse;
 import bookstore.exception.DataManagerException;
-import bookstore.model.entity.RequestBook;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class SortRequestsByTitleAction implements IAction {
         System.out.println("Сортировка по алфавиту: ");
 
         try {
-            List<RequestBook> requestBooks = requestBookController.sortRequest("по алфавиту");
+            List<RequestBookResponse> requestBooks = requestBookController.sortRequest("по алфавиту");
 
             if (requestBooks.isEmpty()) {
                 logger.info("список запросов пуст");

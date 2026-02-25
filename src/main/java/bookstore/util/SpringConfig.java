@@ -21,7 +21,7 @@ import java.util.Properties;
 @ComponentScan(basePackages = "bookstore")
 @PropertySource("classpath:config.properties")
 @EnableTransactionManagement
-@EnableWebMvc
+//@EnableWebMvc
 public class SpringConfig {
     @Value("${spring.datasource.url}")
     private String url;

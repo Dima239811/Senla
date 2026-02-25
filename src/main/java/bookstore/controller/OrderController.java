@@ -3,8 +3,6 @@ package bookstore.controller;
 import bookstore.dto.OrderRequest;
 import bookstore.dto.OrderResponse;
 import bookstore.enums.OrderStatus;
-import bookstore.model.entity.Order;
-import bookstore.service.InventoryService;
 import bookstore.service.entityService.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,16 +14,13 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
 
-    private final InventoryService inventoryService;
-
     @Autowired
-    public OrderController(OrderService orderService, InventoryService inventoryService) {
+    public OrderController(OrderService orderService) {
         this.orderService = orderService;
-        this.inventoryService = inventoryService;
     }
 
     public void createOrder(OrderRequest order) {
-        inventoryService.createOrder(order);
+        orderService.createOrder(order);
     }
 
     public void cancelOrder(int orderId) {

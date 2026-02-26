@@ -18,6 +18,7 @@ import bookstore.model.mapper.BookMapper;
 import bookstore.repo.dao.BookDAO;
 
 import bookstore.repo.dao.OrderDAO;
+import bookstore.repo.dao.RequestBookDAO;
 import bookstore.util.LibraryConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,8 @@ public class BookService {
     private final BookMapper bookMapper;
 
     @Autowired
-    public BookService(BookDAO bookDAO, OrderService orderService, RequestBookService requestBookService, LibraryConfig libraryConfig, BookMapper bookMapper) {
+    public BookService(BookDAO bookDAO, OrderService orderService, RequestBookService requestBookService,
+                       LibraryConfig libraryConfig, BookMapper bookMapper) {
         this.bookDAO = bookDAO;
         this.orderService = orderService;
         this.requestBookService = requestBookService;

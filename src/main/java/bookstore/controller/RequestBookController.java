@@ -4,11 +4,12 @@ import bookstore.dto.RequestBookRequest;
 import bookstore.dto.RequestBookResponse;
 import bookstore.service.entityService.RequestBookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/requests")
 public class RequestBookController {
     private final RequestBookService requestBookService;
 
@@ -17,15 +18,18 @@ public class RequestBookController {
         this.requestBookService = requestBookService;
     }
 
+    @GetMapping
     public List<RequestBookResponse> getAllRequestBook() {
         return requestBookService.getAll();
     }
 
-    public void addRequest(RequestBookRequest requestBook) {
+    @PostMapping
+    public void addRequest(@RequestBody RequestBookRequest requestBook) {
         requestBookService.createRequest(requestBook);
     }
 
-    public List<RequestBookResponse> sortRequest(String criteria) {
+    @GetMapping("/sort")
+    public List<RequestBookResponse> sortRequest(@RequestParam String criteria) {
         return requestBookService.sortRequest(criteria);
     }
 }

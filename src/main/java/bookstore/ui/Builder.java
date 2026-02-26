@@ -2,10 +2,10 @@ package bookstore.ui;
 
 import bookstore.ui.action_factory.ActionFactory;
 import bookstore.ui.menu_items.MenuItem;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 
 @Component
 public class Builder {

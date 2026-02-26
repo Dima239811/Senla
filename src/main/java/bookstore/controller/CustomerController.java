@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/customers")
 public class CustomerController {
     private final CustomerService customerService;
 
@@ -20,13 +20,13 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public CustomerResponse getCustomerById(@PathVariable("id") int id) {
         return customerService.getById(id);
     }
 
     @PostMapping
-    public void addCustomer(CustomerRequest customer) {
+    public void addCustomer(@RequestBody CustomerRequest customer) {
         customerService.add(customer);
     }
 

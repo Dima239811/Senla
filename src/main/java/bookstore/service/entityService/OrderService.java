@@ -36,7 +36,7 @@ public class OrderService {
 
 
     @Autowired
-    public OrderService(OrderDAO orderDAO, BookDAO bookDAO, CustomerService customerService, CustomerDAO customerDAO, OrderMapper orderMapper) {
+    public OrderService(OrderDAO orderDAO, BookDAO bookDAO, CustomerDAO customerDAO, OrderMapper orderMapper) {
         this.orderDAO = orderDAO;
         this.bookDAO = bookDAO;
         this.customerDAO = customerDAO;

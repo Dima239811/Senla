@@ -1,10 +1,10 @@
 package bookstore.ui.actions.book;
 
+import bookstore.controller.BookController;
+import bookstore.dto.BookResponse;
 import bookstore.exception.DataManagerException;
-import bookstore.model.entity.Book;
-import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
-import bookstore.util.LibraryConfig;
+import bookstore.config.LibraryConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +13,15 @@ import java.util.List;
 
 public class ShowStaleBooksAction implements IAction {
 
-    private final DataManager dataManager;
+    private final BookController bookController;
     private static final Logger logger = LoggerFactory.getLogger(ShowStaleBooksAction.class);
 
 
     private final LibraryConfig libraryConfig;
 
     @Autowired
-    public ShowStaleBooksAction(DataManager dataManager, LibraryConfig libraryConfig) {
-        this.dataManager = dataManager;
+    public ShowStaleBooksAction(BookController bookController, LibraryConfig libraryConfig) {
+        this.bookController = bookController;
         this.libraryConfig = libraryConfig;
     }
 
@@ -32,7 +32,7 @@ public class ShowStaleBooksAction implements IAction {
             int staleMonths = libraryConfig.getStaleMonths();
 
             try {
-                List<Book> staleBooks = dataManager.getStaleBooks(staleMonths);
+                List<BookResponse> staleBooks = bookController.getStaleBooks(staleMonths);
 
                 if (staleBooks.isEmpty()) {
                     logger.info("Залежавшихся книг за последние {} месяцев не найдено", staleMonths);
@@ -42,7 +42,7 @@ public class ShowStaleBooksAction implements IAction {
                     System.out.println("Список залежавшихся книг (не продавались более "
                             + staleMonths + " месяцев):");
                     staleBooks.forEach(book ->
-                            System.out.println("• " + book.getName() + " (ID: " + book.getBookId() + ")"));
+                            System.out.println("• " + book.name() + " (ID: " + book.bookId() + ")"));
                 }
             } catch (DataManagerException ex) {
                 logger.error("Ошибка при просмотре залежавшихся книг: {}", ex.getMessage());

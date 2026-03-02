@@ -1,0 +1,200 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-book-table
+      author: Dima
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: book
+      changes:
+        - createTable:
+            tableName: book
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: year
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: double precision
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 002-create-customer-table
+      author: Dima
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: customer
+      changes:
+        - createTable:
+            tableName: customer
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: fullname
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phonenumber
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: age
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 003-create-orders-table
+      author: Dima
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: orders
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customerid
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bookid
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: dateorder
+                  type: timestamp(6)
+              - column:
+                  name: price
+                  type: double precision
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            constraintName: orders_bookid_fkey
+            baseTableName: orders
+            baseColumnNames: bookid
+            referencedTableName: book
+            referencedColumnNames: id
+            onUpdate: NO ACTION
+            onDelete: NO ACTION
+        - addForeignKeyConstraint:
+            constraintName: orders_customerid_fkey
+            baseTableName: orders
+            baseColumnNames: customerid
+            referencedTableName: customer
+            referencedColumnNames: id
+            onUpdate: NO ACTION
+            onDelete: NO ACTION
+
+  - changeSet:
+      id: 004-create-request-table
+      author: Dima
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: request
+      changes:
+        - createTable:
+            tableName: request
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customerid
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bookid
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            constraintName: request_bookid_fkey
+            baseTableName: request
+            baseColumnNames: bookid
+            referencedTableName: book
+            referencedColumnNames: id
+            onUpdate: NO ACTION
+            onDelete: NO ACTION
+        - addForeignKeyConstraint:
+            constraintName: request_customerid_fkey
+            baseTableName: request
+            baseColumnNames: customerid
+            referencedTableName: customer
+            referencedColumnNames: id
+            onUpdate: NO ACTION
+            onDelete: NO ACTION

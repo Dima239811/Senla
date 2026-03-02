@@ -1,5 +1,4 @@
-package bookstore.util;
-
+package bookstore.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 public class LibraryConfig {
-
     @Value("${book.stale.months: 3}")
     private int staleMonths;
 

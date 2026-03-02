@@ -24,4 +24,8 @@
         <appender-ref ref="FILE"/>
     </root>
 
+    <logger name="org.springframework.transaction" level="DEBUG"/>
+    <logger name="org.springframework.orm.hibernate5" level="DEBUG"/>
+
+
 </configuration>

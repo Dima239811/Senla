@@ -1,9 +1,14 @@
 package bookstore.ui.actions.order;
 
+import bookstore.controller.BookController;
+import bookstore.controller.CustomerController;
+import bookstore.controller.OrderController;
+import bookstore.dto.BookResponse;
+import bookstore.dto.CustomerResponse;
+import bookstore.dto.OrderRequest;
 import bookstore.exception.DataManagerException;
 import bookstore.model.entity.Book;
 import bookstore.model.entity.Customer;
-import bookstore.model.DataManager;
 import bookstore.model.entity.Order;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
@@ -14,11 +19,16 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CreateOrderAction implements IAction {
-    private final DataManager dataManager;
+    private final BookController bookController;
+    private final CustomerController customerController;
+    private final OrderController orderController;
+
     private static final Logger logger = LoggerFactory.getLogger(CreateOrderAction.class);
 
-    public CreateOrderAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public CreateOrderAction(BookController bookController, CustomerController customerController, OrderController orderController) {
+        this.bookController = bookController;
+        this.customerController = customerController;
+        this.orderController = orderController;
     }
 
     @Override
@@ -31,7 +41,7 @@ public class CreateOrderAction implements IAction {
         try {
             int id = scanner.nextInt();
             scanner.nextLine();
-            Book book = dataManager.findBook(id);
+            BookResponse book = bookController.getBookById(id);
 
             if (book == null) {
                 logger.error("Книга с ID {} не найдена", id);
@@ -46,14 +56,15 @@ public class CreateOrderAction implements IAction {
             int customerId = scanner.nextInt();
             scanner.nextLine();
 
-            Customer customer = dataManager.getCustomerById(customerId);
+            CustomerResponse customer = customerController.getCustomerById(customerId);
             if (customer == null) {
                 throw new IllegalArgumentException("Клиент с ID " + customerId + " не найден");
             }
-            System.out.println("Найден клиент: " + customer.getFullName());
+            System.out.println("Найден клиент: " + customer.fullName());
 
-            Order order = new Order(book, customer, new Date(), book.getPrice());
-            dataManager.createOrder(order);
+            //Order order = new Order(book, customer, new Date(), book.getPrice());
+            OrderRequest order = new OrderRequest(customer.customerID(), book.bookId());
+            orderController.createOrder(order);
         } catch (IllegalArgumentException e) {
             logger.error("Ошибка: {}", e.getMessage());
             System.out.println("Ошибка: " + e.getMessage());

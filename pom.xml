@@ -13,7 +13,7 @@
 
 
     <groupId>com.infy</groupId>
-    <artifactId>user-identity-rest</artifactId>
+    <artifactId>app</artifactId>
     <version>1.0.0</version>
 
     <properties>
@@ -95,6 +95,22 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.3.3</version>
+                <configuration>
+                    <mainClass>bookstore.Main</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>

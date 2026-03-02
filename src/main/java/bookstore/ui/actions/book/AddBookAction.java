@@ -1,10 +1,11 @@
 package bookstore.ui.actions.book;
 
+import bookstore.controller.BookController;
+import bookstore.dto.BookRequest;
 import bookstore.enums.StatusBook;
 import bookstore.exception.DataManagerException;
 import bookstore.exception.DataValidationException;
 import bookstore.model.entity.Book;
-import bookstore.model.DataManager;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,11 +14,11 @@ import java.util.Scanner;
 
 public class AddBookAction implements IAction {
 
-    private final DataManager dataManager;
+    private final BookController bookController;
     private static final Logger logger = LoggerFactory.getLogger(AddBookAction.class);
 
-    public AddBookAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public AddBookAction(BookController bookController) {
+        this.bookController = bookController;
     }
 
     @Override
@@ -64,8 +65,9 @@ public class AddBookAction implements IAction {
                 scanner.nextLine(); // Очистка буфера
             }
 
-            Book book = new Book(name, author, year, price, StatusBook.IN_STOCK);
-            dataManager.addBookToWareHouse(book);
+            //Book book = new Book(name, author, year, price, StatusBook.IN_STOCK);
+            BookRequest book = new BookRequest(name, author, year, price);
+            bookController.addBook(book);
             System.out.println("Книга '" + name + "' автора '" + author + "' добавлена.");
             logger.info("Книга '{}' успешно добавлена автором '{}'", name, author);
         } catch (DataValidationException e) {

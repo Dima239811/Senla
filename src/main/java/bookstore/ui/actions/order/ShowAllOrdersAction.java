@@ -1,8 +1,8 @@
 package bookstore.ui.actions.order;
 
+import bookstore.controller.OrderController;
+import bookstore.dto.OrderResponse;
 import bookstore.exception.DataManagerException;
-import bookstore.model.DataManager;
-import bookstore.model.entity.Order;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +10,11 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class ShowAllOrdersAction implements IAction {
-    private final DataManager dataManager;
+    private final OrderController orderController;
     private static final Logger logger = LoggerFactory.getLogger(ShowAllOrdersAction.class);
 
-    public ShowAllOrdersAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public ShowAllOrdersAction(OrderController orderController) {
+        this.orderController = orderController;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ShowAllOrdersAction implements IAction {
         System.out.println("вывод из списка заказов");
 
         try {
-            List<Order> orders = dataManager.getAllOrder();
+            List<OrderResponse> orders = orderController.getAllOrder();
             System.out.println("\n=== СПИСОК ВСЕХ заказов ===");
             System.out.println("Всего заказов: " + orders.size());
             System.out.println("-----------------------------------------------");

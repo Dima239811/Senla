@@ -1,58 +1,108 @@
 package bookstore.service.entityService;
 
+import bookstore.dto.CustomerRequest;
+import bookstore.dto.CustomerResponse;
 import bookstore.exception.DaoException;
 import bookstore.exception.ServiceException;
 import bookstore.model.entity.Customer;
+import bookstore.model.mapper.CustomerMapper;
 import bookstore.repo.dao.CustomerDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Collections;
 
 @Service
-public class CustomerService implements IService<Customer> {
+public class CustomerService {
+    private final CustomerDAO customerDAO;
+    private final CustomerMapper customerMapper;
 
     @Autowired
-    private CustomerDAO customerDAO;
+    public CustomerService(CustomerDAO customerDAO, CustomerMapper customerMapper) {
+        this.customerDAO = customerDAO;
+        this.customerMapper = customerMapper;
+    }
 
-
-    @Override
-    public List<Customer> getAll() {
+    @Transactional(readOnly = true)
+    public List<CustomerResponse> getAll() {
         try {
             List<Customer> customers = customerDAO.getAll();
-            return customers == null ? Collections.emptyList() : customers;
+            return customerMapper.toCustomerResponceList(customers);
         } catch (DaoException e) {
             throw new ServiceException("Failed to fetch all customers " + e.getMessage(), e);
         }
     }
 
-    // вернет null если не найдет
-    @Override
-    public Customer getById(int id) {
+    @Transactional(readOnly = true)
+    public CustomerResponse getById(int id) {
         try {
             Customer customer = customerDAO.findById(id);
-            return customer;
+            return customerMapper.toCustomerResponse(customer);
         } catch (DaoException e) {
             throw new ServiceException("Failed to find customer with ID " + id, e);
         }
     }
 
-    @Override
-    public void add(Customer item) {
+    @Transactional
+    public void add(CustomerRequest item) {
         try {
-            customerDAO.create(item);
+            Customer customer = customerMapper.toEntity(item);
+            customerDAO.create(customer);
         } catch (DaoException e) {
-            throw new ServiceException("Failed to add customer with ID " + item.getCustomerID(), e);
+            throw new ServiceException("Failed to add customer with ID " + item.fullName(), e);
         }
     }
 
-    @Override
-    public void update(Customer item) {
+    @Transactional
+    public void update(CustomerRequest item) {
         try {
-            customerDAO.update(item);
+            Customer customer = customerMapper.toEntity(item);
+            customerDAO.update(customer);
         } catch (DaoException e) {
-            throw new ServiceException("Failed to update customer with ID " + item.getCustomerID(), e);
+            throw new ServiceException("Failed to update customer with ID " + item.fullName(), e);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public Customer getEntityById(int id) {
+        try {
+            return customerDAO.findById(id);
+        } catch (DaoException ex) {
+            throw new ServiceException("Failed to find customer with ID " + id, ex);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public Customer findByEmail(String email) {
+        try {
+            return customerDAO.findByEmail(email);
+        } catch (DaoException ex) {
+            throw new ServiceException("Failed to find customer with email " + email + " ", ex);
+        }
+    }
+
+    @Transactional
+    public void addCustomerEntity(Customer customer) {
+        try {
+            Customer customer1 = customerDAO.findById(customer.getCustomerID());
+            if (customer1 != null) {
+                customerDAO.update(customer);
+            } else {
+                customerDAO.create(customer);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to add customer with ID " + customer.getFullName(), e);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<Customer> getAllCustomer() {
+        try {
+            return customerDAO.getAll();
+        } catch (DaoException ex) {
+            throw new ServiceException("Failed to get all customer"  + " ", ex);
         }
     }
 }

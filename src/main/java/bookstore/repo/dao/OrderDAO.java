@@ -2,7 +2,6 @@ package bookstore.repo.dao;
 
 import bookstore.exception.DaoException;
 import bookstore.model.entity.Order;
-import bookstore.repo.util.HibernateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -18,7 +17,7 @@ public class OrderDAO extends HibernateAbstractDao<Order> {
 
     public List<Order> getAllWithBooksAndCustomers() {
         try {
-            return HibernateUtil.getSession().createQuery(
+            return entityManager.createQuery(
                             "SELECT DISTINCT o FROM Order o " +
                                     "LEFT JOIN FETCH o.book " +
                                     "LEFT JOIN FETCH o.customer", Order.class)

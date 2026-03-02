@@ -1,8 +1,8 @@
 package bookstore.ui.actions.order;
 
+import bookstore.controller.OrderController;
+import bookstore.dto.OrderResponse;
 import bookstore.exception.DataManagerException;
-import bookstore.model.DataManager;
-import bookstore.model.entity.Order;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +10,11 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class SortOrdersByDateAction implements IAction {
-    private final DataManager dataManager;
+    private final OrderController orderController;
     private static final Logger logger = LoggerFactory.getLogger(SortOrdersByDateAction.class);
 
-    public SortOrdersByDateAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public SortOrdersByDateAction(OrderController orderController) {
+        this.orderController = orderController;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class SortOrdersByDateAction implements IAction {
         System.out.println("Сортировка по дате: ");
 
         try {
-            List<Order> orders = dataManager.sortOrders("по дате");
+            List<OrderResponse> orders = orderController.sortOrders("по дате");
 
             if (orders.isEmpty()) {
                 logger.info("список заказов пуст");

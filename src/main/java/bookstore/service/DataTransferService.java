@@ -3,6 +3,7 @@ package bookstore.service;
 import bookstore.exception.DataExportException;
 import bookstore.exception.DataImportException;
 import bookstore.exception.DataManagerException;
+import bookstore.exception.ServiceException;
 import bookstore.model.entity.Book;
 import bookstore.model.entity.Customer;
 import bookstore.model.entity.Order;
@@ -67,7 +68,7 @@ public class DataTransferService {
             } catch (DataImportException e) {
                 throw e;
             } catch (Exception e) {
-                throw new DataManagerException("fail in data manager importBooksFromCsv", e);
+                throw new ServiceException("fail in data manager importBooksFromCsv", e);
             }
     }
 
@@ -90,7 +91,7 @@ public class DataTransferService {
             } catch (DataImportException e) {
                 throw e;
             } catch (Exception e) {
-                throw new DataManagerException("fail in data manager importOrdersFromCsv ", e);
+                throw new ServiceException("fail in data manager importOrdersFromCsv ", e);
             }
         }
 
@@ -129,7 +130,7 @@ public class DataTransferService {
             } catch (DataImportException e) {
                 throw e;
             } catch (Exception e) {
-                throw new DataManagerException("fail in data manager importRequestFromCsv ", e);
+                throw new ServiceException("fail in data manager importRequestFromCsv ", e);
             }
         }
 }

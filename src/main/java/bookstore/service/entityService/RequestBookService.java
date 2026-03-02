@@ -38,14 +38,20 @@ public class RequestBookService {
 
     @Transactional
     public void closeRequest(String name, String author) {
-        List<RequestBook> requestBooks = getAllRequest();
-        for (RequestBook requests : requestBooks) {
-            if (Objects.equals(requests.getBook().getName(), name) &&
-                    Objects.equals(requests.getBook().getAuthor(), author)) {
-                requests.setStatus(RequestStatus.CLOSED);
-                update(requests);
+        try {
+            List<RequestBook> requestBooks = getAllRequest();
+            for (RequestBook requests : requestBooks) {
+                if (Objects.equals(requests.getBook().getName(), name) &&
+                        Objects.equals(requests.getBook().getAuthor(), author)) {
+                    requests.setStatus(RequestStatus.CLOSED);
+                    update(requests);
+                }
             }
+        } catch (Exception e) {
+            throw new ServiceException("Fail to close request in RequestBookService for book: " + name +
+                    " " + " with author " + author + " ", e);
         }
+
     }
 
     @Transactional(readOnly = true)
@@ -123,15 +129,23 @@ public class RequestBookService {
 
     @Transactional(readOnly = true)
     public List<RequestBook> getAllRequest() {
-        return requestBookDAO.getAll();
+        try {
+            return requestBookDAO.getAll();
+        } catch (DaoException ex) {
+            throw new ServiceException("Fail to get all requests in RequestBookService in getAllRequest()", ex);
+        }
     }
 
     @Transactional
     public void createRequest(RequestBookRequest requestBook) {
-        customerService.add(requestBook.customerRequest());
-        RequestBook requestBookNew = new RequestBook(customerService.findByEmail(requestBook.customerRequest().email()),
-                bookDAO.findById(requestBook.bookId()));
-        add(requestBookNew);
+        try {
+            customerService.add(requestBook.customerRequest());
+            RequestBook requestBookNew = new RequestBook(customerService.findByEmail(requestBook.customerRequest().email()),
+                    bookDAO.findById(requestBook.bookId()));
+            add(requestBookNew);
+        } catch (DaoException ex) {
+            throw new ServiceException("Fail to create request in RequestBookService", ex);
+        }
     }
 
     @Transactional(readOnly = true)

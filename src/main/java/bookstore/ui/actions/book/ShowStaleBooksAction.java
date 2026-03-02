@@ -4,7 +4,7 @@ import bookstore.controller.BookController;
 import bookstore.dto.BookResponse;
 import bookstore.exception.DataManagerException;
 import bookstore.ui.actions.IAction;
-import bookstore.util.LibraryConfig;
+import bookstore.config.LibraryConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

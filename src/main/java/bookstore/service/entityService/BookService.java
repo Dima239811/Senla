@@ -12,14 +12,13 @@ import bookstore.exception.DaoException;
 import bookstore.exception.DataManagerException;
 import bookstore.exception.ServiceException;
 import bookstore.model.entity.Book;
-import bookstore.model.entity.Customer;
 import bookstore.model.entity.Order;
 import bookstore.model.mapper.BookMapper;
 import bookstore.repo.dao.BookDAO;
 
-import bookstore.repo.dao.OrderDAO;
-import bookstore.repo.dao.RequestBookDAO;
-import bookstore.util.LibraryConfig;
+import bookstore.config.LibraryConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +39,7 @@ public class BookService {
     private final RequestBookService requestBookService;
     private final LibraryConfig libraryConfig;
     private final BookMapper bookMapper;
+    private static final Logger logger = LoggerFactory.getLogger(BookService.class);
 
     @Autowired
     public BookService(BookDAO bookDAO, OrderService orderService, RequestBookService requestBookService,
@@ -74,7 +74,12 @@ public class BookService {
     @Transactional
     public void add(Book item) {
         try {
-            bookDAO.create(item);
+            Book existing = bookDAO.findById(item.getBookId());
+            if (existing != null) {
+                bookDAO.update(item);
+            } else {
+                bookDAO.create(item);
+            }
         } catch (DaoException e) {
             throw new ServiceException(
                     "Failed to add book with name: " + item.getName(), e
@@ -123,47 +128,63 @@ public class BookService {
 
     @Transactional
     public void writeOffBook(int bookId) {
-        List<Book> books = getAllEntities();
-        for (Book b: books) {
-            if (b.getBookId() == bookId && b.getStatus().equals(StatusBook.IN_STOCK)) {
-                b.setStatus(StatusBook.OUT_OF_STOCK);
-                update(b);
-                System.out.println("Статус книги изменен на - отсутсвует");
-                return;
+        try {
+            List<Book> books = getAllEntities();
+            for (Book b: books) {
+                if (b.getBookId() == bookId && b.getStatus().equals(StatusBook.IN_STOCK)) {
+                    b.setStatus(StatusBook.OUT_OF_STOCK);
+                    update(b);
+                    logger.debug("Статус книги изменен на - отсутсвует");
+                    return;
+                }
             }
+            logger.debug("Книга с id {}  не найдена", bookId);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed writeoff book with id: " + bookId, e);
         }
-        System.out.println("Книга с id " + bookId + "  не найдена");
     }
 
     @Transactional(readOnly = true)
     public Book getEntityById(int id) {
-        return bookDAO.findById(id);
+        try {
+            return bookDAO.findById(id);
+        } catch (DaoException ex) {
+            throw new ServiceException("Failed to get books by id " + id + " ", ex);
+        }
     }
 
     @Transactional(readOnly = true)
     public List<Book> getAllEntities() {
-        return bookDAO.getAll();
+        try {
+            return bookDAO.getAll();
+        } catch (DaoException ex) {
+            throw new ServiceException("Failed to get all books in getAllEntities" + " ", ex);
+        }
     }
 
     @Transactional
     public void addBookToWarehouse(BookRequest item) {
-        Book book = bookMapper.toEntity(item);
-        add(book);
+        try {
+            Book book = bookMapper.toEntity(item);
+            add(book);
 
-        if (libraryConfig.isAutoCloseRequests()) {
-            requestBookService.closeRequest(book.getName(), book.getAuthor());
-        }
-
-        List<Order> orders = orderService.getAllOrder();
-        for (Order order : orders) {
-            if (Objects.equals(order.getBook().getName(), book.getName()) &&
-                    Objects.equals(order.getBook().getAuthor(), book.getAuthor())
-                    && order.getStatus() == OrderStatus.WAITING_FOR_BOOK) {
-
-                orderService.changeOrderStatus(order.getOrderId(), OrderStatus.NEW);
-
-                System.out.println("Заказ #" + order.getOrderId() + " теперь активен — книга поступила.");
+            if (libraryConfig.isAutoCloseRequests()) {
+                requestBookService.closeRequest(book.getName(), book.getAuthor());
             }
+
+            List<Order> orders = orderService.getAllOrder();
+            for (Order order : orders) {
+                if (Objects.equals(order.getBook().getName(), book.getName()) &&
+                        Objects.equals(order.getBook().getAuthor(), book.getAuthor())
+                        && order.getStatus() == OrderStatus.WAITING_FOR_BOOK) {
+
+                    orderService.changeOrderStatus(order.getOrderId(), "новый");
+
+                    logger.info("Заказ #{} теперь активен — книга поступила.", order.getOrderId());
+                }
+            }
+        } catch (Exception ex) {
+            throw new ServiceException("Failed to addBookToWarehouse " + item + " ", ex);
         }
     }
 
@@ -175,7 +196,7 @@ public class BookService {
                     .filter(book -> isBookStale(book, staleDate))
                     .collect(Collectors.toList()));
         } catch (ServiceException | DataManagerException ex) {
-            throw new DataManagerException("fail to get stale books ", ex.getCause());
+            throw new ServiceException("fail to get stale books ", ex.getCause());
         }
     }
 
@@ -189,7 +210,7 @@ public class BookService {
                         return orderDate.after(staleDateAsDate) || orderDate.equals(staleDateAsDate);
                     });
         } catch (ServiceException | DataManagerException ex) {
-            throw new DataManagerException("fail to determinate is book stale ", ex.getCause());
+            throw new ServiceException("fail to determinate is book stale ", ex.getCause());
         }
     }
 
@@ -199,12 +220,16 @@ public class BookService {
                     .filter(order -> order.getBook().getBookId() == bookId)
                     .collect(Collectors.toList());
         } catch (ServiceException ex) {
-            throw new DataManagerException("fail to get orders For Book ", ex.getCause());
+            throw new ServiceException("fail to get orders For Book ", ex.getCause());
         }
     }
 
     @Transactional(readOnly = true)
     public List<Book> getAllBooks() {
-        return bookDAO.getAll();
+        try {
+            return bookDAO.getAll();
+        } catch (DaoException ex) {
+            throw new ServiceException("Failed to get all books in getAllBooks" + " ", ex);
+        }
     }
 }

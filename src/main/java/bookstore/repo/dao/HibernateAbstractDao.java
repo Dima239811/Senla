@@ -1,8 +1,9 @@
 package bookstore.repo.dao;
 
 import bookstore.exception.DaoException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,21 +13,17 @@ public class HibernateAbstractDao <T> implements GenericDAO<T> {
     private static final Logger logger = LoggerFactory.getLogger(HibernateAbstractDao.class);
     private final Class<T> type;
 
-    private final SessionFactory sessionFactory;
+    @PersistenceContext
+    protected EntityManager entityManager;
 
-    protected HibernateAbstractDao(Class<T> type, SessionFactory sessionFactory) {
+    protected HibernateAbstractDao(Class<T> type) {
         this.type = type;
-        this.sessionFactory = sessionFactory;
-    }
-
-    public Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
     }
 
     @Override
     public void create(T object) {
         try {
-            getCurrentSession().persist(object);
+            entityManager.persist(object);
         } catch (Exception e) {
             logger.error("Error creating " + type.getName(), e);
             throw new DaoException("Failed to create " + type.getName(), e);
@@ -36,7 +33,7 @@ public class HibernateAbstractDao <T> implements GenericDAO<T> {
     @Override
     public T findById(int id) {
         try {
-            return getCurrentSession().get(type, id);
+            return entityManager.find(type, id);
         } catch (Exception e) {
             logger.error("Error creating " + type.getName(), e);
             throw new DaoException("Failed to find " + type.getName(), e);
@@ -46,7 +43,7 @@ public class HibernateAbstractDao <T> implements GenericDAO<T> {
     @Override
     public void update(T object) {
         try {
-            getCurrentSession().merge(object);
+            entityManager.merge(object);
         } catch (Exception e) {
             logger.error("Error updating " + type.getName(), e);
             throw new DaoException("Failed to update " + type.getName(), e);
@@ -56,9 +53,9 @@ public class HibernateAbstractDao <T> implements GenericDAO<T> {
     @Override
     public void delete(int id) {
         try {
-            T entity = getCurrentSession().get(type, id);
+            T entity = entityManager.find(type, id);
             if (entity != null) {
-                getCurrentSession().remove(entity);
+                entityManager.remove(entity);
             }
         } catch (Exception e) {
             logger.error("Error deleting {}", type.getName(), e);
@@ -69,7 +66,7 @@ public class HibernateAbstractDao <T> implements GenericDAO<T> {
     @Override
     public List<T> getAll() {
         try {
-            return getCurrentSession()
+            return entityManager
                     .createQuery("FROM " + type.getName(), type)
                     .getResultList();
         } catch (Exception e) {

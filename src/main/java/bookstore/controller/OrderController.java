@@ -33,7 +33,7 @@ public class OrderController {
 
     @PatchMapping("/{id}/status")
     public void changeStatusOrder(@PathVariable("id") int id,
-                                  @RequestParam OrderStatus status) {
+                                  @RequestParam String status) {
         orderService.changeOrderStatus(id, status);
     }
 

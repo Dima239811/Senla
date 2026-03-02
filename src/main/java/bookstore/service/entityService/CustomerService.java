@@ -67,18 +67,31 @@ public class CustomerService {
 
     @Transactional(readOnly = true)
     public Customer getEntityById(int id) {
-        return customerDAO.findById(id);
+        try {
+            return customerDAO.findById(id);
+        } catch (DaoException ex) {
+            throw new ServiceException("Failed to find customer with ID " + id, ex);
+        }
     }
 
     @Transactional(readOnly = true)
     public Customer findByEmail(String email) {
-        return customerDAO.findByEmail(email);
+        try {
+            return customerDAO.findByEmail(email);
+        } catch (DaoException ex) {
+            throw new ServiceException("Failed to find customer with email " + email + " ", ex);
+        }
     }
 
     @Transactional
     public void addCustomerEntity(Customer customer) {
         try {
-            customerDAO.create(customer);
+            Customer customer1 = customerDAO.findById(customer.getCustomerID());
+            if (customer1 != null) {
+                customerDAO.update(customer);
+            } else {
+                customerDAO.create(customer);
+            }
         } catch (DaoException e) {
             throw new ServiceException("Failed to add customer with ID " + customer.getFullName(), e);
         }
@@ -86,6 +99,10 @@ public class CustomerService {
 
     @Transactional(readOnly = true)
     public List<Customer> getAllCustomer() {
-        return customerDAO.getAll();
+        try {
+            return customerDAO.getAll();
+        } catch (DaoException ex) {
+            throw new ServiceException("Failed to get all customer"  + " ", ex);
+        }
     }
 }

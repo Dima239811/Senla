@@ -53,7 +53,7 @@ public class ChangeOrderStatusAction implements IAction {
                 }
             };
 
-            orderController.changeStatusOrder(id, selectedStatus);
+            orderController.changeStatusOrder(id, selectedStatus.getValue());
             System.out.println("Статус заказа успешно изменен.");
             logger.info("Статус заказа с id {} успешно изменен", id);
         } catch (IncorrectNumberException e) {

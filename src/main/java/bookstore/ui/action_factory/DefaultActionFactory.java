@@ -22,7 +22,7 @@ import bookstore.ui.actions.request.CreateBookRequestAction;
 import bookstore.ui.actions.request.ShowAllBookRequestsAction;
 import bookstore.ui.actions.request.SortRequestsByCountAction;
 import bookstore.ui.actions.request.SortRequestsByTitleAction;
-import bookstore.util.LibraryConfig;
+import bookstore.config.LibraryConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

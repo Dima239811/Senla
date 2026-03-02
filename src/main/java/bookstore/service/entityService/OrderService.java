@@ -16,6 +16,8 @@ import bookstore.repo.dao.BookDAO;
 import bookstore.repo.dao.CustomerDAO;
 import bookstore.repo.dao.OrderDAO;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +36,8 @@ public class OrderService {
 
     private final OrderMapper orderMapper;
 
+    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
+
 
     @Autowired
     public OrderService(OrderDAO orderDAO, BookDAO bookDAO, CustomerDAO customerDAO, OrderMapper orderMapper) {
@@ -48,8 +52,7 @@ public class OrderService {
         try {
             Order order = orderDAO.findById(orderId);
             if (order == null) {
-                System.out.println("Заказ с id: " + orderId + " не существует");
-                return;
+                throw new RuntimeException("Заказ не существует с id: " +  orderId);
             }
             order.setStatus(OrderStatus.CANCELLED);
             try {
@@ -64,14 +67,17 @@ public class OrderService {
     }
 
     @Transactional
-    public void changeOrderStatus(int orderId, OrderStatus status) {
+    public void changeOrderStatus(int orderId, String status) {
         try {
             Order order = orderDAO.findById(orderId);
             if (order == null) {
-                System.out.println("Заказ с id: " + orderId + " не существует");
-                return;
+                throw new RuntimeException("Заказ с id: " + orderId + " не существует");
             }
-            order.setStatus(status);
+
+            OrderStatus status1 = OrderStatus.fromValue(status);
+
+
+            order.setStatus(status1);
             try {
                 orderDAO.update(order);
             } catch (DaoException e) {
@@ -151,6 +157,7 @@ public class OrderService {
         }
     }
 
+    @Transactional(readOnly = true)
     public int getCountPerformedOrder(Date from, Date to) {
         try {
             return filterOrdersByDateAndStatus(from, to).size();
@@ -192,7 +199,12 @@ public class OrderService {
         }
 
         try {
+            Order order = orderDAO.findById(item.getOrderId());
+            if (order != null) {
+                orderDAO.update(item);
+            } else {
                 orderDAO.create(item);
+            }
         } catch (DaoException e) {
             throw new ServiceException("Fail add " +  " in orderSevice in add()", e);
         }
@@ -200,17 +212,30 @@ public class OrderService {
 
     @Transactional(readOnly = true)
     public List<Order> getAllOrder() {
-        return orderDAO.getAll();
+        try {
+            return orderDAO.getAll();
+        } catch (DaoException ex) {
+            throw new ServiceException("Fail getAllOrder", ex);
+        }
     }
 
     @Transactional
     public void createOrder(OrderRequest order) {
+        try {
+            Book persistedBook = bookDAO.findById(order.bookId());
+            Customer customer = customerDAO.findById(order.customerId());
 
-        Book persistedBook = bookDAO.findById(order.bookId());
-        Customer customer = customerDAO.findById(order.customerId());
+            if (persistedBook == null)
+                throw new RuntimeException("Fail to add order, because book is null ");
 
-        Order newOrder = new Order(persistedBook, customer, new Date(), persistedBook.getPrice());
+            if (customer == null)
+                throw new RuntimeException("Fail to add order, because customer is null ");
 
-        add(newOrder);
+            Order newOrder = new Order(persistedBook, customer, new Date(), persistedBook.getPrice());
+
+            add(newOrder);
+        } catch (DaoException ex) {
+            throw new ServiceException("Fail to add order: ", ex.getCause());
+        }
     }
 }

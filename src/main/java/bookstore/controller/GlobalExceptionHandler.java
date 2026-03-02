@@ -1,5 +1,7 @@
 package bookstore.controller;
 
+import bookstore.exception.DataExportException;
+import bookstore.exception.DataImportException;
 import bookstore.exception.ErrorResponse;
 import bookstore.exception.ServiceException;
 import org.slf4j.Logger;
@@ -41,6 +43,31 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
+        logger.warn("Invalid argument: {}", ex.getMessage());
+
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                ex.getMessage()
+        );
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({DataImportException.class, DataExportException.class})
+    public ResponseEntity<ErrorResponse> handleDataImportException(DataImportException ex) {
+        logger.warn("Error : {}", ex.getMessage());
+
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                ex.getMessage()
+        );
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleAll(Exception ex) {
 
@@ -48,7 +75,7 @@ public class GlobalExceptionHandler {
 
         ErrorResponse error = new ErrorResponse(
                 LocalDateTime.now(),
-                "Internal server error"
+                ex.getMessage()
         );
 
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);

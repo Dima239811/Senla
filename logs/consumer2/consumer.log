@@ -1,0 +1,703 @@
+2026-03-13 15:04:18 [main] INFO  bank.producer.Consumer - Starting Consumer v1.0.0 using Java 17.0.18 with PID 1 (/app.jar started by root in /)
+2026-03-13 15:04:18 [main] INFO  bank.producer.Consumer - The following 1 profile is active: "docker"
+2026-03-13 15:04:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-13 15:04:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 104 ms. Found 2 JPA repository interfaces.
+2026-03-13 15:04:22 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-03-13 15:04:22 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+2026-03-13 15:04:22 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-13 15:04:22 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.26]
+2026-03-13 15:04:22 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-13 15:04:22 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3262 ms
+2026-03-13 15:04:23 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-13 15:04:23 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2026-03-13 15:04:23 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-13 15:04:24 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-13 15:04:24 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-13 15:04:25 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5c9a4f3b
+2026-03-13 15:04:25 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-13 15:04:26 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-13 15:04:27 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-13 15:04:27 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-13 15:04:28 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+2026-03-13 15:04:28 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-03-13 15:04:28 [main] INFO  o.a.k.c.consumer.ConsumerConfig - ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = latest
+	bootstrap.servers = [kafka1:9092, kafka2:9093, kafka3:9094]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-bank-group-1
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	enable.metrics.push = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = bank-group
+	group.instance.id = null
+	group.protocol = classic
+	group.remote.assignor = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 100
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.springframework.kafka.support.serializer.JsonDeserializer
+
+2026-03-13 15:04:28 [main] INFO  o.a.k.c.t.i.KafkaMetricsCollector - initializing Kafka metrics collector
+2026-03-13 15:04:28 [main] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka version: 3.7.1
+2026-03-13 15:04:28 [main] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka commitId: e2494e6ffb89f828
+2026-03-13 15:04:28 [main] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka startTimeMs: 1773414268637
+2026-03-13 15:04:28 [main] INFO  o.a.k.c.c.i.LegacyKafkaConsumer - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Subscribed to topic(s): transfers
+2026-03-13 15:04:28 [main] INFO  bank.producer.Consumer - Started Consumer in 12.354 seconds (process running for 13.642)
+2026-03-13 15:04:29 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Error while fetching metadata with correlation id 2 : {transfers=LEADER_NOT_AVAILABLE}
+2026-03-13 15:04:29 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  org.apache.kafka.clients.Metadata - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Cluster ID: D_M9PBG9TQaSkE3GlL9jkg
+2026-03-13 15:04:29 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Error while fetching metadata with correlation id 6 : {transfers=LEADER_NOT_AVAILABLE}
+2026-03-13 15:04:31 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Discovered group coordinator kafka3:9094 (id: 2147483644 rack: null)
+2026-03-13 15:04:31 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] (Re-)joining group
+2026-03-13 15:04:31 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Request joining group due to: need to re-join with the given member-id: consumer-bank-group-1-03c01351-61db-44f2-8099-4eec35bda074
+2026-03-13 15:04:31 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] (Re-)joining group
+2026-03-13 15:04:37 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Successfully joined group with generation Generation{generationId=1, memberId='consumer-bank-group-1-03c01351-61db-44f2-8099-4eec35bda074', protocol='range'}
+2026-03-13 15:04:37 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Finished assignment for group at generation 1: {consumer-bank-group-1-44e74171-acc1-42e5-b0c3-2c6614acedf6=Assignment(partitions=[transfers-1]), consumer-bank-group-1-03c01351-61db-44f2-8099-4eec35bda074=Assignment(partitions=[transfers-0]), consumer-bank-group-1-65901439-15e1-4041-828a-89c20e970a2d=Assignment(partitions=[transfers-2])}
+2026-03-13 15:04:37 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Successfully synced group in generation Generation{generationId=1, memberId='consumer-bank-group-1-03c01351-61db-44f2-8099-4eec35bda074', protocol='range'}
+2026-03-13 15:04:37 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Notifying assignor about the new Assignment(partitions=[transfers-0])
+2026-03-13 15:04:37 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerRebalanceListenerInvoker - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Adding newly assigned partitions: transfers-0
+2026-03-13 15:04:37 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Found no committed offset for partition transfers-0
+2026-03-13 15:04:37 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Found no committed offset for partition transfers-0
+2026-03-13 15:04:37 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.SubscriptionState - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Resetting offset for partition transfers-0 to position FetchPosition{offset=21, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[kafka1:9092 (id: 1 rack: null)], epoch=0}}.
+2026-03-13 15:04:37 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.s.k.l.KafkaMessageListenerContainer - bank-group: partitions assigned: [transfers-0]
+2026-03-13 15:04:37 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 8c33fafd-86ac-44d9-a8e8-8ee50c008d4f
+2026-03-13 15:04:37 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 548d21e4-cec4-4aa1-9276-e8bec46a976e
+2026-03-13 15:04:37 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d6735408-a6f5-4927-b751-207d377aa2b7
+2026-03-13 15:04:37 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 7fb05c7b-f854-44f2-b4dd-0ef388880420
+2026-03-13 15:04:38 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6bac3fdd-9823-48e3-8fa0-195aae1a6bd2
+2026-03-13 15:04:38 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing cf0c2e25-5e54-42d9-82be-381437b553da
+2026-03-13 15:04:38 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 13af9026-db25-4fdb-9656-54c43791ca7f
+2026-03-13 15:04:38 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 1335d6e2-c78a-41e7-a5fd-376a9196f82e
+2026-03-13 15:04:38 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing dbd345b0-d6a6-4246-b6b9-1b91d18b1438
+2026-03-13 15:04:39 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 73874a96-5491-42d9-bcf7-1f603719de74
+2026-03-13 15:04:39 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e7abe3e7-68a1-4e31-8408-1143c12cde66
+2026-03-13 15:04:39 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4e3df1cd-2266-4fd3-ba01-3f93082913f8
+2026-03-13 15:04:39 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 3e720385-e0b0-47f6-aedf-0f64434d018c
+2026-03-13 15:04:39 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 906b9bda-3b6b-4051-9be5-d1d5518b13f7
+2026-03-13 15:04:40 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 18a51148-76e7-407c-96d3-6ffeecbff3f6
+2026-03-13 15:04:40 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b5c48bfa-5644-4451-84e6-ca7981bf53d0
+2026-03-13 15:04:40 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing fbec9b3d-b40a-4512-ba27-d3ce76b4a27a
+2026-03-13 15:04:40 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 7de42405-9586-493e-b486-14ac2a8315c6
+2026-03-13 15:04:41 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 7cabab7d-baa0-4f74-a67d-e2cc117e1b9e
+2026-03-13 15:04:41 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing cff1cdae-565b-4ae5-8069-3de78f9138c7
+2026-03-13 15:04:41 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 955aff0a-4cd8-45e5-8310-97fdd6bf440b
+2026-03-13 15:04:41 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 604d7a84-94f9-4492-b155-aadc26369a2e
+2026-03-13 15:04:41 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing f6ba6da0-005a-4852-8b3c-edf19550c319
+2026-03-13 15:04:42 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 97a6487b-810f-4331-af50-03765bd84db0
+2026-03-13 15:04:42 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6418f631-7e9a-4db3-bdfa-e33146747e7d
+2026-03-13 15:04:42 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing f628a81c-2d8d-49bc-9d5b-2c5ee3f81791
+2026-03-13 15:04:42 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 48fd8e44-2150-432f-a15e-f52872629489
+2026-03-13 15:04:42 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c09b6938-2a26-4e19-9908-a7c343a8b3b4
+2026-03-13 15:04:43 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 9d75b4df-16ce-4a20-bb3a-c362b481607b
+2026-03-13 15:04:43 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c3d5c700-ed55-42d0-9408-3ad70f589ca1
+2026-03-13 15:04:43 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4b75d3a6-ab8d-460b-8619-f8b17df51c63
+2026-03-13 15:04:43 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 53be7955-91f5-4184-beea-4dad8e053aa3
+2026-03-13 15:04:43 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 33cc79f2-198e-42b2-9b05-b821a7d9606f
+2026-03-13 15:04:44 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 536709a6-ad51-4f4b-bba4-c570620cdab9
+2026-03-13 15:04:44 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 95bfd79c-6c76-4f41-95e8-972221fe791d
+2026-03-13 15:04:44 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6fe9b5c2-0251-430d-a7f4-40d0a8e52f59
+2026-03-13 15:04:44 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b7c8cb3b-9627-4fda-b18b-b03070216bda
+2026-03-13 15:04:44 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b58abbe8-046e-4c0f-b251-15afde59b576
+2026-03-13 15:04:45 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 8468db4d-7bf5-4e86-9646-ce1f878a1b6b
+2026-03-13 15:04:45 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 07258611-019e-4b71-bf31-94493f6dd7ab
+2026-03-13 15:04:45 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing fe6ea572-79ab-4766-8671-27dca5978e5e
+2026-03-13 15:04:45 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 33862cc9-603e-4829-abd9-96cc0d4d6de9
+2026-03-13 15:04:45 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d8991e76-d236-4e8a-a9b9-394aa5544603
+2026-03-13 15:04:46 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 091f0544-4e2a-4a3b-9145-6bbfb19355d8
+2026-03-13 15:04:46 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 41caa677-ac14-44ed-b153-194bdc26597d
+2026-03-13 15:04:46 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 716d840d-8d13-4905-adb1-a5181a7d8e1d
+2026-03-13 15:04:46 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b09589e9-460a-46af-9711-23434010b09c
+2026-03-13 15:04:46 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 012c9b2c-563a-4099-a6cb-dbe2996478c6
+2026-03-13 15:04:47 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c896c256-755c-47f2-adec-d646d4f0719d
+2026-03-13 15:04:47 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 429b385e-0817-4436-9fdb-db9d23905472
+2026-03-13 15:04:47 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c4d72bdc-d8a0-4622-bbad-c1a0b978bd1d
+2026-03-13 15:04:47 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 04c4f9cd-6506-4e4d-b8f0-35bef4d69b87
+2026-03-13 15:04:47 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e9eb0910-9dec-408c-a6a8-263b58e4bf9b
+2026-03-13 15:04:48 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing a9e08431-c052-403c-bff4-0ccbdb5459c5
+2026-03-13 15:04:48 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing a92b598b-95bf-4744-aed4-e476a9106966
+2026-03-13 15:04:48 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 34f0f5a1-9fc7-4289-9e33-eadc129672f6
+2026-03-13 15:04:48 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 93832b19-2b65-49af-94ff-8e4e349c5f88
+2026-03-13 15:04:48 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 1cf167e6-5c71-4f6d-b2c7-c3d74ec97a49
+2026-03-13 15:04:49 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 7ea29df7-9c16-4f84-9e6a-d880ec460056
+2026-03-13 15:04:49 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6909d3ee-19ad-41e7-a156-626a16ff9376
+2026-03-13 15:04:49 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 8c15387f-35d6-421f-adf2-1282a32bff82
+2026-03-13 15:04:49 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 2f544442-0878-4d1d-84ea-040acc30de93
+2026-03-13 15:04:49 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d5941921-6f80-4626-a92a-1c4f89fb2a69
+2026-03-13 15:04:50 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d5b196a8-5f36-4d47-b332-faab38258e9f
+2026-03-13 15:04:50 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 0b6b40c8-e4af-4f66-bdda-3fc9f9898112
+2026-03-13 15:04:50 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 9280d1a1-88ad-42a8-9cac-06ba400d41a8
+2026-03-13 15:04:50 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b4a80d33-a3bd-4715-82d1-fa6dc716de3d
+2026-03-13 15:04:50 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e64c9d13-0305-4cf5-a13c-9ca7a23022e8
+2026-03-13 15:04:51 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 15b69435-8bdd-4e26-ac65-66da3ea70ff0
+2026-03-13 15:04:51 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing a23cd38f-474f-49c8-a069-7c4d752c4f0f
+2026-03-13 15:04:51 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e6dc6abd-381b-4882-9964-a878e6e878ae
+2026-03-13 15:04:51 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4073d712-298a-438b-a3ec-f78bf147f9e9
+2026-03-13 15:04:51 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 3d535944-9bee-485a-b08c-98a35cdb1d80
+2026-03-13 15:04:52 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 04836f44-6682-4095-b017-8d104b6b0164
+2026-03-13 15:04:52 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 2bccf0e9-3c1b-42cf-ad70-5f9e6a19751e
+2026-03-13 15:04:52 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ab2e8dba-489b-441c-a7e5-d41cae1d18af
+2026-03-13 15:04:52 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing cf472e55-2ec1-4ca0-97cc-839b0c554020
+2026-03-13 15:04:52 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing eabf1f55-6b33-4722-9e86-76ece40c92f3
+2026-03-13 15:04:53 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing a9697689-722f-4d9a-966a-a2416e834eab
+2026-03-13 15:04:53 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ab41eb94-11a9-4a8d-ae14-824dace9300b
+2026-03-13 15:04:53 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 2646ebf0-5a76-4ef1-a329-f9b3f4d1838f
+2026-03-13 15:04:53 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 758992f7-3146-47d0-a3f2-0923e923dc00
+2026-03-13 15:04:53 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 7c3a2bd2-dd46-421b-8d0f-445cefebfc42
+2026-03-13 15:04:54 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 44b13e35-890d-4006-bf8e-7bb82b2738f1
+2026-03-13 15:04:54 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing efc59661-80b1-495a-a735-c4202fe73063
+2026-03-13 15:04:54 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 0c124e54-a3eb-44ec-abb2-6f2e7ce70343
+2026-03-13 15:04:54 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing a61121ee-00bb-45be-8ce7-69aba0114ace
+2026-03-13 15:04:54 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing edf81695-a5bb-4236-9da9-4f3d96abd2b1
+2026-03-13 15:04:55 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 928468d8-a042-48a4-ba02-b9f00b3b9564
+2026-03-13 15:04:55 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 26fbe903-99c0-4e5e-8ca8-51de44a4664a
+2026-03-13 15:04:55 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 97ee4e7f-a735-4e0a-b334-22f707ec0179
+2026-03-13 15:04:55 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ab6499e2-a994-4eed-bae2-eee22f3581be
+2026-03-13 15:04:55 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 21140261-af93-4f0a-8e15-b6193a26a3a5
+2026-03-13 15:04:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c8ed702a-62eb-4e3e-ba84-978c21482cfe
+2026-03-13 15:04:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing fe0824f3-226b-41ca-a5ec-b2f1a5f05d9b
+2026-03-13 15:04:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 54c6cfaf-08bd-41b0-979b-d5a6cacb04a8
+2026-03-13 15:04:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6a32b92f-f08a-4e4f-b2ad-a85b86a8ee6b
+2026-03-13 15:04:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 796d53af-ec41-4c76-a7fc-df7be3df33c8
+2026-03-13 15:04:57 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 613919ef-7aad-4e81-be99-3bf002b3da20
+2026-03-13 15:04:57 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 7e9e1c2e-177d-4f81-ad5f-2bf25d649f02
+2026-03-13 15:04:57 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 24c2d9f0-10fb-4533-a752-60d092bac085
+2026-03-13 15:04:57 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 9d3989bc-dd99-4654-9fd6-5fbd7c03f45d
+2026-03-13 15:04:57 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 91f771e9-2c92-49b2-8556-fd1f2ebaa8a5
+2026-03-13 15:04:58 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing de555712-d901-448f-ba72-374ce51b0ffb
+2026-03-13 15:04:58 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ce98ad08-4f05-4043-80e8-9a507b909d7c
+2026-03-13 15:04:58 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 40c78b80-8294-4d54-b0dd-2dd5acd0d1c4
+2026-03-13 15:04:58 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 5ddd63f2-53fc-484a-9db1-073203103af9
+2026-03-13 15:04:59 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing bc3d01ca-0a71-4749-8053-be3d29621f47
+2026-03-13 15:04:59 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing a1b02229-50ae-40bf-8f4c-37149cdff3e2
+2026-03-13 15:04:59 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 99465c11-5c8a-40a8-9c67-ff18ca520104
+2026-03-13 15:04:59 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d8e1c14a-1cb5-4a7a-bc5a-64e0ef54289d
+2026-03-13 15:04:59 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 06de5cf4-cc68-45b8-8870-7a9b9177c1ac
+2026-03-13 15:05:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d6a3695c-62b4-4a74-a37f-850e33a821ab
+2026-03-13 15:05:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 53238703-a5da-4525-b302-b0ffe955e813
+2026-03-13 15:05:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e56c852e-8133-4ba3-bfa0-e8af9dba91a2
+2026-03-13 15:05:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 90df824e-1a0c-48a1-8f73-215c599dc7fc
+2026-03-13 15:05:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 22c8fcd8-45f8-42b1-b5b7-cc08bc213c8d
+2026-03-13 15:05:01 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 36959132-b630-44ce-8a0c-7fdbbc3135d1
+2026-03-13 15:05:01 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d8510e69-548f-483b-b515-997f31f8424a
+2026-03-13 15:05:01 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e8cb5f5f-ed93-4498-8b74-80c036157c7c
+2026-03-13 15:05:01 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 7820fb51-3f8e-4053-8927-b2737949b16a
+2026-03-13 15:05:01 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 7a5046b2-3267-42cd-9c49-cd8dcdbbf214
+2026-03-13 15:05:02 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing f3c8f725-334f-4944-a767-c969f43e558e
+2026-03-13 15:05:02 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 5e887a4e-44b6-4988-83e7-b88568bac2f9
+2026-03-13 15:05:02 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing f2a009bb-47e1-46ba-8c6e-ac7b724e2d8e
+2026-03-13 15:05:02 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 852c57e6-4e7c-4595-afb6-7fe0f6556e49
+2026-03-13 15:05:02 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 64bd6c87-0209-44d5-98c4-a1bb58302048
+2026-03-13 15:05:03 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b61cc839-4f54-4428-9a6a-1f20dd3bdf25
+2026-03-13 15:05:03 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing a2dd7352-1613-4a77-ac85-f97951ee881d
+2026-03-13 15:05:03 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 919d9674-61ab-4ff4-8226-e708722f3e3b
+2026-03-13 15:05:03 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 828a2386-f795-4123-a6e2-f3a0d82d5d02
+2026-03-13 15:05:03 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b167dade-65f8-4d52-9f59-952b6ebf8e26
+2026-03-13 15:05:04 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 81209944-96cf-477c-844e-7d0c86b7b4fa
+2026-03-13 15:05:04 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 5360e71d-9c6f-4b6e-adc9-dbe053787f7a
+2026-03-13 15:05:04 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing cd050aaf-73b1-472b-91b2-56191094a927
+2026-03-13 15:05:04 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 33538591-b404-4c82-b5c5-7b10608ed9a2
+2026-03-13 15:05:04 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 5de2a1b3-3436-4107-81ff-64f5d65552ee
+2026-03-13 15:05:05 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 84fe93b9-8f0e-4ba5-8c66-cf470d9e1116
+2026-03-13 15:05:05 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 0720c455-f0f1-481e-9ddc-fe1b1356c0a0
+2026-03-13 15:05:05 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing fefbf331-ff04-4740-a0db-a7215f1e2635
+2026-03-13 15:05:05 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 086c2c50-8037-43ed-a16f-dc5b42f1da01
+2026-03-13 15:05:05 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e9397f79-2022-43c3-ab64-fede5015daaf
+2026-03-13 15:05:06 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 495e063c-a514-4c11-9fab-d32322753beb
+2026-03-13 15:05:06 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d2d9160d-3ee2-4566-87d5-ffb13eb8e0bf
+2026-03-13 15:05:06 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing defd7e08-e95b-4f2f-94f5-f93199856db3
+2026-03-13 15:05:06 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c2881c3a-2109-4aba-a894-8a706b13b0c0
+2026-03-13 15:05:06 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing cb6ad194-7356-48e9-a064-68e1ec32fec0
+2026-03-13 15:05:07 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 71098b35-7791-4160-840b-897b3b2f59c6
+2026-03-13 15:05:07 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c0c83b35-5757-4a92-8202-cfe79d51defb
+2026-03-13 15:05:07 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 2b08e998-38a8-4e1c-b9f6-c7b4e8c84f49
+2026-03-13 15:05:07 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 26b8716b-77f5-4cf1-b7ca-70bc27c583b0
+2026-03-13 15:05:07 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 84cbdd65-2f5f-4827-8cea-ab71314488d0
+2026-03-13 15:05:08 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 25720888-9ffe-44a8-9815-846c53ce0733
+2026-03-13 15:05:08 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 51d6685e-36ff-4381-9a87-5efa7962e95c
+2026-03-13 15:05:08 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 015f8253-6b94-4984-9abb-c2b6301a3e31
+2026-03-13 15:05:08 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 8c8f5673-94d8-4825-8487-a1f010f76289
+2026-03-13 15:05:08 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 429a478b-daec-4feb-a56c-adbb60aaa81f
+2026-03-13 15:05:09 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 578feafe-2d93-4fd7-83d3-2979f8c80ec2
+2026-03-13 15:05:09 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 787ed52c-54f4-499a-9058-624649e28e03
+2026-03-13 15:05:09 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 84f015b6-d390-44cc-b4d2-f54527775a1a
+2026-03-13 15:05:09 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b4f473ce-99e5-4b0e-b6b4-0acde9eab4a4
+2026-03-13 15:05:09 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 7b911ded-80fc-45f2-9db3-c367a241e41b
+2026-03-13 15:05:10 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 8603bb5f-9b8e-4da6-92e1-6a201415cc15
+2026-03-13 15:05:10 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c9c5f247-b8a7-4894-880b-673c3988cd24
+2026-03-13 15:05:10 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e38b2e03-97de-4c4a-b434-f84472a1d7c8
+2026-03-13 15:05:10 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 3c885ca4-e78f-4a47-9673-f98080fb55dd
+2026-03-13 15:05:10 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4a5d5830-8586-4fbc-ad58-774550bb93e1
+2026-03-13 15:05:11 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6a52f04e-4bc2-4cc3-ab11-95c0c7be27ba
+2026-03-13 15:05:11 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 609039c3-e1e7-4ee4-87dd-20ec8968e3ae
+2026-03-13 15:05:11 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 503619fd-fee3-4576-b8cd-a856dcd45ba1
+2026-03-13 15:05:11 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 65107c81-53bc-4ec8-9d5a-ed7b895988df
+2026-03-13 15:05:11 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 46e64c31-80fa-4fc9-8b3c-7283c5313732
+2026-03-13 15:05:12 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 9e92815f-36d1-49a2-8a7e-5db99c71f601
+2026-03-13 15:05:12 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing a8f3e7e3-026d-4cc0-8787-a30577456291
+2026-03-13 15:05:12 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing de3e684d-fa5b-420c-810a-7e07a79ea968
+2026-03-13 15:05:12 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 71c6fbb1-ea72-4c55-92d3-1ca724ad706d
+2026-03-13 15:05:12 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c0ec5107-352d-4d8d-a9a7-8ca4bd3175db
+2026-03-13 15:05:13 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6eaf63ae-e02d-4283-a367-584cf6750480
+2026-03-13 15:05:13 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4865ed26-a375-42b9-b77e-b06b181ff019
+2026-03-13 15:05:13 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e8b3ba3b-2a35-48ac-8e68-1755ba6014f0
+2026-03-13 15:05:13 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 7ddcc249-e72e-4e32-ac6f-93113fd180b4
+2026-03-13 15:05:13 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 177a0dd4-bea8-475f-86df-118c41cc7b8c
+2026-03-13 15:05:14 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing cb0fbadb-70cc-4ec2-bd53-c20071a1d92d
+2026-03-13 15:05:14 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ba94f85f-960f-45c7-9fc6-221008b98187
+2026-03-13 15:05:14 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 03b68674-d923-4910-8b5f-441ae058d5de
+2026-03-13 15:05:14 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 52c806ef-1b26-4180-b283-a348ae1d5b18
+2026-03-13 15:05:14 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 47e3e2a6-7eea-4e7b-9b46-640d4f59f728
+2026-03-13 15:05:15 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 1abe0f66-fd96-494b-9055-80e659a63cd4
+2026-03-13 15:05:15 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 667b0f51-87f1-48ca-813d-dd975387360a
+2026-03-13 15:05:15 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b8907f87-bf02-49ad-95f0-1d8304e5f399
+2026-03-13 15:05:15 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ed2d4afd-f255-4336-86a8-28b98c6765f5
+2026-03-13 15:05:15 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 3b6b35b7-c9be-4c83-a8fe-57fc0973502e
+2026-03-13 15:05:16 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 5ced7453-d29f-49ea-9bd1-6205dd3c2c70
+2026-03-13 15:05:16 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 82080c57-f2bb-478e-9966-ac0d8266bdf0
+2026-03-13 15:05:16 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 20b14647-5223-4393-a92c-d18f1088147e
+2026-03-13 15:05:16 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 5ebb672d-c27d-4f70-8389-92d59ff065fc
+2026-03-13 15:05:16 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6b4de075-24db-4ccc-9fa2-570517044062
+2026-03-13 15:05:17 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing a6d48db2-17df-4fc2-b1a8-695be27e5890
+2026-03-13 15:05:17 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6cefad45-7460-4644-9278-43f987f4426a
+2026-03-13 15:05:17 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 583b41cf-ced4-495e-92e8-6c39d3e831a5
+2026-03-13 15:05:17 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 87c27626-a591-4c8e-88b5-46ab8b91bcd9
+2026-03-13 15:05:17 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing f97ccbea-86b5-49c8-bb76-6212b8ca6164
+2026-03-13 15:05:18 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 65dc6dc5-8b19-4714-977d-daf3ffa7a161
+2026-03-13 15:05:18 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d14df93b-530e-48a6-a3d7-749d98e8dde2
+2026-03-13 15:05:18 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4d213763-5406-440c-b0f2-b2a5f8c345e5
+2026-03-13 15:05:18 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 80170e9a-40f2-42fd-9cd0-bf1d38010d5a
+2026-03-13 15:05:19 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 2ee84e4e-751b-4dc4-99cc-26b52abbf8f3
+2026-03-13 15:05:19 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4e8921ee-5d17-42cc-b38c-e6bde88bf561
+2026-03-13 15:05:19 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 59cbd8e8-0c1d-4f41-af6b-8b4676de7139
+2026-03-13 15:05:19 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 39c9a9da-16a0-4548-ac95-42640e01c839
+2026-03-13 15:05:19 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 769562ef-3a59-489c-81a3-fcdd5165f0d0
+2026-03-13 15:05:20 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b9a87bf6-e6c3-45c5-8282-f41bbeeb982b
+2026-03-13 15:05:20 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 9dccac0d-a5bf-44fb-9bf0-609dd7576512
+2026-03-13 15:05:20 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing f072409c-0fba-4726-bdcd-be3d6464bb95
+2026-03-13 15:05:20 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c3c8f131-9054-4351-94b1-5a19de08f68a
+2026-03-13 15:05:20 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e3206f8e-cb11-433d-bc02-e34906be3864
+2026-03-13 15:05:21 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 093ab187-ca55-4f18-84cf-04c0b7665a44
+2026-03-13 15:05:21 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4334eede-e00e-492c-bde5-47da3814f189
+2026-03-13 15:05:21 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4e370ed1-a898-49a3-861b-d23f1af1d3ce
+2026-03-13 15:05:21 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d6e36bc6-ea87-44bc-b9a7-f94074db6b69
+2026-03-13 15:05:21 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing bb059726-a0a3-44c3-ab69-ff7c118e6939
+2026-03-13 15:05:22 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d203ca19-6976-486c-9bdd-9c52eba8d6e4
+2026-03-13 15:05:38 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 9ff5a48b-c475-4705-8098-9853def6f6cc
+2026-03-13 15:05:38 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 2776b178-4277-4e71-ac36-d1878e863b81
+2026-03-13 15:05:38 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 32497c02-ca38-45bf-b7cb-ab116266e620
+2026-03-13 15:05:39 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 7a825dd0-ed98-4238-861b-4e5ebf6f7b80
+2026-03-13 15:05:39 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 60fb5259-271b-4a1a-8458-170db2932857
+2026-03-13 15:05:39 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 7dd28d4b-f268-4d32-b4cf-f2554b790e95
+2026-03-13 15:05:39 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6b2edad4-3470-4bfb-b111-152e3b8c05a1
+2026-03-13 15:05:39 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 9cbaf7d3-0a6d-43c3-a4a5-515e7953a6be
+2026-03-13 15:05:40 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 1e57a725-48b5-454e-a648-69fafdf2d92d
+2026-03-13 15:05:40 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 06717cf1-e25c-495c-8829-c02a0bf3b4dc
+2026-03-13 15:05:40 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 1fcbc4eb-1d13-45cd-8f1e-e81836917c52
+2026-03-13 15:05:40 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6c4ea7ff-626c-43ae-b4e8-c010d2b35469
+2026-03-13 15:05:40 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4f2e93cb-df52-4b28-9227-f7d242f07395
+2026-03-13 15:05:41 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6b384754-4c20-4451-b42b-5d6d4eb9b712
+2026-03-13 15:05:41 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ee3ba9c8-e917-4cdd-9f24-86092c71f4a8
+2026-03-13 15:05:41 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing fdf81830-2829-42e7-acf9-f760aef06e95
+2026-03-13 15:05:41 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 22c9beae-5b0a-47ca-a2d0-1299aa53464b
+2026-03-13 15:05:42 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d16d804a-64c6-435f-8826-a0f8929b1fe7
+2026-03-13 15:05:42 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing edc93e8e-94fb-40ab-b5a1-5b935b0047fa
+2026-03-13 15:05:42 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4443029f-65c0-406c-827b-bf37565abbef
+2026-03-13 15:05:42 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 71872781-daf7-4899-9db8-3fb181a3bfd0
+2026-03-13 15:05:42 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 7a59c4de-cb40-4bf1-81fc-d25ace8a2cd8
+2026-03-13 15:05:43 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 132a2651-32b1-4c22-b6e8-59872692fdde
+2026-03-13 15:05:43 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ce07f2ce-fa2f-492f-ae0a-4305eaf06a5f
+2026-03-13 15:05:43 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c883e337-3eff-4b92-a473-d8e8682aa9d5
+2026-03-13 15:05:43 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6bb6ea34-8a8a-4cba-afd2-48fa792f511b
+2026-03-13 15:05:43 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 5c36ac0b-7b82-4f0c-9a79-be642526521b
+2026-03-13 15:05:44 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4b59ff9a-45a3-4c41-b055-519fcae40c8f
+2026-03-13 15:05:44 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d4e3b973-9085-4c7b-98d4-fbc801c72ba3
+2026-03-13 15:05:44 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b0dde5ba-34db-4891-a83e-b274f02131ef
+2026-03-13 15:05:44 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing aeb8b36c-4447-4c1b-8361-9084a8a84925
+2026-03-13 15:05:44 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing da67c82a-567f-42d8-ba6d-61d2c2924961
+2026-03-13 15:05:45 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing a263a64f-6374-421a-904d-510f5abbc739
+2026-03-13 15:05:45 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c7b8a4f4-b547-42c8-993a-5775272691ab
+2026-03-13 15:05:45 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ac68bb11-90fc-4107-8fb6-48469b968b9b
+2026-03-13 15:05:45 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 667089d8-3c93-4d83-9177-8b41589b5fef
+2026-03-13 15:05:45 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 8c844933-a1d0-4b2e-ba82-5042397201c8
+2026-03-13 15:05:46 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 9d0f9737-f742-4c0d-af35-8c0d8d8816f6
+2026-03-13 15:05:46 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 31e5e911-b42f-4eb7-a5ab-8bf4a4783dea
+2026-03-13 15:05:46 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 9a1739a7-3a49-4127-a028-a48bae4def69
+2026-03-13 15:05:46 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing f21a9f80-8d16-4e51-9dad-044ddd38cff6
+2026-03-13 15:05:46 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ced5f776-6111-4241-a77b-e866115b0a1a
+2026-03-13 15:05:47 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 730b1c31-224b-43e9-b277-3848696bceb8
+2026-03-13 15:05:47 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 0122d100-875c-4b37-b5db-96e9484e24f2
+2026-03-13 15:05:47 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 3c2cb95b-d188-4be8-9322-390276915ae3
+2026-03-13 15:05:47 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 753a4fa5-d3ff-4da4-a969-228a753f07ed
+2026-03-13 15:05:47 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 926f5682-b478-4012-94d8-9ebd85f53769
+2026-03-13 15:05:48 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 15d75060-6059-4c9c-bd54-900988878e6b
+2026-03-13 15:05:48 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d8b7b98c-424c-49d2-bc83-7e3763c242bd
+2026-03-13 15:05:48 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e2066189-d820-45d8-8b4e-23192eac8285
+2026-03-13 15:05:48 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 60bf7820-bccb-461a-9a3a-a8b7725640e7
+2026-03-13 15:05:48 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 8ffb7dd9-1df3-48be-9360-edb8ff76aee8
+2026-03-13 15:05:49 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ced0a6aa-e901-4fbc-a831-985a2946c329
+2026-03-13 15:05:49 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 93dffa8a-11b7-4b3b-bae8-f27467d51bde
+2026-03-13 15:05:49 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e5d5af4c-f68c-430d-88f4-8276983ee131
+2026-03-13 15:05:49 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 98004589-057d-40e4-bed5-fd9661aef20a
+2026-03-13 15:05:49 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c3bbc707-5b03-4025-b3c8-1739e929b022
+2026-03-13 15:05:50 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 88a622b5-269b-4cf3-992e-ece700f1eda3
+2026-03-13 15:05:50 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing a9bc906c-5a72-45b2-9875-68462fa90b24
+2026-03-13 15:05:50 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 609dd845-b00a-4063-9f11-aa3993176827
+2026-03-13 15:05:50 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 60ea5bd9-520d-4214-8bb1-93fa38f8d99e
+2026-03-13 15:05:50 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing bc201d9c-ee6d-43bf-a196-16604d5ecb8b
+2026-03-13 15:05:51 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 2b83ce5d-e315-4e30-9542-be06b46f38d5
+2026-03-13 15:05:51 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 935ddeb9-c8eb-4a99-8e95-4782a456842b
+2026-03-13 15:05:51 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 77bb1989-30bf-4498-bd45-1bad574cfe06
+2026-03-13 15:05:51 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 532dc855-7dea-408b-a97c-69631f8c77d5
+2026-03-13 15:05:51 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 0b73de8b-1443-47fe-a16c-2a8f1cd6024b
+2026-03-13 15:05:52 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 7b08407f-0f0e-44c5-8587-13952655ad77
+2026-03-13 15:05:52 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6070a769-9474-455d-a2b4-3605966208ff
+2026-03-13 15:05:52 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4b9c9916-746d-464a-bd29-ac874350154f
+2026-03-13 15:05:52 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing f72b44d9-1deb-4256-a3f7-84026ff2ea0c
+2026-03-13 15:05:52 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 1398e4f6-8283-4255-885e-d801ae3d133d
+2026-03-13 15:05:53 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4d2cb8e6-b831-4c35-a542-3ada323da98d
+2026-03-13 15:05:53 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing f173c708-828e-4d61-bc33-f14bde29fd3e
+2026-03-13 15:05:53 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6161ff5c-6086-4920-b626-6ecb0b74a5f3
+2026-03-13 15:05:53 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing f218df23-c81e-402f-be12-94250b68544e
+2026-03-13 15:05:53 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 93cb91b5-f5f8-48d0-8f89-ebf48d7d114f
+2026-03-13 15:05:54 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing cd588fbb-da66-4c7c-be8a-08d2052f4ec5
+2026-03-13 15:05:54 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing dcde60aa-e475-4b9c-9385-fe4e9228f18c
+2026-03-13 15:05:54 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 571d4f34-5178-4565-a836-f21db72dbecd
+2026-03-13 15:05:54 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing cc951d0c-a471-407d-968a-211658f8e518
+2026-03-13 15:05:54 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 3d59f39c-4e84-4cb1-8543-0001e1f7dc1f
+2026-03-13 15:05:55 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 5c29092e-8137-427c-b360-b69bdaeb08a7
+2026-03-13 15:05:55 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 3226eaa5-a68e-4dd5-b2d4-63119a9e1f95
+2026-03-13 15:05:55 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing f0342e16-cbb7-4650-89e0-687418083163
+2026-03-13 15:05:55 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 66b82a88-b4e1-4c9f-980c-7e62cb0b2a95
+2026-03-13 15:05:55 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 54896306-6970-47f5-8b32-24fa7c7b7d1f
+2026-03-13 15:05:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing a22bec5e-ce1f-4831-bfbd-62c7486f61c9
+2026-03-13 15:05:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c400ba54-f029-40ee-bd55-76ef1c000667
+2026-03-13 15:05:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c1bf6278-5c8d-490b-8d05-cc8c901e447d
+2026-03-13 15:05:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 60bb9b5e-0a3c-4d0d-9ded-c0ad4cc67f71
+2026-03-13 15:05:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing bcd075e2-98c4-405e-b002-bd2b0a032dcf
+2026-03-13 15:05:57 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing da9f5728-0b92-457b-85ef-ad61bde81d1f
+2026-03-13 15:05:57 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 2750a773-d104-4747-b09a-84ed8eb3db44
+2026-03-13 15:05:57 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 90ee50db-06e0-435c-9de9-19517eee4551
+2026-03-13 15:05:57 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 248ef1d7-98cb-41e4-9809-ee10749923a4
+2026-03-13 15:05:57 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 0d5acef1-8d6b-454f-baca-27622e0daa06
+2026-03-13 15:05:58 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 41a4e6a7-a30b-4c27-98ca-981bcea156bf
+2026-03-13 15:05:58 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d48b628c-984b-4eb7-add7-f2e08a6a1648
+2026-03-13 15:05:58 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 47ce1393-0f1d-4e39-8055-e0cf12a8177e
+2026-03-13 15:05:58 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 19e82255-f776-4cb7-b79f-1d779057dcfd
+2026-03-13 15:05:58 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 8c06d63f-981f-4733-ae9e-f2cecc9688ce
+2026-03-13 15:05:59 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 906f192b-3d90-4bf1-8c56-3117b93f6b22
+2026-03-13 15:05:59 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing dff998eb-f2f8-44cb-ae98-610a81119a84
+2026-03-13 15:05:59 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ad0e496d-4a96-457a-8209-e4dd323dae56
+2026-03-13 15:05:59 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c2b2263c-b62b-4e8e-a63f-978033c79e6e
+2026-03-13 15:05:59 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e4e0e631-6ece-49c9-b692-fc5f31cc3059
+2026-03-13 15:06:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 1417ff84-b436-4598-a88e-16796020f54b
+2026-03-13 15:06:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6a5a6f1c-c2b0-4dfa-8f3e-538f0034203f
+2026-03-13 15:06:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing f80a68af-66ba-41d2-beea-8390e72c05e1
+2026-03-13 15:06:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6b868cec-267f-46da-9a5d-d16d981f7957
+2026-03-13 15:06:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 29ab2e0e-a36e-4ad5-aa6a-536aa68936d1
+2026-03-13 15:06:01 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 63d3b44a-aaf1-428d-822d-c66423d45be3
+2026-03-13 15:06:01 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing bfb54c9f-aa7c-4e62-9836-740aa7344f07
+2026-03-13 15:06:01 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d5ac89da-e7ca-41ad-90b3-fd38c736aa17
+2026-03-13 15:06:01 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 8dcc5d38-fa60-4b04-b978-3ef41d151059
+2026-03-13 15:06:01 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing aa0a1f15-46ed-41c8-be01-9843671d8581
+2026-03-13 15:06:02 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 69a9297f-1af5-447d-87dd-8e6d3afe5051
+2026-03-13 15:06:02 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ec673e1e-4485-4321-b00d-b9e75c961990
+2026-03-13 15:06:02 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b6ed1743-a4d9-4532-8850-fa7caf91ed14
+2026-03-13 15:06:02 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 951009bd-bd2b-4faf-8f26-59c77eeb51e6
+2026-03-13 15:06:02 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ad9b4ebb-d21d-46f7-9aaf-4e002930def0
+2026-03-13 15:06:03 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 371787fe-826e-45bd-bf7c-e5d738c96805
+2026-03-13 15:06:03 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 98c7e840-b45a-44c8-a671-7dc6bb536085
+2026-03-13 15:06:03 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 138f9905-5772-47f2-a279-f8967a94697a
+2026-03-13 15:06:03 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 77f23b44-c749-4d53-911b-c669568e25f7
+2026-03-13 15:06:03 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b940f1ad-25c7-4a21-9302-3128d76809ad
+2026-03-13 15:06:04 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 05ba207e-2980-424f-99e8-8aa7c1955acc
+2026-03-13 15:06:04 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e6651773-bf29-49bc-93f4-0c3225392696
+2026-03-13 15:06:04 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e90f919c-e0ec-4f88-ab2c-221edf4c40bc
+2026-03-13 15:06:04 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 256d9af5-a280-4462-bff4-b2aede72e7f8
+2026-03-13 15:06:04 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 4daa19db-4a9b-416e-9452-f5ea6feb1361
+2026-03-13 15:06:05 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing d33ebacd-0ef7-4aed-82d1-6c0808f557fc
+2026-03-13 15:06:05 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 0b42d9ef-2645-4f1d-bc5a-456a4dfd28cc
+2026-03-13 15:06:05 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 9b40e031-51aa-4a8e-91bb-23bd42b5c1f4
+2026-03-13 15:06:05 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 42bc3c7a-1608-4c97-802e-4c18753f2b7f
+2026-03-13 15:06:05 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 856c192f-4384-46c4-b94b-e202f363e5c2
+2026-03-13 15:06:06 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e6659e08-cba1-4dff-8043-abd0ab0ec36b
+2026-03-13 15:06:06 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e44b0889-19b1-4bc8-a182-a86824101d6f
+2026-03-13 15:06:06 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 328ba297-d228-4272-85c7-ddad85d95831
+2026-03-13 15:06:06 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b3e1a5cb-d298-4237-8def-560b6d432a4a
+2026-03-13 15:06:07 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 99f56935-899f-4a50-bb5b-2d693338b2c1
+2026-03-13 15:06:07 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6cf8c8ba-43e5-4246-a41c-f23412b018aa
+2026-03-13 15:06:07 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c138a1d0-d194-4869-89b8-39bf50fd4ffe
+2026-03-13 15:06:07 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 6f25a936-85b8-4f49-9871-89bfae519ead
+2026-03-13 15:06:07 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c651ec7e-3e4c-4987-9d0b-9e25ea57d98d
+2026-03-13 15:06:08 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 2a54ae45-6aa5-4f77-9f1e-6ec45a59f798
+2026-03-13 15:06:08 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing c885e00c-ab11-4d7f-b63d-11369e07df86
+2026-03-13 15:06:08 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing b0706859-b96b-4096-82d8-ffeba5e34145
+2026-03-13 15:06:08 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing fcf8eab3-6ce3-4ddd-a994-26ccf95ec622
+2026-03-13 15:06:08 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing e756b464-c2b2-4566-8890-c7c9fa7b90b3
+2026-03-13 15:06:09 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 335433f5-3f14-43de-9942-da5b75449034
+2026-03-13 15:06:09 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 441d9834-f6fb-4e8f-be0f-b7e9647d7c3b
+2026-03-13 15:06:09 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 80cf3139-c362-4abf-bce7-f54fbe47a205
+2026-03-13 15:06:09 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 0118bb79-ff08-4152-84f7-250bd3a05134
+2026-03-13 15:06:09 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing ada81513-fe34-41bb-82b4-c70cbe5c31b2
+2026-03-13 15:06:10 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing f2ea2603-09cd-45f9-8731-3864d324d1ff
+2026-03-13 15:06:10 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 92f45ed8-c8c9-4e8a-af00-4009c6c8d159
+2026-03-13 15:06:10 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 981e9025-e4f1-4827-9088-e9140c20113f
+2026-03-13 15:06:10 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 17ad4526-f6aa-4e87-96bd-b9d68183f95e
+2026-03-13 15:06:10 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 07cbb7ee-7d12-4998-b98b-73d3514e46b5
+2026-03-13 15:06:11 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  b.producer.kafka.TransferListener - Start processing 74307dab-f925-494e-8885-0a75d6a459cb
+2026-03-13 15:06:29 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerRebalanceListenerInvoker - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Revoke previously assigned partitions transfers-0
+2026-03-13 15:06:29 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.s.k.l.KafkaMessageListenerContainer - bank-group: partitions revoked: [transfers-0]
+2026-03-13 15:06:29 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Member consumer-bank-group-1-03c01351-61db-44f2-8099-4eec35bda074 sending LeaveGroup request to coordinator kafka3:9094 (id: 2147483644 rack: null) due to the consumer unsubscribed from all topics
+2026-03-13 15:06:29 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-03-13 15:06:29 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Request joining group due to: consumer pro-actively leaving the group
+2026-03-13 15:06:29 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.LegacyKafkaConsumer - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Unsubscribed all topics or patterns and assigned partitions
+2026-03-13 15:06:29 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-03-13 15:06:29 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Request joining group due to: consumer pro-actively leaving the group
+2026-03-13 15:06:30 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Metrics scheduler closed
+2026-03-13 15:06:30 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-03-13 15:06:30 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+2026-03-13 15:06:30 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Metrics reporters closed
+2026-03-13 15:06:30 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.utils.AppInfoParser - App info kafka.consumer for consumer-bank-group-1 unregistered
+2026-03-13 15:06:30 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.s.k.l.KafkaMessageListenerContainer - bank-group: Consumer stopped
+2026-03-13 15:06:30 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-13 15:06:30 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-03-13 15:06:30 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-03-13 15:07:35 [main] INFO  bank.producer.Consumer - Starting Consumer v1.0.0 using Java 17.0.18 with PID 1 (/app.jar started by root in /)
+2026-03-13 15:07:35 [main] INFO  bank.producer.Consumer - The following 1 profile is active: "docker"
+2026-03-13 15:07:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-13 15:07:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 87 ms. Found 2 JPA repository interfaces.
+2026-03-13 15:07:39 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-03-13 15:07:39 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+2026-03-13 15:07:39 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-13 15:07:39 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.26]
+2026-03-13 15:07:39 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-13 15:07:39 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3612 ms
+2026-03-13 15:07:39 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-13 15:07:40 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2026-03-13 15:07:40 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-13 15:07:42 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-13 15:07:42 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-13 15:07:43 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@bd273b2
+2026-03-13 15:07:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-13 15:07:45 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-13 15:07:45 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-13 15:07:46 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-13 15:07:47 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+2026-03-13 15:07:47 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+2026-03-13 15:07:47 [main] INFO  o.a.k.c.consumer.ConsumerConfig - ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = latest
+	bootstrap.servers = [kafka1:9092, kafka2:9093, kafka3:9094]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-bank-group-1
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	enable.metrics.push = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = bank-group
+	group.instance.id = null
+	group.protocol = classic
+	group.remote.assignor = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 100
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.springframework.kafka.support.serializer.JsonDeserializer
+
+2026-03-13 15:07:47 [main] INFO  o.a.k.c.t.i.KafkaMetricsCollector - initializing Kafka metrics collector
+2026-03-13 15:07:47 [main] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka version: 3.7.1
+2026-03-13 15:07:47 [main] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka commitId: e2494e6ffb89f828
+2026-03-13 15:07:47 [main] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka startTimeMs: 1773414467540
+2026-03-13 15:07:47 [main] INFO  o.a.k.c.c.i.LegacyKafkaConsumer - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Subscribed to topic(s): transfers
+2026-03-13 15:07:47 [main] INFO  bank.producer.Consumer - Started Consumer in 14.997 seconds (process running for 16.293)
+2026-03-13 15:07:48 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Error while fetching metadata with correlation id 2 : {transfers=LEADER_NOT_AVAILABLE}
+2026-03-13 15:07:48 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  org.apache.kafka.clients.Metadata - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Cluster ID: Eg1UJsNQRhWMBPmvyGJqig
+2026-03-13 15:07:48 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Error while fetching metadata with correlation id 6 : {transfers=LEADER_NOT_AVAILABLE}
+2026-03-13 15:07:48 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] WARN  o.apache.kafka.clients.NetworkClient - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Error while fetching metadata with correlation id 8 : {transfers=LEADER_NOT_AVAILABLE}
+2026-03-13 15:07:49 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Discovered group coordinator kafka3:9094 (id: 2147483644 rack: null)
+2026-03-13 15:07:50 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] (Re-)joining group
+2026-03-13 15:07:50 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Request joining group due to: need to re-join with the given member-id: consumer-bank-group-1-4cefec48-e05d-4c32-aa22-9c60cc22424b
+2026-03-13 15:07:50 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] (Re-)joining group
+2026-03-13 15:07:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Successfully joined group with generation Generation{generationId=1, memberId='consumer-bank-group-1-4cefec48-e05d-4c32-aa22-9c60cc22424b', protocol='range'}
+2026-03-13 15:07:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Finished assignment for group at generation 1: {consumer-bank-group-1-cee35c79-8cbb-46ac-86c4-72c0cbd46dc1=Assignment(partitions=[transfers-1]), consumer-bank-group-1-d0e90552-6ddb-47e6-9323-f0bdaf5de63d=Assignment(partitions=[transfers-2]), consumer-bank-group-1-4cefec48-e05d-4c32-aa22-9c60cc22424b=Assignment(partitions=[transfers-0])}
+2026-03-13 15:07:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Successfully synced group in generation Generation{generationId=1, memberId='consumer-bank-group-1-4cefec48-e05d-4c32-aa22-9c60cc22424b', protocol='range'}
+2026-03-13 15:07:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Notifying assignor about the new Assignment(partitions=[transfers-0])
+2026-03-13 15:07:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerRebalanceListenerInvoker - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Adding newly assigned partitions: transfers-0
+2026-03-13 15:07:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Found no committed offset for partition transfers-0
+2026-03-13 15:07:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Found no committed offset for partition transfers-0
+2026-03-13 15:07:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.SubscriptionState - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Resetting offset for partition transfers-0 to position FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[kafka1:9092 (id: 1 rack: null)], epoch=0}}.
+2026-03-13 15:07:56 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.s.k.l.KafkaMessageListenerContainer - bank-group: partitions assigned: [transfers-0]
+2026-03-13 15:08:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerRebalanceListenerInvoker - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Revoke previously assigned partitions transfers-0
+2026-03-13 15:08:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.s.k.l.KafkaMessageListenerContainer - bank-group: partitions revoked: [transfers-0]
+2026-03-13 15:08:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Member consumer-bank-group-1-4cefec48-e05d-4c32-aa22-9c60cc22424b sending LeaveGroup request to coordinator kafka3:9094 (id: 2147483644 rack: null) due to the consumer unsubscribed from all topics
+2026-03-13 15:08:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-03-13 15:08:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Request joining group due to: consumer pro-actively leaving the group
+2026-03-13 15:08:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.LegacyKafkaConsumer - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Unsubscribed all topics or patterns and assigned partitions
+2026-03-13 15:08:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-03-13 15:08:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-bank-group-1, groupId=bank-group] Request joining group due to: consumer pro-actively leaving the group
+2026-03-13 15:08:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Metrics scheduler closed
+2026-03-13 15:08:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-03-13 15:08:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+2026-03-13 15:08:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Metrics reporters closed
+2026-03-13 15:08:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.a.kafka.common.utils.AppInfoParser - App info kafka.consumer for consumer-bank-group-1 unregistered
+2026-03-13 15:08:00 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  o.s.k.l.KafkaMessageListenerContainer - bank-group: Consumer stopped
+2026-03-13 15:08:00 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-13 15:08:00 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-03-13 15:08:00 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

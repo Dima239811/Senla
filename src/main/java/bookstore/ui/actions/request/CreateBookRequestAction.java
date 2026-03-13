@@ -1,9 +1,13 @@
 package bookstore.ui.actions.request;
 
+import bookstore.controller.BookController;
+import bookstore.controller.RequestBookController;
+import bookstore.dto.BookResponse;
+import bookstore.dto.CustomerRequest;
+import bookstore.dto.RequestBookRequest;
 import bookstore.exception.DataManagerException;
 import bookstore.model.entity.Book;
 import bookstore.model.entity.Customer;
-import bookstore.model.DataManager;
 import bookstore.model.entity.RequestBook;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
@@ -13,11 +17,13 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CreateBookRequestAction implements IAction {
-    private final DataManager dataManager;
+    private final RequestBookController requestBookController;
+    private final BookController bookController;
     private static final Logger logger = LoggerFactory.getLogger(CreateBookRequestAction.class);
 
-    public CreateBookRequestAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public CreateBookRequestAction(RequestBookController requestBookController, BookController bookController) {
+        this.requestBookController = requestBookController;
+        this.bookController = bookController;
     }
 
     @Override
@@ -31,7 +37,7 @@ public class CreateBookRequestAction implements IAction {
         try {
             int id = scanner.nextInt();
             scanner.nextLine();
-            Book book = dataManager.findBook(id);
+            BookResponse book = bookController.getBookById(id);
 
             if (book == null) {
                 logger.error("книга с {} не найдена в базе", id);
@@ -48,11 +54,11 @@ public class CreateBookRequestAction implements IAction {
             String email = scanner.nextLine();
             System.out.println("Введите адресс клиента");
             String address = scanner.nextLine();
-            Customer customer = new Customer(name, age, "+79855566", email, address);
+            CustomerRequest customer = new CustomerRequest(name, age, "+79855566", email, address);
 
-            RequestBook requestBook = new RequestBook(customer, book);
+            RequestBookRequest requestBook = new RequestBookRequest(customer, book.bookId());
 
-            dataManager.addRequest(requestBook);
+            requestBookController.addRequest(requestBook);
             logger.info("запрос на книгу успешно создан");
         } catch (IllegalArgumentException e) {
             logger.error("Ошибка валидации: {}", e.getMessage());

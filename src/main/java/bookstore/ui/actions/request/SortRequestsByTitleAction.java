@@ -1,8 +1,8 @@
 package bookstore.ui.actions.request;
 
+import bookstore.controller.RequestBookController;
+import bookstore.dto.RequestBookResponse;
 import bookstore.exception.DataManagerException;
-import bookstore.model.DataManager;
-import bookstore.model.entity.RequestBook;
 import bookstore.ui.actions.IAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +10,11 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class SortRequestsByTitleAction implements IAction {
-    private final DataManager dataManager;
+    private final RequestBookController requestBookController;
     private static final Logger logger = LoggerFactory.getLogger(SortRequestsByTitleAction.class);
 
-    public SortRequestsByTitleAction(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public SortRequestsByTitleAction(RequestBookController requestBookController) {
+        this.requestBookController = requestBookController;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class SortRequestsByTitleAction implements IAction {
         System.out.println("Сортировка по алфавиту: ");
 
         try {
-            List<RequestBook> requestBooks = dataManager.sortRequest("по алфавиту");
+            List<RequestBookResponse> requestBooks = requestBookController.sortRequest("по алфавиту");
 
             if (requestBooks.isEmpty()) {
                 logger.info("список запросов пуст");

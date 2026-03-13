@@ -2,8 +2,7 @@ package bookstore.repo.dao;
 
 import bookstore.exception.DaoException;
 import bookstore.model.entity.RequestBook;
-import bookstore.repo.util.HibernateUtil;
-import org.hibernate.query.Query;
+import jakarta.persistence.TypedQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -22,10 +21,10 @@ public class RequestBookDAO extends HibernateAbstractDao<RequestBook> {
         try {
 
             String hql = "FROM RequestBook  WHERE bookid = :bookId";
-            Query<RequestBook> query = HibernateUtil.getSession().createQuery(hql, RequestBook.class);
+            TypedQuery<RequestBook> query = entityManager.createQuery(hql, RequestBook.class);
             query.setParameter("bookId", id);
 
-            return query.uniqueResult();
+            return query.getSingleResult();
         } catch (Exception e) {
             logger.error("Error finding RequestBook with bookId: {}", id, e);
             throw new DaoException("Error fetching RequestBook with bookId: " + id, e);
@@ -34,7 +33,7 @@ public class RequestBookDAO extends HibernateAbstractDao<RequestBook> {
 
     public List<RequestBook> getAllWithBooksAndCustomers() {
         try {
-            return HibernateUtil.getSession().createQuery(
+            return entityManager.createQuery(
                             "SELECT DISTINCT r FROM RequestBook  r " +
                                     "LEFT JOIN FETCH r.book " +
                                     "LEFT JOIN FETCH r.customer", RequestBook.class)

@@ -2,7 +2,6 @@ package bookstore.repo.dao;
 
 import bookstore.exception.DaoException;
 import bookstore.model.entity.Book;
-import bookstore.repo.util.HibernateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -18,7 +17,7 @@ public class BookDAO extends HibernateAbstractDao<Book> {
 
     public boolean existsByNameAndAuthor(String name, String author) {
         try {
-            Long count = HibernateUtil.getSession().createQuery(
+            Long count = entityManager.createQuery(
                             "SELECT COUNT(b) FROM Book b WHERE LOWER(b.name) = LOWER(:name) " +
                                     "AND LOWER(b.author) = LOWER(:author)", Long.class)
                     .setParameter("name", name)

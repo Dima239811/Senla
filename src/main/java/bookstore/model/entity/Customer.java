@@ -10,13 +10,13 @@ import lombok.Setter;
 @Entity
 @Table(name = "customer")
 public class Customer {
-    @Column(name = "fullName", nullable = false)
+    @Column(name = "fullname", nullable = false)
     private String fullName;
 
     @Column(name = "age", nullable = false)
     private int age;
 
-    @Column(name = "phoneNumber", nullable = false, unique = true)
+    @Column(name = "phonenumber", nullable = false, unique = true)
     private String phoneNumber;
 
     @Column(name = "email", nullable = false, unique = true)

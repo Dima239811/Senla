@@ -5,6 +5,7 @@ import bank.producer.entity.Transfer;
 import bank.producer.repo.AccountRepository;
 import bank.producer.repo.TransferRepository;
 import com.infy.dto.TransferEvent;
+import com.infy.enums.TransferStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,11 +29,13 @@ public class TransferService {
 
         if (from == null || to == null) {
             log.error("Accounts not found");
+            saveTransferWithError(event);
             return;
         }
 
         if (from.getBalance().compareTo(event.getAmount()) < 0) {
             log.error("Not enough balance");
+            saveTransferWithError(event);
             return;
         }
 
@@ -47,9 +50,20 @@ public class TransferService {
         transfer.setFromAccountId(event.getFromAccountId());
         transfer.setToAccountId(event.getToAccountId());
         transfer.setAmount(event.getAmount());
-        transfer.setStatus("READY");
+        transfer.setStatus(TransferStatus.READY.getValue());
 
         transferRepository.save(transfer);
+    }
 
+
+    private void saveTransferWithError(TransferEvent event) {
+        Transfer transfer = new Transfer();
+        transfer.setId(event.getId());
+        transfer.setFromAccountId(event.getFromAccountId());
+        transfer.setToAccountId(event.getToAccountId());
+        transfer.setAmount(event.getAmount());
+        transfer.setStatus(TransferStatus.ERROR.getValue());
+
+        transferRepository.save(transfer);
     }
 }

@@ -12,9 +12,9 @@ import bookstore.model.entity.Book;
 import bookstore.model.entity.Customer;
 import bookstore.model.entity.Order;
 import bookstore.model.mapper.OrderMapper;
-import bookstore.repo.dao.BookDAO;
-import bookstore.repo.dao.CustomerDAO;
-import bookstore.repo.dao.OrderDAO;
+import bookstore.repo.BookDAO;
+import bookstore.repo.CustomerDAO;
+import bookstore.repo.OrderDAO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

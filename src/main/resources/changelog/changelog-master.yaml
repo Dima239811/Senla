@@ -5,3 +5,13 @@ databaseChangeLog:
       file: changelog/002-insert-test-data.yaml
   - include:
       file: changelog/003-change-data.yaml
+  - include:
+      file: changelog/004-create-table-users.yaml
+  - include:
+      file: changelog/005-add-user-id-to-customer.yaml
+  - include:
+      file: changelog/006-insert-admin-user.yaml
+
+
+
+

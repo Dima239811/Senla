@@ -6,13 +6,12 @@ import bookstore.exception.DaoException;
 import bookstore.exception.ServiceException;
 import bookstore.model.entity.Customer;
 import bookstore.model.mapper.CustomerMapper;
-import bookstore.repo.dao.CustomerDAO;
+import bookstore.repo.CustomerDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Collections;
 
 @Service
 public class CustomerService {

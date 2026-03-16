@@ -1,10 +1,9 @@
 package bookstore.controller;
 
-import bookstore.dto.CustomerRequest;
 import bookstore.dto.CustomerResponse;
-import bookstore.model.entity.Customer;
 import bookstore.service.entityService.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -21,16 +20,13 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public CustomerResponse getCustomerById(@PathVariable("id") int id) {
         return customerService.getById(id);
     }
 
-    @PostMapping
-    public void addCustomer(@RequestBody CustomerRequest customer) {
-        customerService.add(customer);
-    }
-
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<CustomerResponse> getAllCustomer() {
         return customerService.getAll();
     }

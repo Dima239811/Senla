@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-insert-admin-user
+      author: Dima
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: login
+                  value: admin
+              - column:
+                  name: password
+                  # bcrypt хэш 'admin123'
+                  value: $2a$10$Lj5PXUEH/GbEEDNZ752Roua1V/yoSKKRVAXaBIbuMsOo8764BRezG
+              - column:
+                  name: role
+                  value: ADMIN

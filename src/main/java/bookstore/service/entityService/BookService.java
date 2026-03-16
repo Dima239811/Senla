@@ -14,7 +14,7 @@ import bookstore.exception.ServiceException;
 import bookstore.model.entity.Book;
 import bookstore.model.entity.Order;
 import bookstore.model.mapper.BookMapper;
-import bookstore.repo.dao.BookDAO;
+import bookstore.repo.BookDAO;
 
 import bookstore.config.LibraryConfig;
 import org.slf4j.Logger;

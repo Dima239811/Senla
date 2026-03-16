@@ -25,6 +25,10 @@ public class Customer {
     @Column(name = "address", nullable = true)
     private String address;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -32,12 +36,13 @@ public class Customer {
 
     public Customer() { }
 
-    public Customer(String fullName, int age, String phoneNumber, String email, String address) {
+    public Customer(String fullName, int age, String phoneNumber, String email, String address, User user) {
         this.fullName = fullName;
         this.age = age;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
+        this.user = user;
     }
 
     public Customer(String fullName, int age, String phoneNumber, String email, String address, int customerID) {

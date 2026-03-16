@@ -15,5 +15,6 @@ public interface CustomerMapper {
     List<CustomerResponse> toCustomerResponceList(List<Customer> customers);
 
     @Mapping(target = "customerID", ignore = true)
+    @Mapping(target = "user", ignore = true)
     Customer toEntity(CustomerRequest customerRequest);
 }

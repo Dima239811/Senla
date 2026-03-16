@@ -1,0 +1,108 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-insert-books
+      author: Dima
+      changes:
+        - insert:
+            tableName: book
+            columns:
+              - column:
+                  name: name
+                  value: "Clean Code"
+              - column:
+                  name: author
+                  value: "Robert Martin"
+              - column:
+                  name: year
+                  valueNumeric: 2008
+              - column:
+                  name: price
+                  valueNumeric: 45.99
+              - column:
+                  name: status
+                  value: "AVAILABLE"
+
+        - insert:
+            tableName: book
+            columns:
+              - column: { name: name, value: "Effective Java" }
+              - column: { name: author, value: "Joshua Bloch" }
+              - column: { name: year, valueNumeric: 2018 }
+              - column: { name: price, valueNumeric: 55.50 }
+              - column: { name: status, value: "AVAILABLE" }
+
+        - insert:
+            tableName: book
+            columns:
+              - column: { name: name, value: "Design Patterns" }
+              - column: { name: author, value: "Erich Gamma" }
+              - column: { name: year, valueNumeric: 1994 }
+              - column: { name: price, valueNumeric: 60.00 }
+              - column: { name: status, value: "AVAILABLE" }
+
+        - insert:
+            tableName: book
+            columns:
+              - column: { name: name, value: "Refactoring" }
+              - column: { name: author, value: "Martin Fowler" }
+              - column: { name: year, valueNumeric: 2018 }
+              - column: { name: price, valueNumeric: 50.00 }
+              - column: { name: status, value: "AVAILABLE" }
+
+        - insert:
+            tableName: book
+            columns:
+              - column: { name: name, value: "The Pragmatic Programmer" }
+              - column: { name: author, value: "Andrew Hunt" }
+              - column: { name: year, valueNumeric: 1999 }
+              - column: { name: price, valueNumeric: 48.75 }
+              - column: { name: status, value: "AVAILABLE" }
+
+  - changeSet:
+      id: 002-insert-customers
+      author: Dima
+      changes:
+        - insert:
+            tableName: customer
+            columns:
+              - column: { name: fullname, value: "Ivan Petrov" }
+              - column: { name: phonenumber, value: "+375291111111" }
+              - column: { name: age, valueNumeric: 25 }
+              - column: { name: email, value: "ivan.petrov@gmail.com" }
+              - column: { name: address, value: "Minsk, Nezavisimosti 10" }
+
+        - insert:
+            tableName: customer
+            columns:
+              - column: { name: fullname, value: "Anna Smirnova" }
+              - column: { name: phonenumber, value: "+375292222222" }
+              - column: { name: age, valueNumeric: 30 }
+              - column: { name: email, value: "anna.smirnova@gmail.com" }
+              - column: { name: address, value: "Minsk, Surganova 5" }
+
+        - insert:
+            tableName: customer
+            columns:
+              - column: { name: fullname, value: "Dmitry Kozlov" }
+              - column: { name: phonenumber, value: "+375293333333" }
+              - column: { name: age, valueNumeric: 22 }
+              - column: { name: email, value: "d.kozlov@gmail.com" }
+              - column: { name: address, value: "Minsk, Pobediteley 20" }
+
+        - insert:
+            tableName: customer
+            columns:
+              - column: { name: fullname, value: "Elena Sokolova" }
+              - column: { name: phonenumber, value: "+375294444444" }
+              - column: { name: age, valueNumeric: 28 }
+              - column: { name: email, value: "elena.s@gmail.com" }
+              - column: { name: address, value: "Minsk, Kolasa 15" }
+
+        - insert:
+            tableName: customer
+            columns:
+              - column: { name: fullname, value: "Sergey Ivanov" }
+              - column: { name: phonenumber, value: "+375295555555" }
+              - column: { name: age, valueNumeric: 35 }
+              - column: { name: email, value: "sergey.i@gmail.com" }
+              - column: { name: address, value: "Minsk, Timiryazeva 8" }

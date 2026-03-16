@@ -1,91 +1,107 @@
 package bookstore.service.entityService;
 
 import bookstore.comporator.request.LetterRequestComporator;
+import bookstore.dto.RequestBookRequest;
+import bookstore.dto.RequestBookResponse;
 import bookstore.enums.RequestStatus;
 import bookstore.exception.DaoException;
 import bookstore.exception.ServiceException;
-import bookstore.model.entity.Book;
-import bookstore.model.entity.Customer;
 import bookstore.model.entity.RequestBook;
-import bookstore.repo.dao.RequestBookDAO;
+import bookstore.model.mapper.RequestBookMapper;
+import bookstore.repo.BookDAO;
+import bookstore.repo.RequestBookDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class RequestBookService implements IService<RequestBook> {
+public class RequestBookService {
+
+    private final RequestBookDAO requestBookDAO;
+    private final RequestBookMapper requestBookMapper;
+    private final CustomerService customerService;
+    private final BookDAO bookDAO;
 
     @Autowired
-    private RequestBookDAO requestBookDAO;
-
-    public void closeRequest(Book book) {
-        List<RequestBook> requestBooks = getAll();
-        for (RequestBook requests : requestBooks) {
-            if (requests.getBook().getBookId() == book.getBookId()) {
-                requests.setStatus(RequestStatus.CLOSED);
-                update(requests);
-            }
-        }
+    public RequestBookService(RequestBookDAO requestBookDAO, RequestBookMapper requestBookMapper,
+                              CustomerService customerService, BookDAO bookDAO) {
+        this.requestBookDAO = requestBookDAO;
+        this.requestBookMapper = requestBookMapper;
+        this.customerService = customerService;
+        this.bookDAO = bookDAO;
     }
 
-    public void createRequest(Book book, Customer customer) {
-        RequestBook requestBook = new RequestBook(customer, book);
+    @Transactional
+    public void closeRequest(String name, String author) {
         try {
-            requestBookDAO.create(requestBook);
-        } catch (DaoException e) {
-            throw new ServiceException("Fail to create request for book id: " + book.getBookId() +
-                    " in RequestBookService in createRequest()", e);
+            List<RequestBook> requestBooks = getAllRequest();
+            for (RequestBook requests : requestBooks) {
+                if (Objects.equals(requests.getBook().getName(), name) &&
+                        Objects.equals(requests.getBook().getAuthor(), author)) {
+                    requests.setStatus(RequestStatus.CLOSED);
+                    update(requests);
+                }
+            }
+        } catch (Exception e) {
+            throw new ServiceException("Fail to close request in RequestBookService for book: " + name +
+                    " " + " with author " + author + " ", e);
         }
+
     }
 
-    public List<RequestBook> sortRequest(String criteria) {
+    @Transactional(readOnly = true)
+    public List<RequestBookResponse> sortRequest(String criteria) {
         try {
             List<RequestBook> requestBooks = requestBookDAO.getAllWithBooksAndCustomers();
             if (criteria.equals("по алфавиту")) {
                 requestBooks.sort(new LetterRequestComporator());
-                return requestBooks;
+                return requestBookMapper.toRequestBookResponseList(requestBooks);
             } else if (criteria.equals("по количеству запросов")) {
                 var requestsByBook = requestBooks.stream()
                         .collect(Collectors.groupingBy(RequestBook::getBook, Collectors.counting()));
 
-                return requestBooks.stream()
+                return requestBookMapper.toRequestBookResponseList(requestBooks.stream()
                         .sorted((o1, o2) -> {
                             long countO1 = requestsByBook.get(o1.getBook());
                             long countO2 = requestsByBook.get(o2.getBook());
                             return Long.compare(countO1, countO2);
                         })
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toList()));
             } else {
                 System.out.println("такого критерия сортировки нет");
-                return requestBooks;
+                return requestBookMapper.toRequestBookResponseList(requestBooks);
             }
         } catch (DaoException e) {
             throw new ServiceException("Fail to create request in RequestBookService in sortRequest()", e);
         }
     }
 
-    @Override
-    public List<RequestBook> getAll() {
+    @Transactional(readOnly = true)
+    public List<RequestBookResponse> getAll() {
         try {
-            return requestBookDAO.getAllWithBooksAndCustomers();
+            List<RequestBook> requestBooks = requestBookDAO.getAllWithBooksAndCustomers();
+            return requestBookMapper.toRequestBookResponseList(requestBooks);
         } catch (DaoException e) {
             throw new ServiceException("Fail to get all requests in RequestBookService in getAll()", e);
         }
     }
 
-    @Override
-    public RequestBook getById(int id) {
+    @Transactional(readOnly = true)
+    public RequestBookResponse getById(int id) {
         try {
-            return requestBookDAO.findById(id);
+            RequestBook requestBook = requestBookDAO.findById(id);
+            return requestBookMapper.toRequestBookResponse(requestBook);
         } catch (DaoException e) {
             throw new ServiceException("Fail to get request by id: " + id +
                     " in RequestBookService in getById()", e);
         }
     }
 
-    @Override
+    @Transactional
     public void add(RequestBook item) {
         try {
             RequestBook existing = requestBookDAO.findById(item.getRequestId());
@@ -100,13 +116,43 @@ public class RequestBookService implements IService<RequestBook> {
         }
     }
 
-    @Override
+    @Transactional
     public void update(RequestBook item) {
         try {
             requestBookDAO.update(item);
         } catch (DaoException e) {
             throw new ServiceException("Fail to update request with id: " + item.getRequestId() +
                     " in RequestBookService in update()", e);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<RequestBook> getAllRequest() {
+        try {
+            return requestBookDAO.getAll();
+        } catch (DaoException ex) {
+            throw new ServiceException("Fail to get all requests in RequestBookService in getAllRequest()", ex);
+        }
+    }
+
+    @Transactional
+    public void createRequest(RequestBookRequest requestBook) {
+        try {
+            customerService.add(requestBook.customerRequest());
+            RequestBook requestBookNew = new RequestBook(customerService.findByEmail(requestBook.customerRequest().email()),
+                    bookDAO.findById(requestBook.bookId()));
+            add(requestBookNew);
+        } catch (DaoException ex) {
+            throw new ServiceException("Fail to create request in RequestBookService", ex);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<RequestBook> getAllRequestBook() {
+        try {
+            return requestBookDAO.getAll();
+        } catch (DaoException e) {
+            throw new ServiceException("Fail to get all requests in RequestBookService in getAll()", e);
         }
     }
 }

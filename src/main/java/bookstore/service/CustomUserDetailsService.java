@@ -41,7 +41,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .build();
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Role role) {
+    Collection<? extends GrantedAuthority> mapRolesToAuthorities(Role role) {
         return Collections.singleton(
                 new SimpleGrantedAuthority("ROLE_" + role.name())
         );

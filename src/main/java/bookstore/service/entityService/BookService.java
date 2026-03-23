@@ -116,7 +116,7 @@ public class BookService {
                     books.sort(new AvailableComparator());
                     return bookMapper.toBookResponseList(books);
                 default:
-                    System.out.println("Ошибка: неопознанный критерий сортировки.");
+                    logger.debug("Ошибка: неопознанный критерий сортировки.");
                     return bookMapper.toBookResponseList(books);
             }
         } catch (DaoException e) {

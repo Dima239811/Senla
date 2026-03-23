@@ -108,7 +108,7 @@ public class OrderService {
                     yield orderMapper.toOrderResponseList(orders);
                 }
                 default -> {
-                    System.out.println("Ошибка: неопознанный критерий сортировки.");
+                    logger.error("Ошибка: неопознанный критерий сортировки.");
                     yield orderMapper.toOrderResponseList(orders);
                 }
             };

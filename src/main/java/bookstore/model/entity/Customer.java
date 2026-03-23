@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Setter
 @Getter
 
@@ -65,5 +67,17 @@ public class Customer {
                 ", address='" + address + '\'' +
                 ", customerID=" + customerID +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        Customer customer = (Customer) object;
+        return age == customer.age && customerID == customer.customerID && Objects.equals(fullName, customer.fullName) && Objects.equals(phoneNumber, customer.phoneNumber) && Objects.equals(email, customer.email) && Objects.equals(address, customer.address) && Objects.equals(user, customer.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fullName, age, phoneNumber, email, address, user, customerID);
     }
 }

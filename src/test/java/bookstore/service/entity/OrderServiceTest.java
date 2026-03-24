@@ -1,4 +1,4 @@
-package bookstore.service;
+package bookstore.service.entity;
 
 import bookstore.dto.OrderResponse;
 import bookstore.enums.OrderStatus;

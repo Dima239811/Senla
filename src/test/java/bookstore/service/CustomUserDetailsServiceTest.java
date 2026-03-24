@@ -58,6 +58,4 @@ public class CustomUserDetailsServiceTest {
             customUserDetailsService.loadUserByUsername("nonexistent");
         });
     }
-
-
 }

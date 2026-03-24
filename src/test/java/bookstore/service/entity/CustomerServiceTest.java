@@ -1,4 +1,4 @@
-package bookstore.service;
+package bookstore.service.entity;
 
 import bookstore.dto.CustomerRequest;
 import bookstore.dto.CustomerResponse;

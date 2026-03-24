@@ -8,6 +8,9 @@ import bookstore.model.entity.Book;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -63,7 +66,7 @@ public class BookCsvService implements ICsvService<Book> {
     public List<Book> importFromCsv(String filePath) throws DataImportException {
         List<Book> books = new ArrayList<>();
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader bufferedReader = Files.newBufferedReader(Path.of(filePath), StandardCharsets.UTF_8)) {
             String line;
             int lineNum = 0;
 
@@ -87,7 +90,7 @@ public class BookCsvService implements ICsvService<Book> {
         return books;
     }
 
-    private Book parseBookFromCsvLine(String line) throws DataValidationException {
+    Book parseBookFromCsvLine(String line) throws DataValidationException {
         String[] parts = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
         if (parts.length < 6) {
@@ -123,7 +126,7 @@ public class BookCsvService implements ICsvService<Book> {
         }
     }
 
-    private void validateBook(Book book) throws DataValidationException {
+    void validateBook(Book book) throws DataValidationException {
         if (book.getName() == null || book.getName().trim().isEmpty()) {
             throw new DataValidationException("Название книги не может быть пустым");
         }

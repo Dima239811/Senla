@@ -58,7 +58,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({DataImportException.class, DataExportException.class})
-    public ResponseEntity<ErrorResponse> handleDataImportException(DataImportException ex) {
+    public ResponseEntity<ErrorResponse> handleDataImportException(Exception  ex) {
         logger.warn("Error : {}", ex.getMessage());
 
         ErrorResponse error = new ErrorResponse(

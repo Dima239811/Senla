@@ -73,7 +73,7 @@ public class Customer {
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;
         Customer customer = (Customer) object;
-        return age == customer.age && customerID == customer.customerID && Objects.equals(fullName, customer.fullName) && Objects.equals(phoneNumber, customer.phoneNumber) && Objects.equals(email, customer.email) && Objects.equals(address, customer.address) && Objects.equals(user, customer.user);
+        return age == customer.age  && Objects.equals(fullName, customer.fullName) && Objects.equals(phoneNumber, customer.phoneNumber) && Objects.equals(email, customer.email) && Objects.equals(address, customer.address) && Objects.equals(user, customer.user);
     }
 
     @Override

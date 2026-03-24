@@ -3,42 +3,56 @@ package bookstore.service.entityService;
 import bookstore.comporator.order.DateOrderComporator;
 import bookstore.comporator.order.PriceOrderComporator;
 import bookstore.comporator.order.StatusOrderComporator;
+import bookstore.dto.OrderRequest;
+import bookstore.dto.OrderResponse;
 import bookstore.enums.OrderStatus;
 import bookstore.exception.DaoException;
 import bookstore.exception.ServiceException;
 import bookstore.model.entity.Book;
 import bookstore.model.entity.Customer;
 import bookstore.model.entity.Order;
-import bookstore.repo.dao.OrderDAO;
+import bookstore.model.mapper.OrderMapper;
+import bookstore.repo.BookDAO;
+import bookstore.repo.CustomerDAO;
+import bookstore.repo.OrderDAO;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class OrderService implements IService<Order> {
+public class OrderService {
+    private final OrderDAO orderDAO;
+
+    private final BookDAO bookDAO;
+
+    private final CustomerDAO customerDAO;
+
+    private final OrderMapper orderMapper;
+
+    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
+
 
     @Autowired
-    private OrderDAO orderDAO;
-
-    public void createOrder(Book book, Customer customer, Date orderDate) {
-        Order order = new Order(book, customer, orderDate, book.getPrice());
-        add(order);
+    public OrderService(OrderDAO orderDAO, BookDAO bookDAO, CustomerDAO customerDAO, OrderMapper orderMapper) {
+        this.orderDAO = orderDAO;
+        this.bookDAO = bookDAO;
+        this.customerDAO = customerDAO;
+        this.orderMapper = orderMapper;
     }
 
-    public void createOrderWithStatus(Book book, Customer customer, Date orderDate, OrderStatus status) {
-        Order order = new Order(book, customer, orderDate, book.getPrice(), status);
-        add(order);
-    }
-
+    @Transactional
     public void cancelOrder(int orderId) {
         try {
             Order order = orderDAO.findById(orderId);
             if (order == null) {
-                System.out.println("Заказ с id: " + orderId + " не существует");
-                return;
+                throw new RuntimeException("Заказ не существует с id: " +  orderId);
             }
             order.setStatus(OrderStatus.CANCELLED);
             try {
@@ -52,14 +66,18 @@ public class OrderService implements IService<Order> {
         }
     }
 
-    public void changeOrderStatus(int orderId, OrderStatus status) {
+    @Transactional
+    public void changeOrderStatus(int orderId, String status) {
         try {
             Order order = orderDAO.findById(orderId);
             if (order == null) {
-                System.out.println("Заказ с id: " + orderId + " не существует");
-                return;
+                throw new RuntimeException("Заказ с id: " + orderId + " не существует");
             }
-            order.setStatus(status);
+
+            OrderStatus status1 = OrderStatus.fromValue(status);
+
+
+            order.setStatus(status1);
             try {
                 orderDAO.update(order);
             } catch (DaoException e) {
@@ -72,25 +90,26 @@ public class OrderService implements IService<Order> {
         }
     }
 
-    public List<Order> sortOrders(String criteria) {
+    @Transactional(readOnly = true)
+    public List<OrderResponse> sortOrders(String criteria) {
         try {
             List<Order> orders = orderDAO.getAllWithBooksAndCustomers();
             return switch (criteria.toLowerCase()) {
                 case "по дате" -> {
                     orders.sort(new DateOrderComporator());
-                    yield orders;
+                    yield orderMapper.toOrderResponseList(orders);
                 }
                 case "по цене" -> {
                     orders.sort(new PriceOrderComporator());
-                    yield orders;
+                    yield orderMapper.toOrderResponseList(orders);
                 }
                 case "по статусу" -> {
                     orders.sort(new StatusOrderComporator());
-                    yield orders;
+                    yield orderMapper.toOrderResponseList(orders);
                 }
                 default -> {
-                    System.out.println("Ошибка: неопознанный критерий сортировки.");
-                    yield orders;
+                    logger.error("Ошибка: неопознанный критерий сортировки.");
+                    yield orderMapper.toOrderResponseList(orders);
                 }
             };
         } catch (DaoException e) {
@@ -105,25 +124,27 @@ public class OrderService implements IService<Order> {
                 .collect(Collectors.toList());
     }
 
-    public List<Order> sortPerformOrders(String criteria, Date from, Date to) {
+    @Transactional(readOnly = true)
+    public List<OrderResponse> sortPerformOrders(String criteria, Date from, Date to) {
         try {
             List<Order> completedOrders = filterOrdersByDateAndStatus(from, to);
             return switch (criteria.toLowerCase()) {
                 case "по дате" -> {
                     completedOrders.sort(new DateOrderComporator());
-                    yield completedOrders;
+                    yield orderMapper.toOrderResponseList(completedOrders);
                 }
                 case "по цене" -> {
                     completedOrders.sort(new PriceOrderComporator());
-                    yield completedOrders;
+                    yield orderMapper.toOrderResponseList(completedOrders);
                 }
-                default -> completedOrders;
+                default -> orderMapper.toOrderResponseList(completedOrders);
             };
         } catch (DaoException e) {
             throw new ServiceException("Fail sortPerformOrders " +  " in orderSevice in sortPerformOrders()", e);
         }
     }
 
+    @Transactional(readOnly = true)
     public double calculateIncomeForPeriod(Date from, Date to) {
         try {
             return filterOrdersByDateAndStatus(from, to)
@@ -136,6 +157,7 @@ public class OrderService implements IService<Order> {
         }
     }
 
+    @Transactional(readOnly = true)
     public int getCountPerformedOrder(Date from, Date to) {
         try {
             return filterOrdersByDateAndStatus(from, to).size();
@@ -145,25 +167,27 @@ public class OrderService implements IService<Order> {
         }
     }
 
-    @Override
-    public List<Order> getAll() {
+    @Transactional(readOnly = true)
+    public List<OrderResponse> getAll() {
         try {
-            return orderDAO.getAllWithBooksAndCustomers();
+            List<Order> orders = orderDAO.getAllWithBooksAndCustomers();
+            return orderMapper.toOrderResponseList(orders);
         } catch (DaoException e) {
             throw new ServiceException("Fail getAll " +  " in orderSevice in getAll()", e);
         }
     }
 
-    @Override
-    public Order getById(int id) {
+    @Transactional(readOnly = true)
+    public OrderResponse getById(int id) {
         try {
-            return orderDAO.findById(id);
+            Order order = orderDAO.findById(id);
+            return orderMapper.toOrderResponse(order);
         } catch (DaoException e) {
             throw new ServiceException("Fail getById " +  " in orderSevice in getById()", e);
         }
     }
 
-    @Override
+    @Transactional
     public void add(Order item) {
 
         if (item.getCustomer() == null || item.getCustomer().getCustomerID() <= 0) {
@@ -175,10 +199,9 @@ public class OrderService implements IService<Order> {
         }
 
         try {
-            Order existing = orderDAO.findById(item.getOrderId());
-            System.out.println("ID КЛИЕНТА в ордер сервис =  " + item.getCustomer().getCustomerID());
-            if (existing != null) {
-                update(item);
+            Order order = orderDAO.findById(item.getOrderId());
+            if (order != null) {
+                orderDAO.update(item);
             } else {
                 orderDAO.create(item);
             }
@@ -187,12 +210,32 @@ public class OrderService implements IService<Order> {
         }
     }
 
-    @Override
-    public void update(Order item) {
+    @Transactional(readOnly = true)
+    public List<Order> getAllOrder() {
         try {
-            orderDAO.update(item);
-        } catch (DaoException e) {
-            throw new ServiceException("Fail update " +  " in orderSevice in update()", e);
+            return orderDAO.getAll();
+        } catch (DaoException ex) {
+            throw new ServiceException("Fail getAllOrder", ex);
+        }
+    }
+
+    @Transactional
+    public void createOrder(OrderRequest order) {
+        try {
+            Book persistedBook = bookDAO.findById(order.bookId());
+            Customer customer = customerDAO.findById(order.customerId());
+
+            if (persistedBook == null)
+                throw new RuntimeException("Fail to add order, because book is null ");
+
+            if (customer == null)
+                throw new RuntimeException("Fail to add order, because customer is null ");
+
+            Order newOrder = new Order(persistedBook, customer, new Date(), persistedBook.getPrice());
+
+            add(newOrder);
+        } catch (DaoException ex) {
+            throw new ServiceException("Fail to add order: ", ex.getCause());
         }
     }
 }

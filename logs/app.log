@@ -1,36 +1,9 @@
-2026-02-02 10:21:36 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: I/O failure while processing configuration class [bookstore.util.SpringConfig]
-2026-02-02 10:22:49 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataManager': Unsatisfied dependency expressed through field 'libraryConfig': No qualifying bean of type 'bookstore.util.LibraryConfig' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
-2026-02-02 10:23:18 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'builder': Unsatisfied dependency expressed through field 'actionFactory': No qualifying bean of type 'bookstore.ui.action_factory.ActionFactory' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
-2026-02-02 10:24:00 WARN  [main] o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'navigator' defined in file [D:\code\alghoritm\target\classes\bookstore\ui\Navigator.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'bookstore.ui.Menu' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
-2026-02-02 10:25:58 INFO  [main] b.ui.actions.book.AllBooksListAction - Пользователь выбрал команду: вывод всех книг
-2026-02-02 10:25:58 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2026-02-02 10:25:58 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2026-02-02 10:25:59 WARN  [main] o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
-2026-02-02 10:25:59 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
-2026-02-02 10:25:59 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/bookstore]
-2026-02-02 10:25:59 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
-2026-02-02 10:25:59 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
-2026-02-02 10:25:59 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
-2026-02-02 10:25:59 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-02-02 10:26:00 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-02-02 10:26:00 INFO  [main] o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@485451d8] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-2026-02-02 10:26:00 INFO  [main] b.ui.actions.book.AllBooksListAction - Выведено 16 книг
-2026-02-02 10:26:21 INFO  [main] b.u.a.book.ShowStaleBooksAction - Пользователь выбрал команду: просмотр залежавшихся книг
-2026-02-02 10:26:21 INFO  [main] b.u.a.book.ShowStaleBooksAction - Найдено 14 залежавшихся книг
-2026-02-02 10:26:35 INFO  [main] b.u.a.book.ShowStaleBooksAction - Пользователь выбрал команду: просмотр залежавшихся книг
-2026-02-02 10:26:35 INFO  [main] b.u.a.book.ShowStaleBooksAction - Найдено 14 залежавшихся книг
-2026-02-02 10:26:55 INFO  [main] b.u.a.book.ShowStaleBooksAction - Пользователь выбрал команду: просмотр залежавшихся книг
-2026-02-02 10:26:55 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2026-02-02 10:26:56 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2026-02-02 10:26:56 WARN  [main] o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
-2026-02-02 10:26:56 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
-2026-02-02 10:26:56 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/bookstore]
-2026-02-02 10:26:56 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
-2026-02-02 10:26:56 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
-2026-02-02 10:26:56 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
-2026-02-02 10:26:56 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-02-02 10:26:57 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-02-02 10:26:57 INFO  [main] o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@24405466] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-2026-02-02 10:26:57 INFO  [main] b.u.a.book.ShowStaleBooksAction - Найдено 14 залежавшихся книг
-2026-02-02 10:27:14 INFO  [main] b.u.a.order.SortOrdersByStatusAction - Пользователь выбрал команду: сортировка всех заказов по дате
-2026-02-02 10:27:14 INFO  [main] b.u.a.order.SortOrdersByStatusAction - выведено 18 заказов
+2026-03-23 15:01:04 INFO  [main] b.service.entityService.BookService - Заказ #1 теперь активен — книга поступила.
+2026-03-23 15:05:23 INFO  [main] b.service.entityService.BookService - Заказ #1 теперь активен — книга поступила.
+2026-03-23 15:08:03 INFO  [main] b.service.entityService.BookService - Заказ #1 теперь активен — книга поступила.
+2026-03-23 15:09:20 INFO  [main] b.service.entityService.BookService - Заказ #1 теперь активен — книга поступила.
+2026-03-23 15:25:03 ERROR [main] b.service.entityService.OrderService - Ошибка: неопознанный критерий сортировки.
+2026-03-23 15:27:04 ERROR [main] b.service.entityService.OrderService - Ошибка: неопознанный критерий сортировки.
+2026-03-23 15:29:06 ERROR [main] b.service.entityService.OrderService - Ошибка: неопознанный критерий сортировки.
+2026-03-23 15:30:52 ERROR [main] b.service.entityService.OrderService - Ошибка: неопознанный критерий сортировки.
+2026-03-23 15:34:42 ERROR [main] b.service.entityService.OrderService - Ошибка: неопознанный критерий сортировки.

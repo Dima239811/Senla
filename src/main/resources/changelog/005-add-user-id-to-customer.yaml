@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-add-user-id-to-customer
+      author: Dima
+      changes:
+        - addColumn:
+            tableName: customer
+            columns:
+              - column:
+                  name: user_id
+                  type: INTEGER
+        - update:
+            tableName: customer
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+            where: "user_id IS NULL"
+
+        - addNotNullConstraint:
+            tableName: customer
+            columnName: user_id
+            constraintName: customer_user_id_not_null
